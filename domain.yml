@@ -67,6 +67,7 @@ responses:
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
   - text: I'm a chatbot!
+  - text: Beep, boop, I'm a bot!
   utter_joke:
   - text: I went to buy some camo pants but couldn’t find any.
   - text: I failed math so many times at school, I can’t even count.
