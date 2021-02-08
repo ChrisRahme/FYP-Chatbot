@@ -17,6 +17,7 @@ RUN pip install -r requirements-actions.txt
 
 # Copy actions folder to working directory
 COPY ./actions /app/actions
+COPY data/pokenames.txt data/
 
 # By best practices, don't run the code with root user
 USER 1001
