@@ -155,6 +155,7 @@ nlu:
     - how hot is it in [jounieh](city_name)
     - weather in [beirut](city_name)
     - [beirut](city_name) weather
+    - [beirut](city_name) temp
     - [hordafylke](city_name) weather
 - synonym: pokemon
   examples: |
