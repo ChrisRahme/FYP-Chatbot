@@ -1,0 +1,165 @@
+version: "2.0"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - yo
+    - sup
+    - wassup
+    - hello again
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - well, goodbye then!
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - yep
+    - yup
+    - yas
+    - yes thank you!
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nope
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so sad
+    - I'm sad
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: demand_joke
+  examples: |
+    - got a gag?
+    - could you tell me a joke?
+    - please give me a funny
+    - give me a wisecracker
+    - tell me of a good antic
+    - tell me a joke
+    - no, i want to hear a joke
+    - tell me another joke
+    - give me another one
+    - make me laugh
+- intent: confirm_exists
+  examples: |
+    - is [bulbasaur](pokemon_name) a pokemon
+    - is [mamamama](pokemon_name) real
+    - is there a [pika](pokemon_name)? 
+    - check is [garuda](pokemon_name) is a pokemon
+    - does [ninetails](pokemon_name) exist
+    - does [chris](pokemon_name) exist?
+    - is there a pokemon named [satanael](pokemon_name)
+    - can you find [yaldabaoth](pokemon_name)?
+    - ever heard of [pikachu](pokemon_name)
+    - are [pikachu](pokemon_name) and [charmander](pokemon_name) pokemon?
+    - is [rasa](pokemon_name) a pokemon?
+    - hey is [rasa](pokemon_name) a pokemon?
+    - are [pichuka](pokemon_name) and [charmander](pokemon_name) pokemon?
+    - are [snorlax](pokemon_name), [gariddos](pokemon_name) and [dittto](pokemon_name) pokemon?
+    - are [you](pokemon_name) a pokemon
+    - am [i](pokemon_name) a pokemon
+    - is [konichiwa](pokemon_name) a pokemon
+- intent: get_weather
+  examples: |
+    - whats the weather in [beirut](city_name)
+    - weather in [london](city_name)
+    - temperature in [usa](city_name)
+    - how's the temperature of [baghdad](city_name)?
+    - is it cold in [tunis](city_name)?
+    - is it hot at [jounieh](city_name)?
+    - how is it like in [heaven](city_name) now
+    - tell me how cold it is in [helsinki](city_name)
+    - is [morocco](city_name) hot?
+    - [sao paulo](city_name) weather
+    - [venezuela](city_name) temperature
+    - climate in [bern](city_name) please
+    - is [addis ababa](city_name) cold or hot
+    - should i bring a jacket to [switzerland](city_name)
+    - is it raining in [al arz](city_name)
+    - is there snow in [paris](city_name)?
+    - how are the temperatures of [fribourg](city_name) and [neuchatel]?
+    - tell me the weather in [paris](city_name), [marseille](city_name) and [lille](city_name)
+    - compare [clermont-ferrand](city_name) to [savona](city_name)
+    - [sydney](city_name), [york](city_name), [austin](city_name), [seattle](city_name) weather
+    - weather in [oklahoma](city_name)
+    - weather in [sweden](city_name)
+    - weather in [honolulu](city_name)
+    - whats the climate of [konichiwa](city_name)
+    - eather in [fofofo](city_name)
+    - [london](city_name) temp
+    - how hot is it in [jounieh](city_name)
+    - weather in [beirut](city_name)
+- synonym: pokemon
+  examples: |
+    - pokemons
+    - pokémon
+- synonym: weather
+  examples: |
+    - temperature
+    - temperatures
+    - climate

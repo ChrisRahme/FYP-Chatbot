@@ -1,0 +1,78 @@
+version: "2.0"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_sad
+
+- story: bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- story: joke telling
+  steps:
+  - intent: demand_joke
+  - action: utter_joke
+
+- story: poke check
+  steps:
+  - intent: confirm_exists
+  - action: action_check_existence
+
+- story: temp check
+  steps:
+  - intent: get_weather
+  - action: action_check_weather
+
+# - story: interactive_pokemon_1
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: confirm_exists
+#     entities:
+#     - pokemon_name: charmander
+#   - action: action_check_existence
+#   - intent: confirm_exists
+#     entities:
+#     - pokemon_name: rasa
+#   - action: action_check_existence
+
+# - story: interactive_pokemon_2
+#   steps:
+#   - intent: confirm_exists
+#     entities:
+#     - pokemon_name: rasa
+#   - action: action_check_existence
+#   - intent: confirm_exists
+#     entities:
+#     - pokemon_name: charmander
+#   - action: action_check_existence
+#   - intent: confirm_exists
+#     entities:
+#     - pokemon_name: dittto
+#   - action: action_check_existence

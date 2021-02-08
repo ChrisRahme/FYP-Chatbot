@@ -1,0 +1,87 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- get_weather:
+    use_entities: true
+- confirm_exists:
+    use_entities: true
+- greet:
+    use_entities: []
+- goodbye:
+    use_entities: []
+- affirm:
+    use_entities: []
+- deny:
+    use_entities: []
+- mood_great:
+    use_entities: []
+- mood_unhappy:
+    use_entities: []
+- bot_challenge:
+    use_entities: []
+- demand_joke:
+    use_entities: []
+- ask_quota:
+    use_entities: true
+entities:
+- city_name
+- pokemon_name
+slots:
+  pokemon_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  city_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hi! How are you?
+  - text: Hey there!
+  - text: Hello, how can I help?
+  utter_goodbye:
+  - text: Bye!
+  - text: Goodbye!
+  - text: See you soon!
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: Here is something to cheer you up
+  utter_did_that_help:
+  - text: Did that help you?
+  - text: Better?
+  utter_happy:
+  - text: Great!
+  - text: Yay!
+  - text: Awesome!
+  utter_sad:
+  - text: Aww
+  - text: Too bad
+  - text: I'm sorry
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_joke:
+  - text: I went to buy some camo pants but couldn’t find any.
+  - text: I failed math so many times at school, I can’t even count.
+  - text: An ion meets his atom friend on the street and says he’s lost an electron. “Are you sure?” asks the atom. The ion replies, “I’m positive.”
+  - text: I want to die peacefully in my sleep, like my grandfather… Not screaming and yelling like the passengers in his car.
+  - text: When life gives you melons, you might be dyslexic.
+  - text: Why did I divide sin by tan? Just cos.
+  - text: I can’t believe I got fired from the calendar factory. All I did was take a day off.
+  - text: Most people are shocked when they find out how bad I am as an electrician.
+  - text: Never trust atoms; they make up everything.
+  - text: I used to think I was indecisive. But now I’m not so sure.
+  - text: Light travels faster than sound, which is the reason that some people appear bright before you hear them speak.
+actions:
+- action_check_existence
+- action_check_weather
+- utter_goodbye
+- utter_greet
+forms: {}
+e2e_actions: []
