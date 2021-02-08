@@ -52,10 +52,6 @@
       {
         "text": "hello!",
         "intent": "greet"
-      },
-      {
-        "text": "whats my quota",
-        "intent": "ask_quota"
       }
     ],
     "regex_features": [],

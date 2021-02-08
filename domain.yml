@@ -66,6 +66,7 @@ responses:
   - text: I'm sorry
   utter_iamabot:
   - text: I am a bot, powered by Rasa.
+  - text: I'm a chatbot!
   utter_joke:
   - text: I went to buy some camo pants but couldn’t find any.
   - text: I failed math so many times at school, I can’t even count.
