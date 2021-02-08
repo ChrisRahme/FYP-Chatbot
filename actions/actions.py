@@ -10,7 +10,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 
-
+####################################################################################################
 
 class ActionCheckExistence(Action):
     knowledge = Path("data/pokenames.txt").read_text().split("\n")
