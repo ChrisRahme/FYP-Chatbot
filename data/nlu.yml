@@ -109,7 +109,7 @@ nlu:
   examples: |
     - is [bulbasaur](pokemon_name) a pokemon
     - is [mamamama](pokemon_name) real
-    - is there a [pika](pokemon_name)? 
+    - is there a [pika](pokemon_name)?
     - check is [garuda](pokemon_name) is a pokemon
     - does [ninetails](pokemon_name) exist
     - does [chris](pokemon_name) exist?
@@ -154,6 +154,8 @@ nlu:
     - [london](city_name) temp
     - how hot is it in [jounieh](city_name)
     - weather in [beirut](city_name)
+    - [beirut](city_name) weather
+    - [hordafylke](city_name) weather
 - synonym: pokemon
   examples: |
     - pokemons
