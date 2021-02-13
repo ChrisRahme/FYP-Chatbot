@@ -166,3 +166,6 @@ nlu:
     - temperature
     - temperatures
     - climate
+- lookup: pokemon_name
+  examples: |
+    - data/pokenames.txt
