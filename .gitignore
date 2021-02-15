@@ -1,6 +1,6 @@
 /.old
 
-#/models/*.tar.gz
+/models/*.tar.gz
 
 .DS_store
 .google-cookie
