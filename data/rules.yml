@@ -11,3 +11,23 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Joke telling
+  steps:
+  - intent: demand_joke
+  - action: utter_joke
+
+- rule: Pokemon check
+  steps:
+  - intent: confirm_exists
+  - action: action_check_existence
+
+- rule: Weather check
+  steps:
+  - intent: get_weather
+  - action: action_check_weather

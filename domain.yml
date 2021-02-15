@@ -2,7 +2,7 @@ version: '2.0'
 config:
   store_entities_as_slots: true
 session_config:
-  session_expiration_time: 60
+  session_expiration_time: 120
   carry_over_slots_to_new_session: true
 intents:
 - get_weather:
@@ -25,12 +25,17 @@ intents:
     use_entities: []
 - demand_joke:
     use_entities: []
-- ask_quota:
-    use_entities: true
+- out_of_scope:
+    use_entities: []
 entities:
 - city_name
 - pokemon_name
 slots:
+  out_of_scope:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
   pokemon_name:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -81,6 +86,7 @@ responses:
   - text: I used to think I was indecisive. But now I’m not so sure.
   - text: Light travels faster than sound, which is the reason that some people appear bright before you hear them speak.
 actions:
+- action_out_of_scope
 - action_check_existence
 - action_check_weather
 - utter_goodbye

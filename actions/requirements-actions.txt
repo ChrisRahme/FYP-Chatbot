@@ -1,2 +1,4 @@
+google==3.0.0
 requests==2.25.1
 rasa_sdk==2.2.0
+spacy==3.0.3

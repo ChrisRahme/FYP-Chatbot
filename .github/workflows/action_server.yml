@@ -26,7 +26,7 @@ jobs:
         # https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
         #
         # github.sha - The commit SHA that triggered the workflow run
-        docker_image_tag: '2021.02.08-20.15' #${{ github.sha }}
+        docker_image_tag: ${{ github.sha }} #'2021.02.08-20.15'
 
     # This step shows only the example of output parameter usage
     # and it's not focused on deployment itself.

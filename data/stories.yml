@@ -29,25 +29,19 @@ stories:
   - intent: deny
   - action: utter_sad
 
-- story: bot challenge
+- story: out of scope and search
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - intent: out_of_scope
+  - action: action_out_of_scope
+  - intent: affirm
+  - action: action_out_of_scope
 
-- story: joke telling
+- story: out of scope and don't search
   steps:
-  - intent: demand_joke
-  - action: utter_joke
-
-- story: poke check
-  steps:
-  - intent: confirm_exists
-  - action: action_check_existence
-
-- story: temp check
-  steps:
-  - intent: get_weather
-  - action: action_check_weather
+  - intent: out_of_scope
+  - action: action_out_of_scope
+  - intent: deny
+  - action: action_out_of_scope
 
 # - story: interactive_pokemon_1
 #   steps:
