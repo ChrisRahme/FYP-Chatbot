@@ -2,4 +2,7 @@
 .DS_store
 
 # Ignore models
-/models/*.tar.gz
+#/models/*.tar.gz
+
+# Ignore old
+/.old
