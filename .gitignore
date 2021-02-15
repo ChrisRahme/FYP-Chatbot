@@ -1,8 +1,6 @@
-# Ignore Mac system files
-.DS_store
+/.old
 
-# Ignore models
 #/models/*.tar.gz
 
-# Ignore old
-/.old
+.DS_store
+.google-cookie
