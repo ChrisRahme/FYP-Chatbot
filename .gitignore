@@ -1,6 +1,10 @@
+# Folders
 /.old
+/actions/__pycache__
 
-#/models/*.tar.gz
+# Files in folders
+/models/*.tar.gz
 
+# Files
 .DS_store
 .google-cookie
