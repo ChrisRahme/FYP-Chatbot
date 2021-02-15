@@ -3,7 +3,7 @@
 /actions/__pycache__
 
 # Files in folders
-/models/*.tar.gz
+#/models/*.tar.gz
 
 # Files
 .DS_store
