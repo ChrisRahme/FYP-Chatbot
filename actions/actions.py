@@ -99,7 +99,7 @@ class ActionOutOfScope(Action):
 
         latest = tracker.latest_message
         intent = latest['intent']['name']
-        
+        dispatcher.utter_message(intent)
         if intent == 'out_of_scope':
             text = latest['text']
             dispatcher.utter_message('Do you want me to search "{}" on Google?'.format(text))
