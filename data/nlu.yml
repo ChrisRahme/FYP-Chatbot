@@ -161,7 +161,7 @@ nlu:
     - [beirut](city_name) temp
     - [hordafylke](city_name) weather
     - weather in [alaska](city_name)
-    - [beitur ](city_name)temp
+    - [beitur](city_name) temp
 - intent: out_of_scope
   examples: |
     - I want a pizza
@@ -189,3 +189,6 @@ nlu:
     - temperature
     - temperatures
     - climate
+- lookup: pokemon_name
+  examples: |
+    - data/lookup/pokenames.txt
