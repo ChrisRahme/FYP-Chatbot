@@ -19,7 +19,6 @@ nlu:
     - sup
     - wassup
     - hello again
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -34,7 +33,6 @@ nlu:
     - bye bye
     - see you later
     - well, goodbye then!
-
 - intent: affirm
   examples: |
     - yes
@@ -47,7 +45,7 @@ nlu:
     - yup
     - yas
     - yes thank you!
-
+    - yes please
 - intent: deny
   examples: |
     - no
@@ -58,7 +56,6 @@ nlu:
     - no way
     - not really
     - nope
-
 - intent: mood_great
   examples: |
     - perfect
@@ -75,7 +72,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -92,14 +88,12 @@ nlu:
     - extremly sad
     - so sad
     - I'm sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
 - intent: demand_joke
   examples: |
     - got a gag?
@@ -112,7 +106,6 @@ nlu:
     - tell me another joke
     - give me another one
     - make me laugh
-
 - intent: confirm_exists
   examples: |
     - is [bulbasaur](pokemon_name) a pokemon
@@ -132,7 +125,8 @@ nlu:
     - are [you](pokemon_name) a pokemon
     - am [i](pokemon_name) a pokemon
     - is [konichiwa](pokemon_name) a pokemon
-
+    - is [chris](pokemon_name) a pokemon
+    - is [pikachu](pokemon_name) a pokemon
 - intent: get_weather
   examples: |
     - whats the weather in [beirut](city_name)
@@ -166,7 +160,8 @@ nlu:
     - [beirut](city_name) weather
     - [beirut](city_name) temp
     - [hordafylke](city_name) weather
-
+    - weather in [alaska](city_name)
+    - [beitur ](city_name)temp
 - intent: out_of_scope
   examples: |
     - I want a pizza
@@ -181,8 +176,9 @@ nlu:
     - Call my mom
     - Send a message to by brother
     - Corona news
-    - Lebanon news
-
+    - [Lebanon](city_name) news
+    - ii wanna piza
+    - i want pizza
 - synonym: pokemon
   examples: |
     - pokemons
@@ -193,6 +189,3 @@ nlu:
     - temperature
     - temperatures
     - climate
-- lookup: pokemon_name
-  examples: |
-    - data/pokenames.txt
