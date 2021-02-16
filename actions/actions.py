@@ -25,6 +25,7 @@ class ActionCheckExistence(Action):
     def run(self, dispatcher, tracker, domain):
         print('='*100)
         print(str(tracker.latest_message) + '\n')
+        
         pokemon_name = None
 
         for blob in tracker.latest_message['entities']:            
