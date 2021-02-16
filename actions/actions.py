@@ -114,7 +114,6 @@ class ActionOutOfScope(Action):
                 dispatcher.utter_message(reply)
 
                 for url in urls:
-                    time.sleep(.5)
                     dispatcher.utter_message(str(url))
                 '''
                 for url in [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]:
