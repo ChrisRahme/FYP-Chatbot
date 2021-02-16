@@ -93,13 +93,6 @@ class ActionOutOfScope(Action):
     def name(self):
         return "action_out_of_scope"
 
-    def search(self, query):
-        try:
-            response = [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]
-            return True, response
-        except Exception as e:
-            return False, str(e)
-
     def run(self, dispatcher, tracker, domain):
         print('='*100)
         print(str(tracker.latest_message) + '\n')
