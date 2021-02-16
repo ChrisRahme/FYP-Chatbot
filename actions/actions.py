@@ -117,8 +117,6 @@ class ActionOutOfScope(Action):
                     time.sleep(.5)
                     dispatcher.utter_message(str(url))
                 '''
-                query = tracker.slots['out_of_scope']
-                reply = 'Here are the top results for "{}":\n'.format(query)
                 for url in [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]:
                     reply += '> ' + str(url) + '\n'
                 dispatcher.utter_message(reply[:-1])
