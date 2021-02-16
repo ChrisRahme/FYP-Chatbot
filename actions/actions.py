@@ -62,7 +62,7 @@ class ActionCheckWeather(Action):
         #elif code == '404':
         #    return 'Sorry, I could not find a city or country named {city_name.title()}.'
         else: 
-            return f"Sorry, there was an error ({code})."
+            return f'Sorry, there was an error looking for the weather in {city_name.title()} ({code}).'
 
     def run(self, dispatcher, tracker, domain):
         print('='*100)
@@ -71,19 +71,20 @@ class ActionCheckWeather(Action):
         latest = tracker.latest_message
         
         if latest['entities']:
-            city_name = None
-
             for blob in latest['entities']: # To get it as a slot: tracker.get_slot('city_name')
                 if blob['entity'] == 'city_name':
                     city_name = blob['value']
                     result = self.get(city_name)
                     dispatcher.utter_message(result)
-            
-            if city_name:
                 return [SlotSet('city_name', city_name)]
         
+        elif tracker.slots['city_name']:
+            city_name  = tracker.slots['city_name']
+            result = self.get(city_name)
+            dispatcher.utter_message(result)
+        
         else:
-            dispatcher.utter_message('Sorry, I did not catch that, could you rephrase?')
+            dispatcher.utter_message('Please provide a city or country to check the weather.')
         
         return []
 
@@ -91,7 +92,7 @@ class ActionCheckWeather(Action):
 
 class ActionOutOfScope(Action):
     def name(self):
-        return "action_out_of_scope"
+        return 'action_out_of_scope'
 
     def run(self, dispatcher, tracker, domain):
         print('='*100)

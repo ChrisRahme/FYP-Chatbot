@@ -8,9 +8,16 @@
 
 ## Current
 
-* The pipeline was changed to use SpaCy. The chatbot does a way better job at detecting city names.
-* Number of epochs was overkill, and maybe still is. It went from 16k to 1k epochs for DIET.
-* A new Out-Of-Scope intent was added with a corresponding custom action that does a Google search.
+* Upgraded for Rasa 2.3.0
+  * DIET and TED confidence use now cosine distance.
+  * DIET loss type is now cross_entropy (softmax is deprecated) and constrain_similarities is set to True (recommended when using cross_entropy)
+* Pipeline upgrades
+  * See Rasa 2.3.0 modifications mentioned above.
+  * The pipeline was changed to use SpaCy. The chatbot does a way better job at detecting city names.
+  * Number of epochs was overkill, and maybe still is. It went from 16k to 1k epochs for DIET.
+* Actions
+  * Weather action now supports inputs without a city name and will use last city name in that case.
+  * A new Out-Of-Scope intent was added with a corresponding custom action that does a Google search.
 
 ## 2021.02.13
 

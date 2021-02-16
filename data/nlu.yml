@@ -162,6 +162,14 @@ nlu:
     - [hordafylke](city_name) weather
     - weather in [alaska](city_name)
     - [beitur](city_name) temp
+    - i want the weather
+    - whats the temperature here?
+    - weather here
+    - weather
+    - weather in [beyrouth](city_name)
+    - weather in [beirut](city_name), [lebanon](city_name)
+    - how hot is it in [egypt](city_name)
+    - weather in [al arz](city_name)
 - intent: out_of_scope
   examples: |
     - I want a pizza
@@ -179,6 +187,10 @@ nlu:
     - [Lebanon](city_name) news
     - ii wanna piza
     - i want pizza
+    - where's the nearest restaurant
+    - [syria](city_name) covid cases
+    - [beirut](city_name) covid cases
+    - covid news
 - synonym: pokemon
   examples: |
     - pokemons
@@ -192,3 +204,4 @@ nlu:
 - lookup: pokemon_name
   examples: |
     - data/lookup/pokenames.txt
+    - lookup/pokenames.txt
