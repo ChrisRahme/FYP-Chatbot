@@ -16,7 +16,7 @@ from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 ####################################################################################################
 
 class ActionCheckExistence(Action):
-    knowledge = Path('data/pokenames.txt').read_text().split('\n')
+    knowledge = Path('data/lookup/pokenames.txt').read_text().split('\n')
 
     def name(self) -> Text:
         return 'action_check_existence'
