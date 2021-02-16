@@ -18,7 +18,7 @@ RUN pip install -r requirements-actions.txt
 # Copy actions folder to working directory
 COPY ./actions /app/actions
 COPY data/lookup/* data/lookup
-#COPY data/pokenames.txt data/
+#COPY data/pokemon_name.txt data/
 
 # Download spacy language data
 RUN python -m spacy download en_core_web_md

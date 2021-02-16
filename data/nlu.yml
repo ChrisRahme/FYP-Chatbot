@@ -46,6 +46,7 @@ nlu:
     - yas
     - yes thank you!
     - yes please
+    - [syria](city_name) covid cases
 - intent: deny
   examples: |
     - no
@@ -170,6 +171,10 @@ nlu:
     - weather in [beirut](city_name), [lebanon](city_name)
     - how hot is it in [egypt](city_name)
     - weather in [al arz](city_name)
+    - [beirut](city_name) covid cases
+    - What is the temperature of [Earth](city_name)?
+    - temp
+    - temp [jordan](city_name)
 - intent: out_of_scope
   examples: |
     - I want a pizza
@@ -188,8 +193,6 @@ nlu:
     - ii wanna piza
     - i want pizza
     - where's the nearest restaurant
-    - [syria](city_name) covid cases
-    - [beirut](city_name) covid cases
     - covid news
 - synonym: pokemon
   examples: |
@@ -202,6 +205,6 @@ nlu:
     - temperatures
     - climate
 - lookup: pokemon_name
-  examples: |
-    - data/lookup/pokenames.txt
-    - lookup/pokenames.txt
+  files: |
+    - data/lookups/pokemon_name.txt
+    - data/lookups/pokemon_name.yml
