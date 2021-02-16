@@ -1,4 +1,5 @@
 google==3.0.0
+pycountry==20.7.3
 rasa_sdk==2.2.0
 requests==2.25.1
 spacy==3.0.3

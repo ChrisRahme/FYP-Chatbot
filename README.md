@@ -15,9 +15,11 @@
   * See Rasa 2.3.0 modifications mentioned above.
   * The pipeline was changed to use SpaCy. The chatbot does a way better job at detecting city names.
   * Number of epochs was overkill, and maybe still is. It went from 16k to 1k epochs for DIET.
-* Actions
+* Actions & training data
   * Weather action now supports inputs without a city name and will use last city name in that case.
   * A new Out-Of-Scope intent was added with a corresponding custom action that does a Google search.
+* Other
+  * "lookup" entry in _nlu.yml_ is removed, added _data/lookups/pokemon_name.yml_ instead to let Rasa search automatically.
 
 ## 2021.02.13
 

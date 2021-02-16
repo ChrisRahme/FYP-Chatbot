@@ -1,7 +1,9 @@
-import json
 import requests
-import time
 import googlesearch
+import pycountry
+
+import json
+import time
 import os
 
 from pathlib import Path
@@ -16,7 +18,7 @@ from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 ####################################################################################################
 
 class ActionCheckExistence(Action):
-    knowledge = Path('data/lookup/pokemon_name.txt').read_text().split('\n')
+    knowledge = Path('data/lookups/pokemon_name.txt').read_text().split('\n')
 
     def name(self) -> Text:
         return 'action_check_existence'
@@ -48,22 +50,47 @@ class ActionCheckWeather(Action):
     def name(self):
         return 'action_check_weather'
 
-    def get(self, city_name):
+    def alpha_to_name(self, alpha):
+        try:
+            name = pycountry.countries.get(alpha_2=alpha).name
+            return name
+        except:
+            return alpha 
+
+    def call_api(self, city_name):
         api_key = 'd24a63d18af95420958d7bb8b5839016'
         url = f'http://api.openweathermap.org/data/2.5/weather?appid={api_key}&q={city_name}'
         
-        response = requests.get(url).json()
-        code = str(response['cod'])
-        print(code, city_name)
-        
-        if code == '200': 
-            temperature = str(round(response['main']['temp'] - 273.15, 1))
-            return f'Temperature is currently {temperature} °C in {city_name.title()}.'
-        #elif code == '404':
-        #    return 'Sorry, I could not find a city or country named {city_name.title()}.'
-        else: 
-            return f'Sorry, there was an error looking for the weather in {city_name.title()} ({code}).'
+        try:
+            response = requests.get(url).json() 
+            result = {'response': True, 'code': str(response['cod'])}
 
+            if result['code'] == '200':
+                result['temperature'] = str(round(response['main']['temp'] - 273.15, 1))
+                result['city']        = city_name.title()
+                result['country']     = ', {}'.format(self.alpha_to_name(response['sys']['country'])) if (('sys' in response) and ('country' in response['sys'])) else ''
+
+            return result
+
+        except:
+            return {'response': False}        
+
+
+    def utter_weather(self, city_name):
+        result = self.call_api(city_name)
+
+        if result['response']:
+            if result['code'] == '200':
+                return 'Temperature is currently {} °C in {}{}.'.format(result['temperature'], result['city'], result['country'])
+            elif result['code'] == '404':
+                return 'Sorry, I could not find a city or country named {}.'.format(city_name.title())
+            else:
+                return 'Sorry, there was an error looking for the weather in {} (Error {}).'.format(city_name.title(), result['code'])
+        else:
+            return f'Sorry, the weather server is not responding.'
+
+
+    
     def run(self, dispatcher, tracker, domain):
         print('='*100)
         print(str(tracker.latest_message) + '\n')
@@ -74,13 +101,13 @@ class ActionCheckWeather(Action):
             for blob in latest['entities']: # To get it as a slot: tracker.get_slot('city_name')
                 if blob['entity'] == 'city_name':
                     city_name = blob['value']
-                    result = self.get(city_name)
+                    result = self.utter_weather(city_name)
                     dispatcher.utter_message(result)
                 return [SlotSet('city_name', city_name)]
         
         elif tracker.slots['city_name']:
             city_name  = tracker.slots['city_name']
-            result = self.get(city_name)
+            result = self.utter_weather(city_name)
             dispatcher.utter_message(result)
         
         else:

@@ -205,6 +205,6 @@ nlu:
     - temperatures
     - climate
 - lookup: pokemon_name
-  files: |
+  examples: |
     - data/lookups/pokemon_name.txt
     - data/lookups/pokemon_name.yml
