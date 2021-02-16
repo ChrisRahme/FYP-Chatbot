@@ -99,7 +99,7 @@ class ActionOutOfScope(Action):
 
         latest = tracker.latest_message
         intent = latest['intent']['name']
-        dispatcher.utter_message(intent)
+
         if intent == 'out_of_scope':
             text = latest['text']
             dispatcher.utter_message('Do you want me to search "{}" on Google?'.format(text))
@@ -108,10 +108,17 @@ class ActionOutOfScope(Action):
         elif intent == 'affirm':
             try:
                 query = tracker.slots['out_of_scope']
+                urls = [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]
+                dispatcher.utter_message('Here are the top results for "{}":\n'.format(query))
+                for url in urls:
+                    dispatcher.utter_message(str(url))
+                '''
+                query = tracker.slots['out_of_scope']
                 reply = 'Here are the top results for "{}":\n'.format(query)
                 for url in [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]:
-                    reply += url + '\n'
+                    reply += '> ' + str(url) + '\n'
                 dispatcher.utter_message(reply[:-1])
+                '''
             except Exception as e:
                 dispatcher.utter_message('Sorry, I could not comlete the search.\n' + str(e))
                 print('[ERROR] ' + str(e))
