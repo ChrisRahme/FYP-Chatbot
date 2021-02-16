@@ -131,18 +131,19 @@ class ActionOutOfScope(Action):
 
 ####################################################################################################
 '''
-tracker.latest_message keys:
-- intent: dict{id, name, confidence}
-- entities: list[string]
-- text: string
-- message_id: string
-- metadata: dict{}
-- intent_ranking: list[intent]
-- response_selector: dict{
+tracker.latest_message: dict{
+  intent: dict{id, name, confidence}
+  entities: list[string]
+  text: string
+  message_id: string
+  metadata: dict{}
+  intent_ranking: list[intent]
+  response_selector: dict{
     all_retrieval_intents: list[],
     default: dict{
       response: dict{id, response_templates, confidence, intent_response_key, template_name},
       ranking: list[]
     }
   }
+}
 '''
