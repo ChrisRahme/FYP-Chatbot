@@ -108,9 +108,13 @@ class ActionOutOfScope(Action):
         elif intent == 'affirm':
             try:
                 query = tracker.slots['out_of_scope']
+                reply = 'Here are the top results for "{}":\n'.format(query)
                 urls = [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]
-                dispatcher.utter_message('Here are the top results for "{}":\n'.format(query))
+
+                dispatcher.utter_message(reply)
+
                 for url in urls:
+                    time.sleep(.5)
                     dispatcher.utter_message(str(url))
                 '''
                 query = tracker.slots['out_of_scope']
