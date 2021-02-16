@@ -20,14 +20,18 @@ pipeline:
     max_ngram: 4
   - name: DIETClassifier
     epochs: 1024
-    model_confidence: cosine # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
-    loss_type: cross_entropy # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
+    model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
+    loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
     constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
+    evaluate_on_number_of_examples: 0          # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
+    evaluate_every_number_of_epochs: 5         # Tensorboard setting
+    tensorboard_log_directory: "./tensorboard" # Tensorboard setting
+    tensorboard_log_level: "epoch"             # Tensorboard setting
   - name: EntitySynonymMapper
   - name: ResponseSelector
     epochs: 512
-    model_confidence: cosine # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
-    loss_type: cross_entropy # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
+    model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
+    loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
     constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
   - name: FallbackClassifier
     threshold: 0.3
@@ -42,7 +46,14 @@ policies:
   - name: TEDPolicy
     max_history: 5
     epochs: 256
-    model_confidence: cosine # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
-    loss_type: cross_entropy # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
+    model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
+    loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
     constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
+    evaluate_on_number_of_examples: 0          # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
+    evaluate_every_number_of_epochs: 5         # Tensorboard setting
+    tensorboard_log_directory: "./tensorboard" # Tensorboard setting
+    tensorboard_log_level: "epoch"             # Tensorboard setting
+  - name: TwoStageFallbackPolicy
+    core_threshold: 0.3
+    nlu_threshold: 0.8
   - name: RulePolicy
