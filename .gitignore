@@ -1,10 +1,10 @@
 # Folders
-/.old
-/actions/__pycache__
-/tensorboard
+.old/
+__pycache__/
+tensorboard
 
 # Files in folders
-/models/*.tar.gz
+models/*.tar.gz
 
 # Files
 .DS_store
