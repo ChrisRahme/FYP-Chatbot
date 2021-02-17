@@ -64,3 +64,7 @@ jobs:
         helm upgrade --install --reuse-values \
           --set app.name=${{ steps.action_server.outputs.docker_image_name }} \
           --set app.tag=${{ steps.action_server.outputs.docker_image_tag }} rasa rasa-x/rasa-x
+    
+    - name: "Add"
+      run: |
+        mkdir ~/Desktop/success
