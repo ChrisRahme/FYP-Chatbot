@@ -16,8 +16,9 @@ USER root
 RUN pip install -r requirements-actions.txt
 
 # Copy actions folder to working directory
+# When using COPY with more than one source file, the destination must be a directory and end with a /
 COPY ./actions /app/actions
-COPY data/lookups/* data/lookups
+COPY data/lookups/* data/lookups/ 
 #COPY data/pokemon_name.txt data/
 
 # Download spacy language data
