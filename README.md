@@ -5,12 +5,13 @@
 * Continuous Deployment via GitHub Actions (<https://forum.rasa.com/t/github-custom-action-failure-unexpected-token-conditional-binary-operator-expected/40260/2>).
   * Includes training and testing + uploading model & building Action Server image + upgrading Rasa X deployment.
   * Takes about 40 minutes to complete. Check progress in <https://github.com/ChrisRahme/fyp-chatbot/actions>.
+* Multilanguage support (add French).
 
 ## Current
 
 * Upgraded for Rasa 2.3.0
   * DIET and TED confidence use now cosine distance.
-  * DIET loss type is now cross_entropy (softmax is deprecated) and constrain_similarities is set to True (recommended when using cross_entropy)
+  * DIET loss type is now cross_entropy (softmax is deprecated) and constrain_similarities is set to True (recommended when using cross_entropy).
 * Pipeline upgrades
   * See Rasa 2.3.0 modifications mentioned above.
   * The pipeline was changed to use SpaCy. The chatbot does a way better job at detecting city names.
