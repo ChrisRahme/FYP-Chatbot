@@ -17,7 +17,7 @@ RUN pip install -r requirements-actions.txt
 
 # Copy actions folder to working directory
 COPY ./actions /app/actions
-COPY data/lookup/* data/lookup
+COPY data/lookups/* data/lookups
 #COPY data/pokemon_name.txt data/
 
 # Download spacy language data
