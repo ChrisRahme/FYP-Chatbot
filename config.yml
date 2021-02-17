@@ -19,7 +19,7 @@ pipeline:
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier
-    epochs: 1024
+    epochs: 128
     model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
     loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
     constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
@@ -45,7 +45,7 @@ policies:
   - name: MemoizationPolicy
   - name: TEDPolicy
     max_history: 5
-    epochs: 256
+    epochs: 128
     model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
     loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
     constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
@@ -53,7 +53,4 @@ policies:
     evaluate_every_number_of_epochs: 5         # Tensorboard setting
     tensorboard_log_directory: "./tensorboard" # Tensorboard setting
     tensorboard_log_level: "epoch"             # Tensorboard setting
-  - name: TwoStageFallbackPolicy
-    core_threshold: 0.3
-    nlu_threshold: 0.8
   - name: RulePolicy
