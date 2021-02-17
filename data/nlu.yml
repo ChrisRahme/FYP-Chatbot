@@ -46,7 +46,28 @@ nlu:
     - yas
     - yes thank you!
     - yes please
+- intent: out_of_scope
+  examples: |
     - [syria](city_name) covid cases
+    - [beirut](city_name) covid cases
+    - I want a pizza
+    - I want to eat
+    - Where is the nearest restaurant?
+    - I want to go home
+    - What is a chatbot?
+    - What's the size of Earth?
+    - I want to go to Facebook
+    - Log in to Instagram
+    - Open YouTube
+    - Call my mom
+    - Send a message to by brother
+    - Corona news
+    - [Lebanon](city_name) news
+    - ii wanna piza
+    - i want pizza
+    - where's the nearest restaurant
+    - covid news
+    - [lebanon](city_name) news
 - intent: deny
   examples: |
     - no
@@ -171,29 +192,11 @@ nlu:
     - weather in [beirut](city_name), [lebanon](city_name)
     - how hot is it in [egypt](city_name)
     - weather in [al arz](city_name)
-    - [beirut](city_name) covid cases
     - What is the temperature of [Earth](city_name)?
     - temp
     - temp [jordan](city_name)
-- intent: out_of_scope
-  examples: |
-    - I want a pizza
-    - I want to eat
-    - Where is the nearest restaurant?
-    - I want to go home
-    - What is a chatbot?
-    - What's the size of Earth?
-    - I want to go to Facebook
-    - Log in to Instagram
-    - Open YouTube
-    - Call my mom
-    - Send a message to by brother
-    - Corona news
-    - [Lebanon](city_name) news
-    - ii wanna piza
-    - i want pizza
-    - where's the nearest restaurant
-    - covid news
+    - [lebanon](city_name) temp
+    - [lebanon](city_name) weather
 - synonym: pokemon
   examples: |
     - pokemons
@@ -204,7 +207,3 @@ nlu:
     - temperature
     - temperatures
     - climate
-- lookup: pokemon_name
-  examples: |
-    - data/lookups/pokemon_name.txt
-    - data/lookups/pokemon_name.yml
