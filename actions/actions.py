@@ -127,36 +127,37 @@ class ActionOutOfScope(Action):
 
         latest = tracker.latest_message
         intent = latest['intent']['name']
+        query  = tracker.slots['out_of_scope']
 
         if intent == 'out_of_scope':
-            text = latest['text']
-            dispatcher.utter_message('Do you want me to search "{}" on Google?'.format(text))
-            return [SlotSet('out_of_scope', text)]
+            dispatcher.utter_message('Sorry, I don\'t understand. Do you want me to search that on Google?')
+            return [SlotSet('out_of_scope', latest['text'])]
 
-        elif intent == 'affirm':
+        elif intent == 'affirm' and query != None:
             try:
-                query = tracker.slots['out_of_scope']
-                reply = 'Here are the top results for "{}":\n'.format(query)
-                urls = [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]
-
-                dispatcher.utter_message(reply)
+                urls = [url for url in googlesearch.search(
+                    query=query,
+                    tld='com.lb',
+                    lang='en',
+                    num=5,
+                    stop=5,
+                    pause=1,
+                    extra_params={'filter': '0'})
+                ]
+                dispatcher.utter_message('Here are the top results:')
 
                 for url in urls:
                     dispatcher.utter_message(str(url))
-                '''
-                for url in [url for url in googlesearch.search(query=query, tld='com.lb', lang='en', num=1, stop=5, pause=0)]:
-                    reply += '> ' + str(url) + '\n'
-                dispatcher.utter_message(reply[:-1])
-                '''
+
             except Exception as e:
                 dispatcher.utter_message('Sorry, I could not comlete the search.\n' + str(e))
                 print('[ERROR] ' + str(e))
 
-            return []
+            return [SlotSet('out_of_scope', None)]
             
-        else:
+        elif intent == 'deny' and query != None:
             dispatcher.utter_message('Okay.')
-            return []
+            return [SlotSet('out_of_scope', None)]
 
 ####################################################################################################
 '''
