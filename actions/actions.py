@@ -50,12 +50,12 @@ class ActionCheckWeather(Action):
     def name(self):
         return 'action_check_weather'
 
-    def alpha_to_name(self, alpha):
+    def alpha2_to_name(self, alpha2):
         try:
             name = pycountry.countries.get(alpha_2=alpha).name
             return name
         except:
-            return alpha 
+            return alpha2
 
     def call_api(self, city_name):
         api_key = 'd24a63d18af95420958d7bb8b5839016'
@@ -68,7 +68,7 @@ class ActionCheckWeather(Action):
             if result['code'] == '200':
                 result['temperature'] = str(round(response['main']['temp'] - 273.15, 1))
                 result['city']        = city_name.title()
-                result['country']     = ', {}'.format(self.alpha_to_name(response['sys']['country'])) if (('sys' in response) and ('country' in response['sys'])) else ''
+                result['country']     = ', {}'.format(self.alpha2_to_name(response['sys']['country'])) if (('sys' in response) and ('country' in response['sys'])) else ''
 
             return result
 

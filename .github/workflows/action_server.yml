@@ -1,38 +1,38 @@
 on:
   push:
     branches:
-      - chris-test ### TODO Change this to 'main' once it's working
+      - main ### TODO Change this to 'main' once it's working
     paths:
       - 'actions/**'
 
 
 
 jobs:
-  training-testing: # https://github.com/marketplace/actions/rasa-train-test-model-github-action
-    name: Training and Testing
-    runs-on: ubuntu-latest
+  # training-testing: # https://github.com/marketplace/actions/rasa-train-test-model-github-action
+  #   name: Training and Testing
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
       
-      - name: Rasa Train and Test GitHub Action
-        uses: RasaHQ/rasa-train-test-gha@main
-        with:
-          requirements_file: 'actions/requirements-actions.txt'
-          data_validate: true
-          rasa_train: true
-          cross_validation: true
-          rasa_test: true
-          test_type: all
-          publish_summary: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Rasa Train and Test GitHub Action
+  #       uses: RasaHQ/rasa-train-test-gha@main
+  #       with:
+  #         requirements_file: 'actions/requirements-actions.txt'
+  #         data_validate: true
+  #         rasa_train: true
+  #         cross_validation: true
+  #         rasa_test: true
+  #         test_type: all
+  #         publish_summary: true
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload model
-        if: github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@main
-        with:
-          name: model
-          path: models
+  #     - name: Upload model
+  #       if: github.ref == 'refs/heads/main'
+  #       uses: actions/upload-artifact@main
+  #       with:
+  #         name: model
+  #         path: models
 
   build_and_deploy: # https://github.com/marketplace/actions/build-action-server-image
     name: Build Action Server image and upgrade Rasa X deployment
