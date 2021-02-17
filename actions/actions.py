@@ -34,10 +34,10 @@ class ActionCheckExistence(Action):
             if blob['entity'] == 'pokemon_name':
                 name = blob['value'].title()
                 if name.lower() in self.knowledge:
-                    dispatcher.utter_message(text=f'Yes, {name} is a pokemon.')
+                    dispatcher.utter_message(text=f'Yes, {name} is a Pokémon.')
                     return [SlotSet('pokemon_name', name)]
                 else:
-                    dispatcher.utter_message(text=f'I do not recognize {name}, are you sure it is correctly spelled?')
+                    dispatcher.utter_message(text=f'{name} is not a Pokémon.')
         
         if pokemon_name:
             return [SlotSet('pokemon_name', name)]
