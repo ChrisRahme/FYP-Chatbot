@@ -26,7 +26,7 @@ class ActionCheckExistence(Action):
     #def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
     def run(self, dispatcher, tracker, domain):
         print('='*100)
-        print(str(tracker.latest_message) + '\n')
+        print(str(tracker.latest_message))
         
         pokemon_name = None
 
@@ -52,7 +52,7 @@ class ActionCheckWeather(Action):
 
     def alpha2_to_name(self, alpha2):
         try:
-            name = pycountry.countries.get(alpha_2=alpha).name
+            name = pycountry.countries.get(alpha_2=alpha2).name
             return name
         except:
             return alpha2
@@ -89,11 +89,10 @@ class ActionCheckWeather(Action):
         else:
             return f'Sorry, the weather server is not responding.'
 
-
     
     def run(self, dispatcher, tracker, domain):
         print('='*100)
-        print(str(tracker.latest_message) + '\n')
+        print(str(tracker.latest_message))
 
         latest = tracker.latest_message
         
@@ -123,7 +122,7 @@ class ActionOutOfScope(Action):
 
     def run(self, dispatcher, tracker, domain):
         print('='*100)
-        print(str(tracker.latest_message) + '\n')
+        print(str(tracker.latest_message))
 
         latest = tracker.latest_message
         intent = latest['intent']['name']

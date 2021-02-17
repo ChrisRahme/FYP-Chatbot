@@ -19,10 +19,23 @@ nlu:
     - sup
     - wassup
     - hello again
+    - bonjour
+    - salut
+    - bonsoir
+    - bonjouren
+    - bjr
+    - kifak?
+    - kifik?
+    - ahla
+    - ahla w sahla
+    - ahlen
+    - mar7aba
+    - mara7ib
 - intent: goodbye
   examples: |
     - good afternoon
     - cu
+    - see ya
     - good by
     - cee you later
     - good night
@@ -33,6 +46,10 @@ nlu:
     - bye bye
     - see you later
     - well, goodbye then!
+    - au revoir
+    - a plus
+    - allah ma3ak
+    - alla ma3ik
 - intent: affirm
   examples: |
     - yes
@@ -46,6 +63,11 @@ nlu:
     - yas
     - yes thank you!
     - yes please
+    - eh
+    - na3am
+    - oui
+    - ok
+    - akid
 - intent: out_of_scope
   examples: |
     - [syria](city_name) covid cases
@@ -68,6 +90,9 @@ nlu:
     - where's the nearest restaurant
     - covid news
     - [lebanon](city_name) news
+    - how old are you
+    - what's your age?
+    - kiss me
 - intent: deny
   examples: |
     - no
@@ -78,6 +103,11 @@ nlu:
     - no way
     - not really
     - nope
+    - non
+    - la2
+    - ma bade
+    - ensa
+    - ense
 - intent: mood_great
   examples: |
     - perfect
