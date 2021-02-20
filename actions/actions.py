@@ -69,7 +69,7 @@ class ActionFetchQuota(Action):
         if int(quota) == -1:
             dispatcher.utter_message('You spent {} GB of your unlimited quota this month.'.format(consumption))
         else:
-            dispatcher.utter_message('You spent {} GB of your {} GB ({}%) this month.'.format(consumption, quota, consumption*100/quota))
+            dispatcher.utter_message('You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, consumption*100/quota, quota))
 
         return [SlotSet('password', None)]
 
