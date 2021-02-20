@@ -8,6 +8,10 @@
 * Multilanguage support (add French).
 
 ## Current
+* Actions & training data
+  * Testing database query
+
+## 2021.02.20
 
 * Upgraded for Rasa 2.3.0
   * DIET and TED confidence use now cosine distance.

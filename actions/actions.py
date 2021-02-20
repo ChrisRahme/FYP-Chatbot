@@ -17,14 +17,11 @@ from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 
 ####################################################################################################
 
-class ActionCheckExistence(Action):
-    knowledge = Path('data/lookups/pokemon_name.txt').read_text().split('\n')
-
+class ActionFetchQuota(Action):
     def name(self) -> Text:
-        return 'action_check_existence'
+        return 'action_fetch_quota'
 
-    #def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    def run(self, dispatcher, tracker, domain):
+def run(self, dispatcher, tracker, domain):
         print('='*100)
         print(str(tracker.latest_message))
         
@@ -43,6 +40,38 @@ class ActionCheckExistence(Action):
             return [SlotSet('pokemon_name', name)]
         else:
             return []
+
+
+
+class ActionCheckExistence(Action):
+    knowledge = Path('data/lookups/pokemon_name.txt').read_text().split('\n')
+
+    def name(self) -> Text:
+        return 'action_check_existence'
+
+    def run(self, dispatcher, tracker, domain):
+        print('='*100)
+        print(str(tracker.latest_message))
+
+        latest = tracker.latest_message
+        
+        if latest['entities']:
+            for blob in latest['entities']: # To get it as a slot: tracker.get_slot('city_name')
+                if blob['entity'] == 'person_name':
+                    person_name = blob['value']
+                    result = self.utter_weather(person_name)
+                    dispatcher.utter_message(result)
+                return [SlotSet('person_name', person_name)]
+        
+        elif tracker.slots['person_name']:
+            person_name  = tracker.slots['person_name']
+            result = self.utter_weather(person_name)
+            dispatcher.utter_message(result)
+        
+        else:
+            dispatcher.utter_message('Please provide a city or country to check the weather.')
+        
+        return []
 
 
 

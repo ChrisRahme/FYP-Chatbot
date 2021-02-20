@@ -27,6 +27,8 @@ intents:
     use_entities: []
 - out_of_scope:
     use_entities: []
+- query_quota:
+    use_entities: true
 entities:
 - city_name
 - pokemon_name

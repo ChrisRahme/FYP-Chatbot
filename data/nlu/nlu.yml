@@ -33,7 +33,6 @@ nlu:
     - mara7ib
 - intent: goodbye
   examples: |
-    - good afternoon
     - cu
     - see ya
     - good by

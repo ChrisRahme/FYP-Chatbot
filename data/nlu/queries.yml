@@ -1,0 +1,7 @@
+version: "2.0"
+nlu:
+- intent: query_quota
+  examples: |
+    - what's my quota
+    - how much internet do i have
+    - whats the quota for (Chris)[person]

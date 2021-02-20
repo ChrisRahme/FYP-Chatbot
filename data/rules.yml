@@ -31,3 +31,8 @@ rules:
   steps:
   - intent: get_weather
   - action: action_check_weather
+
+- rule: TEST query_quota
+  steps:
+  - intent: query_quota
+  - action: utter_joke
