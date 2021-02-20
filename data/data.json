@@ -52,6 +52,14 @@
       {
         "text": "hello!",
         "intent": "greet"
+      },
+      {
+        "text": "Chris",
+        "intent": "nlu_fallback"
+      },
+      {
+        "text": "chris_12345",
+        "intent": "nlu_fallback"
       }
     ],
     "regex_features": [],

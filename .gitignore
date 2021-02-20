@@ -1,6 +1,7 @@
 # Folders
 .old/
-__pycache__/
+__pycache__
+actions/__pycache__
 tensorboard
 
 # Files in folders
@@ -9,3 +10,4 @@ models/*.tar.gz
 # Files
 .DS_store
 .google-cookie
+story_graph.dot

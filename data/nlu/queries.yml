@@ -4,4 +4,52 @@ nlu:
   examples: |
     - what's my quota
     - how much internet do i have
-    - whats the quota for (Chris)[person]
+    - whats my quota
+    - whats my internet consumption
+    - how much internet do i have left
+    - how many GB do i have
+    - consumption
+    - quota
+    - internet usage
+    - quel est mon quota?
+    - consommation internet
+    - combien de GB me reste-t-il?
+    - il me reste combien de Go?
+    - quelle est ma consommation
+    - utilisation internet
+    - depenses internet
+    - % de consommation
+    - quelle est ma limite de consommation internet
+    - ما هي حصتي
+    - كم من الإنترنت لدي
+    - ما هي حصتي
+    - ما هو استهلاكي للإنترنت
+    - كم تبقى من الإنترنت لدي
+    - كم غيغابايت لدي
+    - استهلاك
+    - حصة نسبية
+    - استعمال الانترنت
+    - استهلاك الإنترنت
+    - كم غيغابايت متبقية لدي؟
+    - ما هو استهلاكي
+    - استخدام الانترنت
+    - مصاريف الانترنت
+    - نسبة الاستهلاك
+    - ما هو حد استهلاك الإنترنت الخاص بي
+    - որն է իմ քվոտան
+    - որքան ինտերնետ ունեմ
+    - ինչ է իմ քվոտան
+    - որն է իմ ինտերնետի սպառումը
+    - որքան ինտերնետ է մնացել
+    - քանի ԳԲ ունեմ
+    - սպառում
+    - քվոտա
+    - ինտերնետի օգտագործում
+    - ո՞րն է իմ քվոտան:
+    - ինտերնետի սպառում
+    - քանի ԳԲ է մնացել:
+    - որն է իմ սպառումը
+    - Ինտերնետի օգտագործում
+    - ինտերնետի ծախսեր
+    - սպառման%
+    - ո՞րն է ինտերնետի սպառման իմ սահմանը

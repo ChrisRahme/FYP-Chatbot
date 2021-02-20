@@ -17,6 +17,8 @@ intents:
     use_entities: []
 - deny:
     use_entities: []
+- stop:
+    use_entities: true
 - mood_great:
     use_entities: []
 - mood_unhappy:
@@ -29,9 +31,12 @@ intents:
     use_entities: []
 - query_quota:
     use_entities: true
+- nlu_fallback:
+    use_entities: true
 entities:
 - city_name
 - pokemon_name
+- person_name
 slots:
   out_of_scope:
     type: rasa.shared.core.slots.TextSlot
@@ -48,6 +53,21 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
+  username:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  password:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
 responses:
   utter_greet:
   - text: Hi! How are you?
@@ -57,6 +77,15 @@ responses:
   - text: Bye!
   - text: Goodbye!
   - text: See you soon!
+  utter_okay:
+  - text: Okay.
+  - text: No problem.
+  - text: Understood.
+  utter_wait:
+  - text: Okay. Please wait.
+  - text: On it, please wait.
+  - text: Please wait a moment.
+  - text: One moment please.
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: Here is something to cheer you up
@@ -87,11 +116,25 @@ responses:
   - text: Never trust atoms; they make up everything.
   - text: I used to think I was indecisive. But now I’m not so sure.
   - text: Light travels faster than sound, which is the reason that some people appear bright before you hear them speak.
+  utter_ask_username:
+  - text: Please enter your username.
+  utter_ask_password:
+  - text: Please enter your password.
 actions:
 - action_out_of_scope
 - action_check_existence
 - action_check_weather
+- action_fetch_quota
 - utter_goodbye
 - utter_greet
-forms: {}
+forms:
+  form_query_quota:
+    password:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    username:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
 e2e_actions: []

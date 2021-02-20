@@ -1,5 +1,6 @@
 import requests
 import googlesearch
+import mysql.connector
 import pycountry
 
 import json
@@ -7,7 +8,7 @@ import time
 import os
 
 from pathlib import Path
-from typing import Any, Text, Dict, List
+from typing import Any, Text, Dict, List, final
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
@@ -21,25 +22,56 @@ class ActionFetchQuota(Action):
     def name(self) -> Text:
         return 'action_fetch_quota'
 
-def run(self, dispatcher, tracker, domain):
+    def fetch(self, query):
+        connector = None
+        resuts = None
+
+        try:
+            connector = mysql.connector.connect(
+                host='localhost',
+                database='fyp-database',
+                user='rasa',
+                password='rasa'
+            )
+
+            cursor = connector.cursor()
+            cursor.execute(query)
+
+            for (quota, consumption, speed) in cursor:
+                results = (quota, consumption, speed)
+                break
+
+            cursor.close()
+            connector.close()
+
+            return results
+        
+        except Exception as e:
+            print(e)
+
+            if connector and connector.is_connected():
+                connector.close()
+            
+
+    def run(self, dispatcher, tracker, domain):
         print('='*100)
         print(str(tracker.latest_message))
-        
-        pokemon_name = None
 
-        for blob in tracker.latest_message['entities']:            
-            if blob['entity'] == 'pokemon_name':
-                name = blob['value'].title()
-                if name.lower() in self.knowledge:
-                    dispatcher.utter_message(text=f'Yes, {name} is a Pokémon.')
-                    return [SlotSet('pokemon_name', name)]
-                else:
-                    dispatcher.utter_message(text=f'{name} is not a Pokémon.')
-        
-        if pokemon_name:
-            return [SlotSet('pokemon_name', name)]
+        username = tracker.get_slot('username')
+        password = tracker.get_slot('password')
+
+        query = ("SELECT Quota, Consumption, Speed "
+                 "FROM test_table "
+                 f"WHERE Name = '{username}'")
+
+        quota, consumption, speed = self.fetch(query)
+
+        if int(quota) == -1:
+            dispatcher.utter_message('You spent {} GB of your unlimited quota this month.'.format(consumption))
         else:
-            return []
+            dispatcher.utter_message('You spent {} GB of your {} GB ({}%) this month.'.format(consumption, quota, consumption*100/quota))
+
+        return [SlotSet('password', None)]
 
 
 
@@ -53,23 +85,20 @@ class ActionCheckExistence(Action):
         print('='*100)
         print(str(tracker.latest_message))
 
+        pokemon_name = None
         latest = tracker.latest_message
         
-        if latest['entities']:
-            for blob in latest['entities']: # To get it as a slot: tracker.get_slot('city_name')
-                if blob['entity'] == 'person_name':
-                    person_name = blob['value']
-                    result = self.utter_weather(person_name)
-                    dispatcher.utter_message(result)
-                return [SlotSet('person_name', person_name)]
+        for blob in latest['entities']:
+            if blob['entity'] == 'pokemon_name':
+                name = blob['value'].title()
+                if name.lower() in self.knowledge:
+                    dispatcher.utter_message(text=f'Yes, {name} is a Pokémon.')
+                    pokemon_name = name
+                else:
+                    dispatcher.utter_message(text=f'{name} is not a Pokémon.')
         
-        elif tracker.slots['person_name']:
-            person_name  = tracker.slots['person_name']
-            result = self.utter_weather(person_name)
-            dispatcher.utter_message(result)
-        
-        else:
-            dispatcher.utter_message('Please provide a city or country to check the weather.')
+        if pokemon_name:
+            return [SlotSet('pokemon_name', pokemon_name)]
         
         return []
 

@@ -5,11 +5,12 @@
 * Continuous Deployment via GitHub Actions (<https://forum.rasa.com/t/github-custom-action-failure-unexpected-token-conditional-binary-operator-expected/40260/2>).
   * Includes training and testing + uploading model & building Action Server image + upgrading Rasa X deployment.
   * Takes about 40 minutes to complete. Check progress in <https://github.com/ChrisRahme/fyp-chatbot/actions>.
-* Multilanguage support (add French).
+* Multilanguage support.
 
 ## Current
+
 * Actions & training data
-  * Testing database query
+  * Queries database when asked about quota
 
 ## 2021.02.20
 

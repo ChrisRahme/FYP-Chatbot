@@ -164,7 +164,6 @@ nlu:
     - is there a [pika](pokemon_name)?
     - check is [garuda](pokemon_name) is a pokemon
     - does [ninetails](pokemon_name) exist
-    - does [chris](pokemon_name) exist?
     - is there a pokemon named [satanael](pokemon_name)
     - can you find [yaldabaoth](pokemon_name)?
     - ever heard of [pikachu](pokemon_name)
@@ -176,7 +175,6 @@ nlu:
     - are [you](pokemon_name) a pokemon
     - am [i](pokemon_name) a pokemon
     - is [konichiwa](pokemon_name) a pokemon
-    - is [chris](pokemon_name) a pokemon
     - is [pikachu](pokemon_name) a pokemon
 - intent: get_weather
   examples: |
@@ -226,6 +224,11 @@ nlu:
     - temp [jordan](city_name)
     - [lebanon](city_name) temp
     - [lebanon](city_name) weather
+- intent: stop
+  examples: |
+    - stop
+    - cancel
+    - i dont want
 - synonym: pokemon
   examples: |
     - pokemons
