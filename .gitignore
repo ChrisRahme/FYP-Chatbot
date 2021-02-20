@@ -1,8 +1,7 @@
 # Folders
 .old/
-__pycache__
-actions/__pycache__
-tensorboard
+__pycache__/
+tensorboard/
 
 # Files in folders
 models/*.tar.gz
