@@ -46,9 +46,9 @@ pipeline:
 policies:
 # # Configuration for Rasa Core policies
 # # See https://rasa.com/docs/rasa/policies for more information.
-  - name: MemoizationPolicy
+  - name: AugmentedMemoizationPolicy #MemoizationPolicy
   - name: TEDPolicy
-    max_history: 5
+    max_history: 8
     epochs: 128
     model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
     loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
@@ -58,3 +58,6 @@ policies:
     tensorboard_log_directory: "./tensorboard" # Tensorboard setting
     tensorboard_log_level: "epoch"             # Tensorboard setting
   - name: RulePolicy
+    core_fallback_threshold: 0.3
+    core_fallback_action_name: "action_default_fallback"
+    enable_fallback_prediction: True

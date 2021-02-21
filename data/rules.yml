@@ -51,3 +51,7 @@ rules:
   - action: utter_wait
   - action: action_fetch_quota
 
+- rule: faq
+  steps:
+  - intent: faq
+  - action: utter_faq
