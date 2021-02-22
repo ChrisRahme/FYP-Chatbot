@@ -28,7 +28,7 @@ class ActionFetchQuota(Action):
 
         try:
             connector = mysql.connector.connect(
-                host='localhost',
+                host='194.126.17.114',
                 database='rasa_db',
                 user='rasa',
                 password='rasa'

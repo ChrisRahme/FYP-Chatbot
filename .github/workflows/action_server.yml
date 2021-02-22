@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - chris-test ### TODO Change this to 'main' once it's working
+      - main ### TODO Change this to 'main' once it's working
     paths:
       - 'actions/**'
 
