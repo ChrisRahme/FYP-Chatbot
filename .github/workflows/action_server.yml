@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main ### TODO Change this to 'main' once it's working
+      - chris-test ### TODO Change this to 'main' once it's working
     paths:
       - 'actions/**'
 
@@ -64,3 +64,4 @@ jobs:
     #    helm upgrade --install --reuse-values \
     #      --set app.name=${{ steps.action_server.outputs.docker_image_name }} \
     #      --set app.tag=${{ steps.action_server.outputs.docker_image_tag }} rasa rasa-x/rasa-x
+    # helm upgrade --install --reuse-values --set app.name=docker.io/chrisrahme/fyp-chatbot --set app.tag=82f485fabcfbdb8c5cd7d68996e05ff72329d0eb rasa rasa-x/rasa-x
