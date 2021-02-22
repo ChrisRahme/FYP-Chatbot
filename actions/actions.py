@@ -29,7 +29,7 @@ class ActionFetchQuota(Action):
         try:
             connector = mysql.connector.connect(
                 host='localhost',
-                database='esib_fyp_database',
+                database='rasa_db',
                 user='rasa',
                 password='rasa'
             )
