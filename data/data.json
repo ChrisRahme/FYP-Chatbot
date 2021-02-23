@@ -54,20 +54,12 @@
         "intent": "greet"
       },
       {
-        "text": "Chris",
-        "intent": "nlu_fallback"
-      },
-      {
-        "text": "chris_12345",
-        "intent": "nlu_fallback"
-      },
-      {
         "text": "how do i bring prepad card",
-        "intent": "faq"
+        "intent": "faq/buy_prepaid_card"
       },
       {
         "text": "change pay method",
-        "intent": "faq"
+        "intent": "faq/change_payment_method"
       }
     ],
     "regex_features": [],
