@@ -35,7 +35,7 @@ class ActionFetchQuota(Action):
             )
 
             cursor = connector.cursor()
-            cursor.execute(query)
+            cursor.execute(query) # TODO need to check if user exists
 
             for (quota, consumption, speed) in cursor:
                 results = (quota, consumption, speed)
@@ -77,12 +77,11 @@ class ActionFetchQuota(Action):
         except Exception as e:
             try:
                 x = self.fetch(query)
-                dispatcher.utter_message(x)
-            except:
-                x = e
-                dispatcher.utter_message(x)
-
-        dispatcher.utter_message("test")
+                print(f'ActionFetchQuota: Error \'{e}\'')
+            except Exception as x:
+                print(f'ActionFetchQuota: Error \'{x}\' while trying to handle \'{e}\'')
+        
+        dispatcher.utter_message('Sorry, there was an error.')
 
         return [SlotSet('password', None)]
 
