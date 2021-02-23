@@ -30,7 +30,7 @@ class ActionFetchQuota(Action):
             connector = mysql.connector.connect(
                 host='194.126.17.114',
                 database='rasa_db',
-                user='rasa',
+                user='rasaq', # grant all privileges on rasa_db.* to 'rasaq'@'%'
                 password='rasa'
             )
 
@@ -81,6 +81,8 @@ class ActionFetchQuota(Action):
             except:
                 x = e
                 dispatcher.utter_message(x)
+
+        dispatcher.utter_message("test")
 
         return [SlotSet('password', None)]
 
