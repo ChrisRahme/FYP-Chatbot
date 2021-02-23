@@ -21,8 +21,10 @@ COPY ./actions /app/actions
 COPY data/lookups/* data/lookups/ 
 #COPY data/pokemon_name.txt data/
 
-# Download spacy language data - We don't need that for the action server(?)
+# Download spacy language data - We don't need that for the action server(?) - Yes we do(?)
 # RUN python -m spacy download en_core_web_md
+RUN python -m spacy download en_core_web_md
+RUN python -m spacy download en_core_web_lg
 
 # By best practices, don't run the code with root user
 USER 1001

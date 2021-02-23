@@ -31,7 +31,8 @@ intents:
     use_entities: []
 - query_quota:
     use_entities: true
-- faq
+- faq:
+    use_entities: true
 - nlu_fallback:
     use_entities: true
 entities:
@@ -69,13 +70,6 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
-
-actions:
-- action_out_of_scope
-- action_check_existence
-- action_check_weather
-- action_fetch_quota
-
 responses:
   utter_greet:
   - text: Hi! How are you?
@@ -129,31 +123,52 @@ responses:
   utter_ask_password:
   - text: Please enter your password.
   utter_faq/buy_prepaid_card:
-  - text: "The ADSL/Fiber/4G prepaid cards are available at our shops in Holcom Building and Hamra (https://www.idm.net.lb/contact-us.html).\n\n\
-    List of neighboring dealers is available on this page www.idm.net.lb/points-of-sale.aspx."
+  - text: |-
+      The ADSL/Fiber/4G prepaid cards are available at our shops in Holcom Building and Hamra (https://www.idm.net.lb/contact-us.html).
+
+      List of neighboring dealers is available on this page www.idm.net.lb/points-of-sale.aspx.
   utter_faq/get_bill:
   - text: The monthly regular fees can be sent by email on a monthly basis, please provide us with your email address by sending an email to ccu@idm.net.lb in order to add your email address, and you will start receiving the invoices on a monthly basis.
   utter_faq/check_bill:
-  - text: "1. Please go to IDM Website (www.idm.net.lb) and click on account management.\n\n
-    2. Click on Register Now and submit your personal info in order to create a new account\n\n
-    3. Once you click on Register, you will receive a verification code by SMS, please enter it and click on verify\n\n
-    4. Click Start using Your Account Management Center\n\n
-    5. Choose My Accounts and click on “Click to Add Account”\n\n
-    6. Choose Add using the Account’s credentials\n\n
-    7. Enter an account name and your account credentials then click on Add account\n\n
-    8. Choose Back to my Accounts\n\n
-    9. Click on Manage\n\n
-    10. You can check your bill under “My invoices”."
+  - text: |-
+      1. Please go to IDM Website (www.idm.net.lb) and click on account management.
+
+      2. Click on Register Now and submit your personal info in order to create a new account
+
+      3. Once you click on Register, you will receive a verification code by SMS, please enter it and click on verify
+
+      4. Click Start using Your Account Management Center
+
+      5. Choose My Accounts and click on “Click to Add Account”
+
+      6. Choose Add using the Account’s credentials
+
+      7. Enter an account name and your account credentials then click on Add account
+
+      8. Choose Back to my Accounts
+
+      9. Click on Manage
+
+      10. You can check your bill under “My invoices”.
   utter_faq/available_payment_methods:
-  - text: "The ADSL/Fiber/4G accounts can be postpaid, where the monthly bills are being withdrawn from the bank account along with the overconsumption or the prorated amount of the previous month. You are kindly requested to provide us with a bank domiciliation form filled and stamped by the bank “LBP IBAN Nbr”.\n\n
-    The ADSL/Fiber/4G accounts can be also prepaid, where you can refill your account by purchasing a refill card at the beginning of each month or upon expiry date.\n\n
-    In case you would like to freeze your ADSL/Fiber account, please refill your account with a Service Card LBP 12000 which adds up 30 days (ADSL) and 15 days (Fiber) to your balance.\n\n
-    Failing to do so shall result in the cancelation of the ADSL account on the 25th of the month (upon reaching the -60 in the idle time)."
+  - text: |-
+      The ADSL/Fiber/4G accounts can be postpaid, where the monthly bills are being withdrawn from the bank account along with the overconsumption or the prorated amount of the previous month. You are kindly requested to provide us with a bank domiciliation form filled and stamped by the bank “LBP IBAN Nbr”.
+
+      The ADSL/Fiber/4G accounts can be also prepaid, where you can refill your account by purchasing a refill card at the beginning of each month or upon expiry date.
+
+      In case you would like to freeze your ADSL/Fiber account, please refill your account with a Service Card LBP 12000 which adds up 30 days (ADSL) and 15 days (Fiber) to your balance.
+
+      Failing to do so shall result in the cancelation of the ADSL account on the 25th of the month (upon reaching the -60 in the idle time).
   utter_faq/change_payment_method:
-  - text: "From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.\n\n
-    From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month."
+  - text: |-
+      From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
 
-
+      From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
+actions:
+- action_out_of_scope
+- action_check_existence
+- action_check_weather
+- action_fetch_quota
 forms:
   form_query_quota:
     password:
