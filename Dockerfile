@@ -25,6 +25,7 @@ COPY data/lookups/* data/lookups/
 # RUN python -m spacy download en_core_web_md
 RUN python -m spacy download en_core_web_md
 RUN python -m spacy download en_core_web_lg
+RUN python -m spacy link en_core_web_lg en
 
 # By best practices, don't run the code with root user
 USER 1001
