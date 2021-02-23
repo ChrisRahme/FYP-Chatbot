@@ -23,7 +23,6 @@ COPY data/lookups/* data/lookups/
 
 # Download spacy language data - We don't need that for the action server(?) - Yes we do(?) - Idk
 # RUN python -m spacy download en_core_web_md
-RUN python -m spacy download en_core_web_md
 RUN python -m spacy download en_core_web_lg
 
 # By best practices, don't run the code with root user
