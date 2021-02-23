@@ -51,6 +51,8 @@ class ActionFetchQuota(Action):
 
             if connector and connector.is_connected():
                 connector.close()
+
+            return e
             
 
     def run(self, dispatcher, tracker, domain):
@@ -64,12 +66,21 @@ class ActionFetchQuota(Action):
                  "FROM test_table "
                  f"WHERE Name = '{username}'")
 
-        quota, consumption, speed = self.fetch(query)
+        try:
+            quota, consumption, speed = self.fetch(query)
 
-        if int(quota) == -1:
-            dispatcher.utter_message('You spent {} GB of your unlimited quota this month.'.format(consumption))
-        else:
-            dispatcher.utter_message('You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, consumption*100/quota, quota))
+            if int(quota) == -1:
+                dispatcher.utter_message('You spent {} GB of your unlimited quota this month.'.format(consumption))
+            else:
+                dispatcher.utter_message('You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, consumption*100/quota, quota))
+
+        except Exception as e:
+            try:
+                x = self.fetch(query)
+                dispatcher.utter_message(x)
+            except:
+                x = e
+                dispatcher.utter_message(x)
 
         return [SlotSet('password', None)]
 
