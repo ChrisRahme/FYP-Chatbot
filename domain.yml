@@ -151,19 +151,13 @@ responses:
 
       10. You can check your bill under “My invoices”.
   utter_faq/available_payment_methods:
-  - text: |-
-      The ADSL/Fiber/4G accounts can be postpaid, where the monthly bills are being withdrawn from the bank account along with the overconsumption or the prorated amount of the previous month. You are kindly requested to provide us with a bank domiciliation form filled and stamped by the bank “LBP IBAN Nbr”.
-
-      The ADSL/Fiber/4G accounts can be also prepaid, where you can refill your account by purchasing a refill card at the beginning of each month or upon expiry date.
-
-      In case you would like to freeze your ADSL/Fiber account, please refill your account with a Service Card LBP 12000 which adds up 30 days (ADSL) and 15 days (Fiber) to your balance.
-
-      Failing to do so shall result in the cancelation of the ADSL account on the 25th of the month (upon reaching the -60 in the idle time).
+  - text: "The ADSL/Fiber/4G accounts can be postpaid, where the monthly bills are being withdrawn from the bank account along with the overconsumption or the prorated amount of the previous month. You are kindly requested to provide us with a bank domiciliation form filled and stamped by the bank “LBP IBAN Nbr”.\n\n
+      The ADSL/Fiber/4G accounts can be also prepaid, where you can refill your account by purchasing a refill card at the beginning of each month or upon expiry date.\n\n
+      In case you would like to freeze your ADSL/Fiber account, please refill your account with a Service Card LBP 12000 which adds up 30 days (ADSL) and 15 days (Fiber) to your balance.\n\n
+      Failing to do so shall result in the cancelation of the ADSL account on the 25th of the month (upon reaching the -60 in the idle time)."
   utter_faq/change_payment_method:
-  - text: |-
-      From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
-
-      From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
+  - text: "From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.\n\n
+      From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month."
 actions:
 - action_out_of_scope
 - action_check_existence
