@@ -60,6 +60,14 @@
       {
         "text": "chris_12345",
         "intent": "nlu_fallback"
+      },
+      {
+        "text": "how do i bring prepad card",
+        "intent": "faq"
+      },
+      {
+        "text": "change pay method",
+        "intent": "faq"
       }
     ],
     "regex_features": [],
