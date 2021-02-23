@@ -92,6 +92,7 @@ nlu:
     - how old are you
     - what's your age?
     - kiss me
+    - pizza
 - intent: deny
   examples: |
     - no
