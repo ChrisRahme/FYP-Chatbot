@@ -18,70 +18,86 @@ from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 
 ####################################################################################################
 
+class DatabaseConnection:
+    connection = None
+    cursor = None
+    query = None
+
+    def __init__(self):
+        if self.connection == None:
+            self.connect()
+
+    def connect(self):
+        self.connection = mysql.connector.connect(
+            host='194.126.17.114',
+            database='rasa_db',
+            user='rasaq', # grant all privileges on rasa_db.* to 'rasaq'@'%'
+            password='rasa'
+        )
+
+    def disconnect(self):
+        self.cursor.close()
+        self.connection.close()       
+
+    '''
+    table:    Argument of FROM
+    columns:  Argument of SELECT
+    condtion: Argument of WHERE
+    '''
+    def query(self, table, columns = '*', condition = None): # table: string, columns: string, condition: string, nb: int
+        result = []
+
+        sql = f"SELECT {columns} FROM {table}"
+
+        if condition:
+            sql += f" WHERE {condition}"
+
+        print(f'\n> ActionFetchQuota: {sql}')
+
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(sql)
+
+        for row in self.cursor:
+            result.append(row)
+
+        return result
+
+        
+
+
+####################################################################################################
+
 class ActionFetchQuota(Action):
     def name(self) -> Text:
         return 'action_fetch_quota'
-
-    def fetch(self, query):
-        connector = None
-        resuts = None
-
-        try:
-            connector = mysql.connector.connect(
-                host='194.126.17.114',
-                database='rasa_db',
-                user='rasaq', # grant all privileges on rasa_db.* to 'rasaq'@'%'
-                password='rasa'
-            )
-
-            cursor = connector.cursor()
-            cursor.execute(query) # TODO need to check if user exists
-
-            for (quota, consumption, speed) in cursor:
-                results = (quota, consumption, speed)
-                break
-
-            cursor.close()
-            connector.close()
-
-            return results
-        
-        except Exception as e:
-            print(e)
-
-            if connector and connector.is_connected():
-                connector.close()
-
-            return e
-            
+    
 
     def run(self, dispatcher, tracker, domain):
         print('='*100)
         print(str(tracker.latest_message))
 
+        results = None
         username = tracker.get_slot('username')
         password = tracker.get_slot('password')
 
-        query = ("SELECT Quota, Consumption, Speed "
-                 "FROM test_table "
-                 f"WHERE Name = '{username}'")
+        try:
+            db = DatabaseConnection()
+            results = db.query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
+            db.disconnect()
+        except Exception as e:
+            print(f'\n> ActionFetchQuota: [ERROR] {e}')
+            dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
+            return [SlotSet('password', None)]
 
         try:
-            quota, consumption, speed = self.fetch(query)
-
+            quota, consumption, speed = results[0]
             if int(quota) == -1:
                 dispatcher.utter_message('You spent {} GB of your unlimited quota this month.'.format(consumption))
             else:
                 dispatcher.utter_message('You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, consumption*100/quota, quota))
-
         except Exception as e:
-            try:
-                x = self.fetch(query)
-                print(f'ActionFetchQuota: Error \'{e}\'')
-            except Exception as x:
-                print(f'ActionFetchQuota: Error \'{x}\' while trying to handle \'{e}\'')
-        
-        dispatcher.utter_message('Sorry, there was an error.')
+            print(f'\n> ActionFetchQuota: [ERROR] {e}')
+            dispatcher.utter_message('Sorry, there was an error.')
 
         return [SlotSet('password', None)]
 

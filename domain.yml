@@ -19,7 +19,7 @@ intents:
 - deny:
     use_entities: []
 - stop:
-    use_entities: true
+    use_entities: false
 - mood_great:
     use_entities: []
 - mood_unhappy:
@@ -33,9 +33,7 @@ intents:
 - query_quota:
     use_entities: true
 - faq:
-    use_entities: true
-- nlu_fallback:
-    use_entities: true
+    use_entities: false
 entities:
 - city_name
 - pokemon_name
