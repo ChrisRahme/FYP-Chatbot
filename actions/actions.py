@@ -16,7 +16,13 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 
+
+
 ####################################################################################################
+# HELPER CLASSES                                                                                   #
+####################################################################################################
+
+
 
 class DatabaseConnection:
     connection = None
@@ -31,7 +37,7 @@ class DatabaseConnection:
         self.connection = mysql.connector.connect(
             host='194.126.17.114',
             database='rasa_db',
-            user='rasaq', # grant all privileges on rasa_db.* to 'rasaq'@'%'
+            user='rasaq', # granted all privileges on rasa_db.* to rasaq@%
             password='rasa'
         )
 
@@ -40,11 +46,11 @@ class DatabaseConnection:
         self.connection.close()       
 
     '''
-    table:    Argument of FROM
-    columns:  Argument of SELECT
-    condtion: Argument of WHERE
+    table:    Argument of FROM   - String
+    columns:  Argument of SELECT - String
+    condtion: Argument of WHERE  - String
     '''
-    def query(self, table, columns = '*', condition = None): # table: string, columns: string, condition: string, nb: int
+    def query(self, table, columns = '*', condition = None):
         result = []
 
         sql = f"SELECT {columns} FROM {table}"
@@ -62,10 +68,13 @@ class DatabaseConnection:
 
         return result
 
+
         
-
-
 ####################################################################################################
+# ACTIONS                                                                                          #
+####################################################################################################
+
+
 
 class ActionFetchQuota(Action):
     def name(self) -> Text:
@@ -88,6 +97,10 @@ class ActionFetchQuota(Action):
             print(f'\n> ActionFetchQuota: [ERROR] {e}')
             dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
             return [SlotSet('password', None)]
+
+        if len(results) != 1:
+            dispatcher.utter_message(f'Sorry, {username} is not a registered user.')
+            return [SlotSet('username', None), SlotSet('password', None)]
 
         try:
             quota, consumption, speed = results[0]
@@ -244,6 +257,10 @@ class ActionOutOfScope(Action):
             dispatcher.utter_message('Okay.')
             return [SlotSet('out_of_scope', None)]
 
+
+
+####################################################################################################
+# END                                                                                              #
 ####################################################################################################
 '''
 tracker.latest_message: dict{
