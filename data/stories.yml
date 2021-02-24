@@ -31,14 +31,18 @@ stories:
 
 - story: out of scope and search
   steps:
-  - intent: out_of_scope
+  - or: 
+    - intent: out_of_scope
+    - intent: nlu_fallback
   - action: action_out_of_scope
   - intent: affirm
   - action: action_out_of_scope
 
 - story: out of scope and don't search
   steps:
-  - intent: out_of_scope
+  - or: 
+    - intent: out_of_scope
+    - intent: nlu_fallback
   - action: action_out_of_scope
   - intent: deny
   - action: action_out_of_scope
