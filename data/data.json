@@ -64,6 +64,10 @@
       {
         "text": "helo",
         "intent": "greet"
+      },
+      {
+        "text": "مرحبا",
+        "intent": "greet"
       }
     ],
     "regex_features": [],
