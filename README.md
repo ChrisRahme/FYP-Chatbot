@@ -11,6 +11,7 @@
 
 * Actions & training data
   * Queries database when asked about quota (using form)
+  * Added "How are you?" intent
 * Other
   * Added lookup table for person names
   * Tacker Store is now MySQL
