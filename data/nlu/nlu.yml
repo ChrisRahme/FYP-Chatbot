@@ -29,8 +29,6 @@ nlu:
     - ahlen
     - mar7aba
     - mara7ib
-    - test
-    - test test
 - intent: goodbye
   examples: |
     - cu
@@ -138,6 +136,7 @@ nlu:
     - am I talking to a human?
     - what's your name
     - who are you
+    - test
 - intent: demand_joke
   examples: |
     - got a gag?
