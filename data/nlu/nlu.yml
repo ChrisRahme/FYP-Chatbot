@@ -94,6 +94,7 @@ nlu:
     - ma bade
     - ensa
     - ense
+    - nothing
 - intent: mood_great
   examples: |
     - perfect

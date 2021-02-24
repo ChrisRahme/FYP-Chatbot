@@ -1,63 +1,52 @@
-# Configuration for Rasa NLU.
-# https://rasa.com/docs/rasa/nlu/components/
-language: en_core_web_lg #en_core_web_md
-
+language: en
 pipeline:
-# # Configuration for Rasa NLU pipeline.
-# # See https://rasa.com/docs/rasa/tuning-your-model for more information.
-# # Spacy is useful for detecting common entities like city_name
-  - name: SpacyNLP
-  - name: SpacyTokenizer
-  - name: SpacyFeaturizer
-  - name: RegexFeaturizer
-  - name: LexicalSyntacticFeaturizer
-  - name: RegexFeaturizer
-  - name: LexicalSyntacticFeaturizer
-  - name: CountVectorsFeaturizer # One-hot encode all tokens
-  - name: CountVectorsFeaturizer # Make character n-grams
-    analyzer: char_wb
-    min_ngram: 1
-    max_ngram: 4
-  - name: DIETClassifier
-    epochs: 128
-    model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
-    loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
-    constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
-    evaluate_on_number_of_examples: 0          # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
-    evaluate_every_number_of_epochs: 5         # Tensorboard setting
-    tensorboard_log_directory: "./tensorboard" # Tensorboard setting
-    tensorboard_log_level: "epoch"             # Tensorboard setting
-  - name: EntitySynonymMapper
-  - name: ResponseSelector
-    epochs: 128
-    model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
-    loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
-    constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
-    evaluate_on_number_of_examples: 0          # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
-    evaluate_every_number_of_epochs: 5         # Tensorboard setting
-    tensorboard_log_directory: "./tensorboard" # Tensorboard setting
-    tensorboard_log_level: "epoch"             # Tensorboard setting
-  - name: FallbackClassifier
-    threshold: 0.3
-    ambiguity_threshold: 0.1
-
-# Configuration for Rasa Core.
-# https://rasa.com/docs/rasa/core/policies/
+- name: SpacyNLP
+- name: SpacyTokenizer
+- name: SpacyFeaturizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+- name: DIETClassifier
+  epochs: 128
+  model_confidence: cosine
+  loss_type: cross_entropy
+  constrain_similarities: true
+  evaluate_on_number_of_examples: 0
+  evaluate_every_number_of_epochs: 5
+  tensorboard_log_directory: ./tensorboard
+  tensorboard_log_level: epoch
+- name: EntitySynonymMapper
+- name: ResponseSelector
+  epochs: 128
+  model_confidence: cosine
+  loss_type: cross_entropy
+  constrain_similarities: true
+  evaluate_on_number_of_examples: 0
+  evaluate_every_number_of_epochs: 5
+  tensorboard_log_directory: ./tensorboard
+  tensorboard_log_level: epoch
+- name: FallbackClassifier
+  threshold: 0.3
+  ambiguity_threshold: 0.1
 policies:
-# # Configuration for Rasa Core policies
-# # See https://rasa.com/docs/rasa/policies for more information.
-  - name: AugmentedMemoizationPolicy #MemoizationPolicy
-  - name: TEDPolicy
-    max_history: 8
-    epochs: 128
-    model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
-    loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
-    constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
-    evaluate_on_number_of_examples: 0          # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
-    evaluate_every_number_of_epochs: 5         # Tensorboard setting
-    tensorboard_log_directory: "./tensorboard" # Tensorboard setting
-    tensorboard_log_level: "epoch"             # Tensorboard setting
-  - name: RulePolicy
-    core_fallback_threshold: 0.3
-    core_fallback_action_name: "action_default_fallback"
-    enable_fallback_prediction: True
+- name: AugmentedMemoizationPolicy
+- name: TEDPolicy
+  max_history: 8
+  epochs: 128
+  model_confidence: cosine
+  loss_type: cross_entropy
+  constrain_similarities: true
+  evaluate_on_number_of_examples: 0
+  evaluate_every_number_of_epochs: 5
+  tensorboard_log_directory: ./tensorboard
+  tensorboard_log_level: epoch
+- name: RulePolicy
+  core_fallback_threshold: 0.3
+  core_fallback_action_name: action_default_fallback
+  enable_fallback_prediction: true
