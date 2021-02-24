@@ -60,6 +60,14 @@
       {
         "text": "change pay method",
         "intent": "faq/change_payment_method"
+      },
+      {
+        "text": "test",
+        "intent": "greet"
+      },
+      {
+        "text": "helo",
+        "intent": "greet"
       }
     ],
     "regex_features": [],
