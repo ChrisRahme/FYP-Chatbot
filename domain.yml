@@ -13,13 +13,14 @@ intents:
     use_entities: []
 - goodbye:
     use_entities: []
-- how_are_you
+- how_are_you:
+    use_entities: true
 - affirm:
     use_entities: []
 - deny:
     use_entities: []
 - stop:
-    use_entities: false
+    use_entities: []
 - mood_great:
     use_entities: []
 - mood_unhappy:
@@ -30,18 +31,28 @@ intents:
     use_entities: []
 - out_of_scope:
     use_entities: []
+- change_language:
+    use_entities: []
+- set_language:
+    use_entities: true
 - query_quota:
     use_entities: true
 - faq:
-    use_entities: false
+    use_entities: []
 entities:
 - city_name
 - pokemon_name
 - person_name
+- language
 slots:
   out_of_scope:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  language:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: English
     auto_fill: true
     influence_conversation: true
   pokemon_name:
@@ -121,39 +132,57 @@ responses:
   - text: Never trust atoms; they make up everything.
   - text: I used to think I was indecisive. But now I’m not so sure.
   - text: Light travels faster than sound, which is the reason that some people appear bright before you hear them speak.
-  utter_ask_username:
-  - text: Please enter your username.
-  utter_ask_password:
-  - text: Please enter your password.
   utter_faq/buy_prepaid_card:
-  - text: "The ADSL/Fiber/4G prepaid cards are available at our shops in Holcom Building and Hamra (https://www.idm.net.lb/contact-us.html).\n\n
-      List of neighboring dealers is available on www.idm.net.lb/points-of-sale.aspx."
+  - text: |-
+      The ADSL/Fiber/4G prepaid cards are available at our shops in Holcom Building and Hamra (https://www.idm.net.lb/contact-us.html).
+
+       List of neighboring dealers is available on www.idm.net.lb/points-of-sale.aspx.
   utter_faq/get_bill:
   - text: The monthly regular fees can be sent by email on a monthly basis, please provide us with your email address by sending an email to ccu@idm.net.lb in order to add your email address, and you will start receiving the invoices on a monthly basis.
   utter_faq/check_bill:
-  - text: "1. Please go to IDM Website (www.idm.net.lb) and click on “Account Management”.\n\n
-      2. Click on “Register Now” and submit your personal info in order to create a new account.\n\n
-      3. Once you click on “Register”, you will receive a verification code by SMS, please enter it and click on “Verify”.\n\n
-      4. Click “Start” using Your Account Management Center.\n\n
-      5. Choose “My Accounts” and click on “Click to Add Account”.\n\n
-      6. Choose “Add using the Account’s credentials”.\n\n
-      7. Enter an account name and your account credentials then click on “Add Account”.\n\n
-      8. Choose “Back to my Accounts”.\n\n
-      9. Click on “Manage”.\n\n
-      10. You can check your bill under “My invoices”."
+  - text: |-
+      1. Please go to IDM Website (www.idm.net.lb) and click on “Account Management”.
+
+       2. Click on “Register Now” and submit your personal info in order to create a new account.
+
+       3. Once you click on “Register”, you will receive a verification code by SMS, please enter it and click on “Verify”.
+
+       4. Click “Start” using Your Account Management Center.
+
+       5. Choose “My Accounts” and click on “Click to Add Account”.
+
+       6. Choose “Add using the Account’s credentials”.
+
+       7. Enter an account name and your account credentials then click on “Add Account”.
+
+       8. Choose “Back to my Accounts”.
+
+       9. Click on “Manage”.
+
+       10. You can check your bill under “My invoices”.
   utter_faq/available_payment_methods:
-  - text: "The ADSL/Fiber/4G accounts can be postpaid, where the monthly bills are being withdrawn from the bank account along with the overconsumption or the prorated amount of the previous month. You are kindly requested to provide us with a bank domiciliation form filled and stamped by the bank “LBP IBAN Nbr”.\n\n
-      The ADSL/Fiber/4G accounts can be also prepaid, where you can refill your account by purchasing a refill card at the beginning of each month or upon expiry date.\n\n
-      In case you would like to freeze your ADSL/Fiber account, please refill your account with a Service Card LBP 12000 which adds up 30 days (ADSL) and 15 days (Fiber) to your balance.\n\n
-      Failing to do so shall result in the cancelation of the ADSL account on the 25th of the month (upon reaching the -60 in the idle time)."
+  - text: |-
+      The ADSL/Fiber/4G accounts can be postpaid, where the monthly bills are being withdrawn from the bank account along with the overconsumption or the prorated amount of the previous month. You are kindly requested to provide us with a bank domiciliation form filled and stamped by the bank “LBP IBAN Nbr”.
+
+       The ADSL/Fiber/4G accounts can be also prepaid, where you can refill your account by purchasing a refill card at the beginning of each month or upon expiry date.
+
+       In case you would like to freeze your ADSL/Fiber account, please refill your account with a Service Card LBP 12000 which adds up 30 days (ADSL) and 15 days (Fiber) to your balance.
+
+       Failing to do so shall result in the cancelation of the ADSL account on the 25th of the month (upon reaching the -60 in the idle time).
   utter_faq/change_payment_method:
-  - text: "From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.\n\n
-      From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month."
+  - text: |-
+      From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
+
+       From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
 actions:
 - action_out_of_scope
+- action_change_language
+- action_set_language
 - action_check_existence
 - action_check_weather
 - action_fetch_quota
+- action_ask_username
+- action_ask_password
 forms:
   form_query_quota:
     password:

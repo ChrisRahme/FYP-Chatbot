@@ -1,6 +1,6 @@
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
-language: en #en_core_web_lg #en_core_web_md
+language: en_core_web_lg #en_core_web_md
 
 pipeline:
 # # Configuration for Rasa NLU pipeline.
@@ -29,7 +29,7 @@ pipeline:
     tensorboard_log_level: "epoch"             # Tensorboard setting
   - name: EntitySynonymMapper
   - name: ResponseSelector
-    epochs: 512
+    epochs: 128
     model_confidence: cosine     # Recommended to set it to `cosine` (`cosine` will be deafult in 3.0.0)
     loss_type: cross_entropy     # `softmax` is deprecated, use `cross_entropy` instead (`softmax` will be removed in 3.0.0)
     constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)

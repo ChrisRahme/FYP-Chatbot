@@ -47,6 +47,13 @@ stories:
   - intent: deny
   - action: action_out_of_scope
 
+- story: Change language
+  steps:
+  - intent: change_language
+  - action: action_change_language
+  - intent: set_language
+  - action: action_set_language
+
 #- story: User fills quota form
 #  steps:
 #  - intent: query_quota

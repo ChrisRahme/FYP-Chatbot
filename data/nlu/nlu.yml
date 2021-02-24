@@ -60,6 +60,7 @@ nlu:
     - im ok and you?
     - I'm fine, and you?
     - good u?
+    - kifak
 - intent: affirm
   examples: |
     - yes
@@ -149,77 +150,6 @@ nlu:
     - tell me another joke
     - give me another one
     - make me laugh
-- intent: confirm_exists
-  examples: |
-    - is [bulbasaur](pokemon_name) a pokemon
-    - is [mamamama](pokemon_name) real
-    - is there a [pika](pokemon_name)?
-    - check is [garuda](pokemon_name) is a pokemon
-    - does [ninetails](pokemon_name) exist
-    - is there a pokemon named [satanael](pokemon_name)
-    - can you find [yaldabaoth](pokemon_name)?
-    - ever heard of [pikachu](pokemon_name)
-    - are [pikachu](pokemon_name) and [charmander](pokemon_name) pokemon?
-    - is [rasa](pokemon_name) a pokemon?
-    - hey is [rasa](pokemon_name) a pokemon?
-    - are [pichuka](pokemon_name) and [charmander](pokemon_name) pokemon?
-    - are [snorlax](pokemon_name), [gariddos](pokemon_name) and [dittto](pokemon_name) pokemon?
-    - are [you](pokemon_name) a pokemon
-    - am [i](pokemon_name) a pokemon
-    - is [konichiwa](pokemon_name) a pokemon
-    - is [pikachu](pokemon_name) a pokemon
-- intent: get_weather
-  examples: |
-    - whats the weather in [beirut](city_name)
-    - weather in [london](city_name)
-    - temperature in [usa](city_name)
-    - how's the temperature of [baghdad](city_name)?
-    - is it cold in [tunis](city_name)?
-    - is it hot at [jounieh](city_name)?
-    - how is it like in [heaven](city_name) now
-    - tell me how cold it is in [helsinki](city_name)
-    - is [morocco](city_name) hot?
-    - [sao paulo](city_name) weather
-    - [venezuela](city_name) temperature
-    - climate in [bern](city_name) please
-    - is [addis ababa](city_name) cold or hot
-    - should i bring a jacket to [switzerland](city_name)
-    - is it raining in [al arz](city_name)
-    - is there snow in [paris](city_name)?
-    - how are the temperatures of [fribourg](city_name) and [neuchatel]?
-    - tell me the weather in [paris](city_name), [marseille](city_name) and [lille](city_name)
-    - compare [clermont-ferrand](city_name) to [savona](city_name)
-    - [sydney](city_name), [york](city_name), [austin](city_name), [seattle](city_name) weather
-    - weather in [oklahoma](city_name)
-    - weather in [sweden](city_name)
-    - weather in [honolulu](city_name)
-    - whats the climate of [konichiwa](city_name)
-    - eather in [fofofo](city_name)
-    - [london](city_name) temp
-    - how hot is it in [jounieh](city_name)
-    - weather in [beirut](city_name)
-    - [beirut](city_name) weather
-    - [beirut](city_name) temp
-    - [hordafylke](city_name) weather
-    - weather in [alaska](city_name)
-    - [beitur](city_name) temp
-    - i want the weather
-    - whats the temperature here?
-    - weather here
-    - weather
-    - weather in [beyrouth](city_name)
-    - weather in [beirut](city_name), [lebanon](city_name)
-    - how hot is it in [egypt](city_name)
-    - weather in [al arz](city_name)
-    - What is the temperature of [Earth](city_name)?
-    - temp
-    - temp [jordan](city_name)
-    - [lebanon](city_name) temp
-    - [lebanon](city_name) weather
-    - [honolulu](city_name)
-    - what is the weather today
-    - weather in [bei](city_name)
-    - weather in [beirut](city_name) plz
 - intent: stop
   examples: |
     - stop
@@ -235,3 +165,8 @@ nlu:
     - temperature
     - temperatures
     - climate
+- synonym: language
+  examples: |
+    - lang
+    - tongue
+    - langue

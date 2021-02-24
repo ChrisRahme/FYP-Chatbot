@@ -27,6 +27,16 @@ rules:
   - intent: demand_joke
   - action: utter_joke
 
+- rule: Show language buttons
+  steps:
+  - intent: change_language
+  - action: action_change_language
+
+- rule: Set new language
+  steps:
+  - intent: set_language
+  - action: action_set_language
+
 - rule: Pokemon check
   steps:
   - intent: confirm_exists

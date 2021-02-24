@@ -62,10 +62,6 @@
         "intent": "faq/change_payment_method"
       },
       {
-        "text": "test",
-        "intent": "greet"
-      },
-      {
         "text": "helo",
         "intent": "greet"
       }

@@ -19,7 +19,7 @@ from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 
 
 ####################################################################################################
-# HELPER CLASSES                                                                                   #
+# HELPER CLASSES & FUNCTIONS                                                                       #
 ####################################################################################################
 
 
@@ -58,7 +58,7 @@ class DatabaseConnection:
         if condition:
             sql += f" WHERE {condition}"
 
-        print(f'\n> ActionFetchQuota: {sql}')
+        print(f'\n> DatabaseConnection: {sql}')
 
         self.cursor = self.connection.cursor()
         self.cursor.execute(sql)
@@ -69,10 +69,130 @@ class DatabaseConnection:
         return result
 
 
-        
+
+def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
+    current_language = 'English'
+    utterance = utter_en
+
+    try:
+        current_language = tracker.slots['language'].title()
+        if current_language == 'French':
+            utterance = utter_fr
+        elif current_language == 'Arabic':
+            utterance = utter_ar
+        elif current_language == 'Armenian':
+            utterance = utter_hy
+    except Exception as e:
+        print(f'\n> get_utter_from_lang: [ERROR] {e}')
+        pass
+
+    return utterance
+
+
+
+####################################################################################################
+# SLOTS                                                                                            #
+####################################################################################################
+
+class ActionAskUsername(Action):
+    def name(self):
+        return 'action_ask_username'
+    def run(self, dispatcher, tracker, domain):
+        print('='*100 + '\n' + self.name())
+        utterance = get_utter_from_lang(
+            tracker,
+            'Please enter your username.',
+            'S\'il vous plaît entrez votre nom d\'utilisateur.',
+            '.(username) الرجاء إدخال اسم المستخدم',
+            'Խնդրում ենք մուտքագրել ձեր օգտվողի անունը: (username).'
+        )            
+        dispatcher.utter_message(utterance)
+        return []
+
+class ActionAskPassword(Action):
+    def name(self):
+        return 'action_ask_password'
+    def run(self, dispatcher, tracker, domain):
+        print('='*100 + '\n' + self.name())
+        utterance = get_utter_from_lang(
+            tracker,
+            'Please enter your password.',
+            'S\'il vous plaît entrez votre mot de passe.',
+            '.(password) من فضلك أدخل رقمك السري',
+            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'
+        )            
+        dispatcher.utter_message(utterance)
+        return []
+
+####################################################################################################
+# FORM ACTIONS                                                                                     #
+####################################################################################################
+
+
+
+
 ####################################################################################################
 # ACTIONS                                                                                          #
 ####################################################################################################
+
+
+
+class ActionChangeLanguage(Action):
+    def name(self):
+        return 'action_change_language'
+    
+
+    def run(self, dispatcher, tracker, domain):
+        print('='*100 + '\n' + self.name())
+        print(str(tracker.latest_message))
+
+        buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
+            {'title': 'English',  'payload': '/set_language{"language": "English"}'},
+            {'title': 'Français', 'payload': '/set_language{"language": "French"}'},
+            {'title': 'عربي',     'payload': '/set_language{"language": "Arabic"}'},
+            {'title': 'հայերեն',  'payload': '/set_language{"language": "Armenian"}'}
+        ]
+        
+        utterance = get_utter_from_lang(
+            tracker,
+            'Choose a language:',
+            'Choisissez une langue:',
+            ':اختر لغة',
+            'Ընտրեք լեզու ՝'
+        )            
+        
+        dispatcher.utter_message(text = utterance, buttons = buttons)
+
+        return []
+
+
+
+class ActionSetLanguage(Action):
+    def name(self) -> Text:
+        return 'action_set_language'
+    
+
+    def run(self, dispatcher, tracker, domain):
+        print('='*100 + '\n' + self.name())
+        print(str(tracker.latest_message))
+
+        current_language = tracker.slots['language'].title()
+        
+        if current_language == 'English':
+            utterance = 'The language is now English.'
+        elif current_language == 'French':
+            utterance = 'La langue est maintenant le Français.'
+        elif current_language == 'Arabic':
+            utterance = 'اللغة الآن هي العربية.'
+        elif current_language == 'Armenian':
+            utterance = 'Լեզուն այժմ հայերենն է:'
+        else: 
+            current_language == 'English'
+            utterance = 'I only understand English, French, Arabic, and Armenian. The language is now English.'
+        
+        dispatcher.utter_message(utterance)
+
+        return [SlotSet('language', current_language)]
 
 
 
@@ -82,7 +202,7 @@ class ActionFetchQuota(Action):
     
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100)
+        print('='*100 + '\n' + self.name())
         print(str(tracker.latest_message))
 
         results = None
@@ -94,7 +214,7 @@ class ActionFetchQuota(Action):
             results = db.query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
             db.disconnect()
         except Exception as e:
-            print(f'\n> ActionFetchQuota: [ERROR] {e}')
+            print(f'\n> ActionFetchQuota: [ERROR1] {e}')
             dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
             return [SlotSet('password', None)]
 
@@ -105,11 +225,26 @@ class ActionFetchQuota(Action):
         try:
             quota, consumption, speed = results[0]
             if int(quota) == -1:
-                dispatcher.utter_message('You spent {} GB of your unlimited quota this month.'.format(consumption))
+                utterance = get_utter_from_lang(
+                    tracker,
+                    'You spent {} GB of your unlimited quota this month.'.format(consumption),
+                    'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
+                    'لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر.'.format(consumption),
+                    'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)
+                )
+                dispatcher.utter_message(utterance)
             else:
-                dispatcher.utter_message('You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, consumption*100/quota, quota))
+                ratio = consumption*100/quota
+                utterance = get_utter_from_lang(
+                    tracker,
+                    'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
+                    'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
+                    '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
+                    'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%)'.format(consumption, ratio, quota)
+                )
+                dispatcher.utter_message(utterance)
         except Exception as e:
-            print(f'\n> ActionFetchQuota: [ERROR] {e}')
+            print(f'\n> ActionFetchQuota: [ERROR2] {e}')
             dispatcher.utter_message('Sorry, there was an error.')
 
         return [SlotSet('password', None)]
@@ -123,7 +258,7 @@ class ActionCheckExistence(Action):
         return 'action_check_existence'
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100)
+        print('='*100 + '\n' + self.name())
         print(str(tracker.latest_message))
 
         pokemon_name = None
@@ -190,7 +325,7 @@ class ActionCheckWeather(Action):
 
     
     def run(self, dispatcher, tracker, domain):
-        print('='*100)
+        print('='*100 + '\n' + self.name())
         print(str(tracker.latest_message))
 
         latest = tracker.latest_message
@@ -220,7 +355,7 @@ class ActionOutOfScope(Action):
         return 'action_out_of_scope'
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100)
+        print('='*100 + '\n' + self.name())
         print(str(tracker.latest_message))
 
         latest = tracker.latest_message

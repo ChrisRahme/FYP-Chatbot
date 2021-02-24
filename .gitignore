@@ -2,6 +2,7 @@
 .old/
 __pycache__/
 tensorboard/
+tensorboard.old/
 
 # Files in folders
 models/*.tar.gz
