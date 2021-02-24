@@ -80,6 +80,38 @@ nlu:
     - oui
     - ok
     - akid
+- intent: out_of_scope
+  examples: |
+    - [syria](city_name) covid cases
+    - [beirut](city_name) covid cases
+    - I want a pizza
+    - I want to eat
+    - Where is the nearest restaurant?
+    - I want to go home
+    - What is a chatbot?
+    - What's the size of Earth?
+    - I want to go to Facebook
+    - Log in to Instagram
+    - Open YouTube
+    - Call my mom
+    - Send a message to by brother
+    - Corona news
+    - [Lebanon](city_name) news
+    - ii wanna piza
+    - i want pizza
+    - where's the nearest restaurant
+    - covid news
+    - [lebanon](city_name) news
+    - how old are you
+    - what's your age?
+    - kiss me
+    - pizza
+    - google
+    - chatbot
+    - 4
+    - who is the tiger
+    - sfgh
+    - sdfdfg
 - intent: deny
   examples: |
     - no
@@ -111,9 +143,9 @@ nlu:
     - so so perfect
     - so good
     - so perfect
+    - I'm happy
     - happy
     - better
-    - I'm happy
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -219,8 +251,8 @@ nlu:
     - [lebanon](city_name) weather
     - [honolulu](city_name)
     - what is the weather today
-    - weather in [beirut](city_name) plz
     - weather in [bei](city_name)
+    - weather in [beirut](city_name) plz
 - intent: stop
   examples: |
     - stop
