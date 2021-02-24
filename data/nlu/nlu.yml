@@ -24,13 +24,13 @@ nlu:
     - bonsoir
     - bonjouren
     - bjr
-    - kifak?
-    - kifik?
     - ahla
     - ahla w sahla
     - ahlen
     - mar7aba
     - mara7ib
+    - test
+    - test test
 - intent: goodbye
   examples: |
     - cu
@@ -49,6 +49,19 @@ nlu:
     - a plus
     - allah ma3ak
     - alla ma3ik
+- intent: how_are_you
+  examples: |
+    - How are you?
+    - how are u doing
+    - kifak?
+    - kifik?
+    - ca va?
+    - comment vas-tu
+    - are u ok
+    - r u good
+    - im ok and you?
+    - I'm fine, and you?
+    - good u?
 - intent: affirm
   examples: |
     - yes
@@ -124,6 +137,7 @@ nlu:
     - so so perfect
     - so good
     - so perfect
+    - I'm happy
 - intent: mood_unhappy
   examples: |
     - my day was horrible

@@ -12,6 +12,11 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+- rule: Say 'I'm fine' when the user asks
+  steps:
+  - intent: how_are_you
+  - action: utter_iam_fine
+
 - rule: Bot challenge
   steps:
   - intent: bot_challenge
