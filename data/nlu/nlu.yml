@@ -93,6 +93,12 @@ nlu:
     - what's your age?
     - kiss me
     - pizza
+    - who is the tiger
+    - google
+    - chatbot
+    - 4
+    - sdfdfg
+    - sfgh
 - intent: deny
   examples: |
     - no
@@ -124,6 +130,8 @@ nlu:
     - so so perfect
     - so good
     - so perfect
+    - happy
+    - better
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -146,6 +154,8 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - what's your name
+    - who are you
 - intent: demand_joke
   examples: |
     - got a gag?
@@ -225,6 +235,10 @@ nlu:
     - temp [jordan](city_name)
     - [lebanon](city_name) temp
     - [lebanon](city_name) weather
+    - [honolulu](city_name)
+    - what is the weather today
+    - weather in [beirut](city_name) plz
+    - weather in [bei](city_name)
 - intent: stop
   examples: |
     - stop
