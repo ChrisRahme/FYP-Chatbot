@@ -228,7 +228,7 @@ class ActionFetchQuota(Action):
                     tracker,
                     'You spent {} GB of your unlimited quota this month.'.format(consumption),
                     'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
-                    'لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر.'.format(consumption),
+                    '.لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر'.format(consumption),
                     'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)
                 )
                 dispatcher.utter_message(utterance)
@@ -239,7 +239,7 @@ class ActionFetchQuota(Action):
                     'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
                     'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
                     '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
-                    'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%)'.format(consumption, ratio, quota)
+                    'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)
                 )
                 dispatcher.utter_message(utterance)
         except Exception as e:
