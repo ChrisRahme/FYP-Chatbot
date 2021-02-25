@@ -225,7 +225,6 @@ nlu:
     - Ես չեմ հավատում
     - ոչ լավ
     - Չեմ ուզում
-
 - intent: mood_great
   examples: |
     - perfect
