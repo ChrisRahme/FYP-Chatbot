@@ -8,7 +8,6 @@ nlu:
     - hello there
     - good morning
     - good evening
-    - moin
     - hey there
     - let's go
     - hey dude
@@ -29,6 +28,31 @@ nlu:
     - ahlen
     - mar7aba
     - mara7ib
+    - Hé
+    - salut mec
+    - coucou
+    - bon après-midi
+    - Rebonjour
+    - مهلا
+    - مرحبا
+    - أهلا بك
+    - صباح الخير
+    - مساء الخير
+    - اهلا
+    - طاب مسائك
+    - مرحبا مجددا
+    - تحية
+    - بونسوار
+    - Հեյ
+    - Ողջու՜յն
+    - բարի գալուստ
+    - Բարի առավոտ
+    - Բարի երեկո
+    - Բարի գալուստ
+    - Բարի օր
+    - Կրկին ողջույն
+    - ողջույն
+    - Բոնսուար
 - intent: goodbye
   examples: |
     - cu
@@ -45,22 +69,57 @@ nlu:
     - well, goodbye then!
     - au revoir
     - a plus
+    - à bientôt
+    - Bonsoir
+    - au revoir
+    - À un de ces quatre
+    - bon, au revoir alors!
     - allah ma3ak
     - alla ma3ik
+    - yalla bye
+    - أرك لاحقا
+    - أراكم لاحقًا
+    - تصبح على خير
+    - وداعا
+    - مع السلامة
+    - أتمنى لك يوم سعيد
+    - أراك بالجوار
+    - مع السلامة
+    - حسنًا، إلى اللقاء إذن!
+    - Կտեսնվենք
+    - հետո քեզ
+    - Բարի գիշեր
+    - ցտեսություն
+    - ցտեսություն
+    - հաճելի օր
+    - կտեսնվենք ձեր շուրջը
+    - լավ, ցտեսություն, ուրեմն
 - intent: how_are_you
   examples: |
     - How are you?
     - how are u doing
-    - kifak?
-    - kifik?
-    - ca va?
-    - comment vas-tu
     - are u ok
     - r u good
     - im ok and you?
     - I'm fine, and you?
     - good u?
+    - Comment allez-vous?
+    - comment vas-tu
+    - comment cv
+    - tu vas bien>
+    - Je vais bien et toi?
+    - cv et toi?
+    - bien et toi?
     - kifak
+    - kifik
+    - كيف الحال
+    - كيف حالك
+    - هل انت بخير
+    - هل أنت جيد
+    - انا بخير وانت؟
+    - Ինչպես ես?
+    - Լավ ես
+    - Ես լավ եմ, իսկ դու՞
 - intent: affirm
   examples: |
     - yes
@@ -68,17 +127,52 @@ nlu:
     - indeed
     - of course
     - that sounds good
+    - why not
     - correct
     - yep
     - yup
     - yas
     - yes thank you!
     - yes please
+    - ok
+    - okay
+    - okie dokie
+    - oui
+    - wesh
+    - ouais
+    - bien sur
+    - pourquoi pas
+    - exactement
+    - correct
+    - d'accord
+    - oui s'il te plait
+    - oui stp
+    - oui merci
+    - ouais ok
     - eh
     - na3am
-    - oui
-    - ok
     - akid
+    - نعم
+    - وش
+    - طبعا
+    - لما لا
+    - بالضبط
+    - صحيح
+    - صح
+    - تمام
+    - نعم من فضلك
+    - نعم شكرا
+    - نعم موافق
+    - Այո
+    - վեշ
+    - իհարկե
+    - ինչու ոչ
+    - հենց
+    - ճիշտ է
+    - Լավ
+    - Այո խնդրում եմ
+    - Այո, շնորհակալություն
+    - Այո լավ
 - intent: deny
   examples: |
     - no
@@ -88,12 +182,50 @@ nlu:
     - don't like that
     - no way
     - not really
+    - not at all
     - nope
+    - not ok
     - non
+    - pas vraiment
+    - nein
+    - pas du tout
+    - pas d'accord
+    - impossible
+    - absolument pas
+    - je n'accepte pas
+    - je ne pense pas
+    - je ne crois pas
+    - je ne veux pas
+    - pas ok
     - la2
     - ma bade
     - ensa
     - ense
+    - لا
+    - ليس صحيح
+    - مطلقا
+    - غير موافق
+    - مستحيل
+    - بالتأكيد لا
+    - لا أقبل
+    - لا اعتقد هذا
+    - لا اصدق
+    - ليس جيدا
+    - لا أرغب
+    - ما بدي
+    - كلا
+    - Ո՛չ
+    - Ճիշտ չէ
+    - Ընդհանրապես
+    - համաձայն չեմ
+    - Ոչ մի դեպքում
+    - իհարկե ոչ
+    - Ես չեմ ընդունում
+    - Ես դրան չեմ հավատում
+    - Ես չեմ հավատում
+    - ոչ լավ
+    - Չեմ ուզում
+
 - intent: mood_great
   examples: |
     - perfect
@@ -104,7 +236,6 @@ nlu:
     - I am feeling very good
     - I am great
     - I am amazing
-    - I am going to save the world
     - super stoked
     - extremely good
     - so so perfect
@@ -112,7 +243,42 @@ nlu:
     - so perfect
     - I'm happy
     - happy
+    - very happy
+    - super happy
     - better
+    - parfait
+    - génial
+    - incroyable
+    - formidable
+    - je me sens très bien
+    - super content
+    - très content
+    - très bien
+    - extrêmement bon
+    - Je suis heureux
+    - Je suis content
+    - heureux
+    - très heureux
+    - super heureux
+    - في احسن الاحوال
+    - عظيم
+    - لا يصدق
+    - هائل
+    - أشعر أنني بحالة جيدة جدا
+    - سعيد جدأ
+    - جيد جدا
+    - جيدة للغاية
+    - أنا سعيد
+    - السعيدة
+    - կատարյալ
+    - Հոյակապ
+    - անհավատալի
+    - Սարսափելի
+    - Ես ինձ շատ լավ եմ զգում
+    - շատ ուրախ
+    - շատ լավ
+    - Ես երջանիկ եմ
+    - երջանիկ մեկը
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -138,6 +304,36 @@ nlu:
     - what's your name
     - who are you
     - test
+    - Etes-vous un robot?
+    - est-tu un robot?
+    - est ce que tu es un robot ou une personne?
+    - tu es humain ou robot?
+    - Êtes-vous un être humain?
+    - est-ce que je parle à un robot?
+    - est-ce que je parle à un humain?
+    - quel est votre nom
+    - comment tu t'appelles
+    - comment vous appelez vous
+    - qui es-tu
+    - t'es qui?
+    - t ki toi
+    - chou enta
+    - enta ensen?
+    - ma3 min 3am be7ke
+    - enta 7ada aw computer?
+    - chou esmak
+    - هل أنت روبوت؟
+    - هل أنت إنسان؟
+    - هل أتحدث إلى روبوت؟
+    - هل أتحدث إلى إنسان؟
+    - ما اسمك
+    - من أنت
+    - բոտ ես?
+    - դու մարդ ես
+    - բոտի հետ եմ խոսում?
+    - ես մարդու՞ հետ եմ խոսում:
+    - անունդ ինչ է
+    - ով ես դու
 - intent: demand_joke
   examples: |
     - got a gag?
