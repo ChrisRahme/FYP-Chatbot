@@ -71,7 +71,6 @@ nlu:
     - a plus
     - à bientôt
     - Bonsoir
-    - au revoir
     - À un de ces quatre
     - bon, au revoir alors!
     - allah ma3ak
@@ -84,12 +83,10 @@ nlu:
     - مع السلامة
     - أتمنى لك يوم سعيد
     - أراك بالجوار
-    - مع السلامة
     - حسنًا، إلى اللقاء إذن!
     - Կտեսնվենք
     - հետո քեզ
     - Բարի գիշեր
-    - ցտեսություն
     - ցտեսություն
     - հաճելի օր
     - կտեսնվենք ձեր շուրջը
@@ -143,7 +140,6 @@ nlu:
     - bien sur
     - pourquoi pas
     - exactement
-    - correct
     - d'accord
     - oui s'il te plait
     - oui stp
@@ -225,6 +221,7 @@ nlu:
     - Ես չեմ հավատում
     - ոչ լավ
     - Չեմ ուզում
+    - nothing
 - intent: mood_great
   examples: |
     - perfect
