@@ -1,6 +1,6 @@
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
-language: en_core_web_lg #en_core_web_md
+language: en_core_web_md #en_core_web_lg
 
 # Configuration for Rasa NLU pipeline.
 # See https://rasa.com/docs/rasa/tuning-your-model for more information.
