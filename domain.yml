@@ -51,15 +51,15 @@ slots:
     auto_fill: true
     influence_conversation: true
   language:
-    type: categorical
-    values:
-    - English
-    - French
-    - Arabic
-    - Armenian
+    type: rasa.shared.core.slots.CategoricalSlot
     initial_value: English
     auto_fill: true
     influence_conversation: true
+    values:
+    - english
+    - french
+    - arabic
+    - armenian
   pokemon_name:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
