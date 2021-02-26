@@ -54,21 +54,5 @@ stories:
   - intent: set_language
   - action: action_set_language
 
-#- story: User fills quota form
-#  steps:
-#  - intent: query_quota
-#  - action: form_query_quota
-#  - active_loop: form_query_quota
 
-- story: User fills quota form and stops
-  steps:
-  - intent: query_quota
-  - action: form_query_quota
-  - active_loop: form_query_quota
-  - or:
-    - intent: stop
-    - intent: deny
-  - action: action_deactivate_loop
-  - active_loop: null
-  - action: utter_okay
 

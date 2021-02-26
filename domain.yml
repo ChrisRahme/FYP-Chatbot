@@ -51,7 +51,12 @@ slots:
     auto_fill: true
     influence_conversation: true
   language:
-    type: rasa.shared.core.slots.TextSlot
+    type: categorical
+    values:
+    - English
+    - French
+    - Arabic
+    - Armenian
     initial_value: English
     auto_fill: true
     influence_conversation: true
