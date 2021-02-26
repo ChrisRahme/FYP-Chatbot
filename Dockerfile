@@ -1,7 +1,8 @@
 # Extend the official Rasa SDK image
 #ARG RASA_SDK_VERSION
 #FROM rasa/rasa-sdk:{RASA_SDK_VERSION}
-FROM rasa/rasa-sdk:2.2.0
+#FROM rasa/rasa-sdk:2.2.0
+FROM rasa/rasa:2.2.3-full
 
 # Use subdirectory as working directory
 WORKDIR /app
@@ -22,7 +23,7 @@ COPY data/lookups/* data/lookups/
 #COPY data/pokemon_name.txt data/
 
 # Download spacy language data - We don't need that for the action server(?) - Yes we do(?) - No we don't
-#RUN python -m spacy download en_core_web_md
+RUN python -m spacy download en_core_web_md
 #RUN python -m spacy download en_core_web_lg
 
 # By best practices, don't run the code with root user
