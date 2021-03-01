@@ -5,14 +5,14 @@ stories:
 - story: happy path
   steps:
   - intent: greet
-  - action: utter_greet
+  - action: action_greet
   - intent: mood_great
   - action: utter_happy
 
 - story: sad path 1
   steps:
   - intent: greet
-  - action: utter_greet
+  - action: action_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
@@ -22,7 +22,7 @@ stories:
 - story: sad path 2
   steps:
   - intent: greet
-  - action: utter_greet
+  - action: action_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
@@ -54,12 +54,11 @@ stories:
   - intent: set_language
   - action: action_set_language
 
-
-#- story: User fills quota form
-#  steps:
-#  - intent: query_quota
-#  - action: form_query_quota
-#  - active_loop: form_query_quota
+- story: User fills quota form
+  steps:
+  - intent: query_quota
+  - action: form_query_quota
+  - active_loop: form_query_quota
 
 - story: User fills quota form and stops
   steps:
@@ -72,3 +71,4 @@ stories:
   - action: action_deactivate_loop
   - active_loop: null
   - action: utter_okay
+

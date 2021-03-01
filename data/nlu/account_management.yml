@@ -1,0 +1,47 @@
+version: "2.0"
+nlu:
+- intent: forgot_credentials # action_recover_credentials
+  examples: |
+    - I forgot my username
+    - I forgot my ID
+    - I forgot my password
+    - forgot pwd
+    - i dont know whats my password
+    - i dont know my user id
+    - what is my id
+    - i need help signing in
+    - i cant log in
+    - J'ai oublié mon nom d'utilisateur
+    - J'ai oublié mon identifiant
+    - J'ai oublié mon ID
+    - J'ai oublié mon mot de passe
+    - j'ai oublié le pwd
+    - je connait pas mon password
+    - je sais pas c quoi mon username
+    - je ne sais pas quel est mon mot de passe
+    - je ne connais pas mon identifiant
+    - je saus pas c quoi mon id
+    - quel est mon ID
+    - j'ai besoin d'aide pour me connecter
+    - je n'arrive pas a log in
+    - je peux pas sign in
+    - لقد نسيت اسم المستخدم الخاص بي
+    - لقد نسيت ID
+    - لقد نسيت كلمة المرور
+    - نسيت password
+    - لا أعرف ما هي كلمة المرور الخاصة بي
+    - لا أعرف معرف المستخدم الخاص بي
+    - ما هو هويتي
+    - لقد نسيت pawsord
+    - أحتاج إلى مساعدة في تسجيل الدخول
+    - Մոռացել եմ օգտանունս
+    - Ես մոռացել եմ իմ անձը հաստատող փաստաթուղթը
+    - Ես մոռացել եմ իմ գաղտնաբառը
+    - մոռացավ password- ը
+    - Ես չգիտեմ, թե որն է իմ գաղտնաբառը
+    - Ես չգիտեմ իմ օգտվողի ID- ն
+    - որն է իմ ID- ն
+    - Ես մոռացել եմ իմը username
+    - Ես մոռացել եմ իմը id
+    - Ես մոռացել եմ իմը password
+    - ինձ անհրաժեշտ է մուտք գործել

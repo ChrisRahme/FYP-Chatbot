@@ -39,6 +39,10 @@ intents:
     use_entities: true
 - faq:
     use_entities: []
+- thanks:
+    use_entities: true
+- forgot_credentials:
+    use_entities: true
 entities:
 - city_name
 - pokemon_name
@@ -86,14 +90,38 @@ slots:
     auto_fill: true
     influence_conversation: false
 responses:
-  utter_greet:
-  - text: Hi! How are you?
-  - text: Hey there!
+  utter_greet_en:
+  - text: Hi, I’m GDS automated virtual assistant. How can I help you today?
+  - text: So I can get you to the right place, tell me what you’d like help with.
   - text: Hello, how can I help?
-  utter_goodbye:
+  utter_greet_fr:
+  - text: Bonjour, je suis l'assistant virtuel automatisé de GDS. Comment puis-je vous aider aujourd'hui?
+  - text: Pour que je puisse vous guider, dites-moi si vous aimeriez obtenir de l’aide.
+  - text: Bonjour, comment puis-je aider?
+  utter_greet_ar:
+  - text: مرحبًا ، أنا مساعد افتراضي تلقائي لنظام GDS. كيف استطيع مساعدتك اليوم؟
+  - text: حتى أتمكن من توصيلك إلى المكان الصحيح ، أخبرني بما تريد المساعدة فيه.
+  - text: مرحبًا ، كيف يمكنني المساعدة؟
+  utter_greet_hy:
+  - text: Ողջույն, ես GDS ավտոմատացված վիրտուալ օգնական եմ. Ինչպե՞ս կարող եմ օգնել ձեզ այսօր?
+  - text: Այսպիսով, ես կարող եմ ձեզ ճիշտ տեղ հասցնել, ասա ինձ, թե ինչի հետ կցանկանայիր օգնել.
+  - text: Ողջույն, ինչպե՞ս կարող եմ օգնել?
+  utter_goodbye_en:
   - text: Bye!
   - text: Goodbye!
   - text: See you soon!
+  utter_goodbye_fr:
+  - text: À plus!
+  - text: Au revoir!
+  - text: À bientôt!
+  utter_goodbye_ar:
+  - text: وداعا!
+  - text: مع السلامة!
+  - text: اراك قريبا!
+  utter_goodbye_hy:
+  - text: yeտեսություն!
+  - text: Ցտեսություն!
+  - text: Շուտով կհանդիպենք!
   utter_iam_fine:
   - text: I'm fine.
   - text: I'm doing great, thanks for asking!
@@ -179,7 +207,11 @@ responses:
       From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
 
        From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
+  utter_youare_welcome:
+  - text: You're welcome! How else can I help?
 actions:
+- action_greet
+- action_goodbye
 - action_out_of_scope
 - action_change_language
 - action_set_language
@@ -188,6 +220,8 @@ actions:
 - action_fetch_quota
 - action_ask_username
 - action_ask_password
+- action_recover_credentials
+- validate_form_query_quota
 forms:
   form_query_quota:
     password:

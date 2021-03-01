@@ -2,10 +2,15 @@ version: "2.0"
 
 rules:
 
+- rule: Say hello anytime the user says hello
+  steps:
+  - intent: greet
+  - action: action_greet
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
-  - action: utter_goodbye
+  - action: action_goodbye
 
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
@@ -51,6 +56,11 @@ rules:
   steps:
   - intent: faq
   - action: utter_faq
+
+- rule: Redirect the user to account recovery
+  steps:
+  - intent: forgot_credentials
+  - action: action_recover_credentials
 
 - rule: Activate quota form
   steps:
