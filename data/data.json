@@ -68,6 +68,18 @@
       {
         "text": "مرحبا",
         "intent": "greet"
+      },
+      {
+        "text": "merci",
+        "intent": "thanks"
+      },
+      {
+        "text": "thanks",
+        "intent": "thanks"
+      },
+      {
+        "text": "thx",
+        "intent": "thanks"
       }
     ],
     "regex_features": [],

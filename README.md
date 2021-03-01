@@ -1,14 +1,25 @@
 # Versions
 
-## Future
-
-* Continuous Deployment via GitHub Actions (<https://forum.rasa.com/t/github-custom-action-failure-unexpected-token-conditional-binary-operator-expected/40260/2>).
-  * Includes training and testing + uploading model & building Action Server image + upgrading Rasa X deployment.
-
 ## Current
 
+* Actions
+  * Added functions (Modified Database class & language-dependent template)
+  * Converting utterances into actions that utter the message corresponding to the selected language.
+  * Minor code changes.
+* Intents & training data
+  * Working on basic customer support.
 * Multilanguage support
-  * Working on it
+  * Converting utterances into actions that utter the message corresponding to the selected language.
+
+## 2021.03.01
+
+* Actions
+  * Added helper classes and functions (Database query & language-dependent utterance)
+  * Minor code changes.
+* Multilanguage support
+  * Understands 4 languages: English, French, Arabic, Armenian.
+  * Instead of utterances we should use actions that utter the message corresponding to the selected language.
+  * The chatbot will reply in a select language independently of the language of the input. The user can change this language at any time.
 
 ## 2021.02.24
 
