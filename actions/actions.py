@@ -43,7 +43,21 @@ class DatabaseConnection:
 
     def disconnect(self):
         self.cursor.close()
-        self.connection.close()       
+        self.connection.close()
+
+    
+    def query(self, sql):
+        result = []
+
+        print(f'\n> DatabaseConnection: {sql}')
+
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(sql)
+
+        for row in self.cursor:
+            result.append(row)
+
+        return result
 
     '''
     table:    Argument of FROM   - String
@@ -58,15 +72,7 @@ class DatabaseConnection:
         if condition:
             sql += f" WHERE {condition}"
 
-        print(f'\n> DatabaseConnection: {sql}')
-
-        self.cursor = self.connection.cursor()
-        self.cursor.execute(sql)
-
-        for row in self.cursor:
-            result.append(row)
-
-        return result
+        return self.query(sql)
 
 
 
