@@ -50,7 +50,7 @@ class DatabaseConnection:
     columns:  Argument of SELECT - String
     condtion: Argument of WHERE  - String
     '''
-    def query(self, table, columns = '*', condition = None):
+    def simple_query(self, table, columns = '*', condition = None):
         result = []
 
         sql = f"SELECT {columns} FROM {table}"
@@ -210,7 +210,7 @@ class ActionFetchQuota(Action):
 
         try:
             db = DatabaseConnection()
-            results = db.query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
+            results = db.simple_query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
             db.disconnect()
         except Exception as e:
             print(f'\n> ActionFetchQuota: [ERROR1] {e}')
