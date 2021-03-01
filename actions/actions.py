@@ -8,13 +8,14 @@ import time
 import os
 
 from pathlib import Path
-from typing import Any, Text, Dict, List
+from typing import Any, Dict, List, Text, Optional
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, FormValidationAction, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
+from rasa_sdk.types import DomainDict
 
 
 
@@ -56,6 +57,7 @@ class DatabaseConnection:
 
         for row in self.cursor:
             result.append(row)
+            print(row)
 
         return result
 
@@ -74,6 +76,9 @@ class DatabaseConnection:
 
         return self.query(sql)
 
+    def count(self, table, condition = None):
+        return len(self.simple_query(table, '*', condition))
+
 
 
 def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
@@ -90,9 +95,28 @@ def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
             utterance = utter_hy
     except Exception as e:
         print(f'\n> get_utter_from_lang: [ERROR] {e}')
-        pass
 
     return utterance
+
+
+
+def get_template_from_lang(tracker, template):
+    current_language = 'English'
+
+    try:
+        current_language = tracker.slots['language'].title()
+        if current_language == 'French':
+            template = template + '_fr'
+        elif current_language == 'Arabic':
+            template = template + '_ar'
+        elif current_language == 'Armenian':
+            template = template + '_hy'
+        else:
+            template = template + '_en'
+    except Exception as e:
+        print(f'\n> get_template_from_lang: [ERROR] {e}')
+
+    return template
 
 
 
@@ -100,9 +124,12 @@ def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
 # SLOTS                                                                                            #
 ####################################################################################################
 
+
+
 class ActionAskUsername(Action):
     def name(self):
         return 'action_ask_username'
+
     def run(self, dispatcher, tracker, domain):
         print('='*100 + '\n' + self.name())
         utterance = get_utter_from_lang(
@@ -115,9 +142,12 @@ class ActionAskUsername(Action):
         dispatcher.utter_message(utterance)
         return []
 
+
+
 class ActionAskPassword(Action):
     def name(self):
         return 'action_ask_password'
+
     def run(self, dispatcher, tracker, domain):
         print('='*100 + '\n' + self.name())
         utterance = get_utter_from_lang(
@@ -130,9 +160,132 @@ class ActionAskPassword(Action):
         dispatcher.utter_message(utterance)
         return []
 
+
+
+####################################################################################################
+# FORM VALIDATION ACTIONS                                                                          #
+####################################################################################################
+
+
+
+class ValidateFormQueryQuota(FormValidationAction):
+    def name(self):
+        return 'validate_form_query_quota'
+
+    
+    # Custom Slot Mappings: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
+    async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
+        required_slots = [predefined_slots[1], predefined_slots[0]] # To ask for username before password
+        return required_slots
+
+
+    # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
+    async def validate_username(self, value, dispatcher, tracker, domain):
+        username = value.lower()
+
+        db = DatabaseConnection()
+        count = db.count('user_info', f"Username = '{username}'")
+        db.disconnect()
+
+        if count == 1:
+            return {'username': username}
+
+        elif count == 0:
+            utterance = get_utter_from_lang(
+                tracker,
+                'Sorry, {} is not a registered user.'.format(username),
+                'Désolé, {} n\'est pas un utilisateur enregistré.'.format(username),
+                'عذرًا، {} ليس مستخدمًا مسجلاً'.format(username),
+                'Ներողություն, {} - ը գրանցված օգտվող չէ:'.format(username)
+            )
+            dispatcher.utter_message(utterance)
+            return {'username': None}
+
+        else:
+            dispatcher.utter_message(f'There seems to be {count} users with the username {username}. Please report this error.')
+            return {'username': None}
+    
+
+    # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
+    async def validate_password(self, value, dispatcher, tracker, domain):
+        username = tracker.get_slot('username')
+        password = tracker.get_slot('password')
+
+        db = DatabaseConnection()
+        count = db.count('user_info', f"Username = '{username}' AND Password = '{password}'")
+        db.disconnect()
+
+        if count == 1:
+            return {'password': password}
+
+        else:
+            utterance = get_utter_from_lang(
+                tracker,
+                'Sorry, you entered an incorrect password for {}.'.format(username),
+                'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
+                'عذرًا ، لقد أدخلت كلمة مرور غير صحيحة لـ {}'.format(username),
+                'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)
+            )
+            dispatcher.utter_message(utterance)
+            return {'password': None}
+
+
+
 ####################################################################################################
 # FORM ACTIONS                                                                                     #
 ####################################################################################################
+
+
+
+####################################################################################################
+# TEMPLATE UTTERANCES                                                                              #
+####################################################################################################
+
+
+
+class ActionUtterGreet(Action):
+    def name(self):
+        return 'action_greet'
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_greet'))
+        return []
+
+
+
+class ActionUtterGoodbye(Action):
+    def name(self):
+        return 'action_goodbye'
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_goodbye'))
+        return []
+            
+
+
+####################################################################################################
+# TEXT UTTERANCES                                                                                  #
+####################################################################################################
+
+
+class ActionRecoverCredentials(Action):
+    def name(self):
+        return 'action_recover_credentials'
+
+
+    def run(self, dispatcher, tracker, domain):
+        url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
+        url = '\n\n' + url
+
+        utterance = get_utter_from_lang(
+            tracker,
+            'If you need help recovering your IDM ID or your password, click on the link below:',
+            'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
+            'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
+            'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'
+        )            
+        
+        dispatcher.utter_message(text = utterance + url)
+
+        return []
 
 
 
@@ -197,7 +350,7 @@ class ActionSetLanguage(Action):
         
         dispatcher.utter_message(utterance)
 
-        return [SlotSet('language', current_language)]
+        return [] #[SlotSet('language', current_language)]
 
 
 
@@ -216,7 +369,11 @@ class ActionFetchQuota(Action):
 
         try:
             db = DatabaseConnection()
-            results = db.simple_query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
+            #results = db.simple_query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
+            results = db.query("SELECT Quota, Consumption, Speed "
+                "FROM `user_info` INNER JOIN `consumption` "
+                "ON `user_info`.`ID` = `consumption`.`UserID` "
+                f"WHERE Username = '{username}' AND Password = '{password}'")
             db.disconnect()
         except Exception as e:
             print(f'\n> ActionFetchQuota: [ERROR1] {e}')
@@ -224,7 +381,7 @@ class ActionFetchQuota(Action):
             return [SlotSet('password', None)]
 
         if len(results) != 1:
-            dispatcher.utter_message(f'Sorry, {username} is not a registered user.')
+            dispatcher.utter_message(f'Sorry, {username} is not a registered user or your password is incorrect.')
             return [SlotSet('username', None), SlotSet('password', None)]
 
         try:
@@ -393,7 +550,7 @@ class ActionOutOfScope(Action):
 
             return [SlotSet('out_of_scope', None)]
             
-        elif intent == 'deny' and query != None:
+        elif (intent == 'deny' or intent == 'stop') and query != None:
             dispatcher.utter_message('Okay.')
             return [SlotSet('out_of_scope', None)]
 
