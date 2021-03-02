@@ -80,6 +80,18 @@
       {
         "text": "thx",
         "intent": "thanks"
+      },
+      {
+        "text": "hey man",
+        "intent": "greet"
+      },
+      {
+        "text": "hi kifak",
+        "intent": "greet"
+      },
+      {
+        "text": "hello how are you",
+        "intent": "greet"
       }
     ],
     "regex_features": [],

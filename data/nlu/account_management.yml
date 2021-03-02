@@ -1,6 +1,6 @@
 version: "2.0"
 nlu:
-- intent: forgot_credentials # action_recover_credentials
+- intent: forgot_credentials
   examples: |
     - I forgot my username
     - I forgot my ID
@@ -45,3 +45,27 @@ nlu:
     - Ես մոռացել եմ իմը id
     - Ես մոռացել եմ իմը password
     - ինձ անհրաժեշտ է մուտք գործել
+    - whats my pwd
+    - je c pas c quoi mon password
+- intent: log_in
+  examples: |
+    - i want to log in
+    - login
+    - sign in
+    - signin
+    - je veux me connecter
+    - je veux sign in
+    - connexion
+    - s'identifier
+    - identification
+    - bade a3moul log in
+    - bade a3tik el username
+    - eh 3melle sign in
+    - اريد تسجيل الدخول
+    - تسجيل الدخول
+    - ես ուզում եմ մուտք գործել
+    - մուտք
+    - Մուտք գործել
+    - log in
+    - ok log me in
+    - ok log in

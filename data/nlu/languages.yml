@@ -45,6 +45,9 @@ nlu:
     - cghange language
     - change lang
     - change la langige
+    - change la lnague
+    - change la lnagie
+    - est ce que tu parle francais
 - intent: set_language
   examples: |
     - Set language to [English](language)
