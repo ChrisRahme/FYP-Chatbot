@@ -2,8 +2,8 @@
 .old/
 __pycache__/
 domain/
-tensorboard/
-tensorboard.old/
+.tensorboard/
+.tensorboard.old/
 
 
 # Files in folders

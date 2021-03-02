@@ -25,7 +25,7 @@ pipeline:
   constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
   #evaluate_on_number_of_examples: 120        # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
   evaluate_every_number_of_epochs: 5         # Tensorboard setting
-  tensorboard_log_directory: "./tensorboard" # Tensorboard setting
+  tensorboard_log_directory: "./.tensorboard" # Tensorboard setting
   tensorboard_log_level: "epoch"             # Tensorboard setting
 - name: EntitySynonymMapper
 - name: ResponseSelector
@@ -35,7 +35,7 @@ pipeline:
   constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
   #evaluate_on_number_of_examples: 5         # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
   evaluate_every_number_of_epochs: 5         # Tensorboard setting
-  tensorboard_log_directory: "./tensorboard" # Tensorboard setting
+  tensorboard_log_directory: "./.tensorboard" # Tensorboard setting
   tensorboard_log_level: "epoch"             # Tensorboard setting
 - name: FallbackClassifier
   threshold: 0.3
@@ -53,7 +53,7 @@ policies:
   constrain_similarities: True # Recommended to set it to `True` when using cross-entropy loss (`True` will be deafult in 3.0.0)
   #evaluate_on_number_of_examples: 120        # Tensorboard setting https://blog.rasa.com/tensorboard-in-rasa/
   evaluate_every_number_of_epochs: 5         # Tensorboard setting
-  tensorboard_log_directory: "./tensorboard" # Tensorboard setting
+  tensorboard_log_directory: "./.tensorboard" # Tensorboard setting
   tensorboard_log_level: "epoch"             # Tensorboard setting
 - name: RulePolicy
   core_fallback_threshold: 0.3
