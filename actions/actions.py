@@ -81,6 +81,14 @@ class DatabaseConnection:
 
 
 
+def announce(action, tracker = None):
+    output = '='*100 + '\n>>> Action: ' + action.name()
+    if tracker:
+        output += '\n\n' + str(tracker.latest_message)
+    print(output)
+
+
+
 def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
     current_language = 'English'
     utterance = utter_en
@@ -131,14 +139,15 @@ class ActionAskUsername(Action):
         return 'action_ask_username'
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
+        announce(self, tracker)
         utterance = get_utter_from_lang(
             tracker,
             'Please enter your username.',
             'S\'il vous plaît entrez votre nom d\'utilisateur.',
             '.(username) الرجاء إدخال اسم المستخدم',
             'Խնդրում ենք մուտքագրել ձեր օգտվողի անունը: (username).'
-        )            
+        )
+        print('\nBOT:', utterance)
         dispatcher.utter_message(utterance)
         return []
 
@@ -149,14 +158,15 @@ class ActionAskPassword(Action):
         return 'action_ask_password'
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
+        announce(self, tracker)
         utterance = get_utter_from_lang(
             tracker,
             'Please enter your password.',
             'S\'il vous plaît entrez votre mot de passe.',
             '.(password) من فضلك أدخل رقمك السري',
             'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'
-        )            
+        )
+        print('\nBOT:', utterance)
         dispatcher.utter_message(utterance)
         return []
 
@@ -168,9 +178,9 @@ class ActionAskPassword(Action):
 
 
 
-class ValidateFormQueryQuota(FormValidationAction):
+class ValidateFormLogIn(FormValidationAction):
     def name(self):
-        return 'validate_form_query_quota'
+        return 'validate_form_log_in'
 
     
     # Custom Slot Mappings: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
@@ -181,53 +191,102 @@ class ValidateFormQueryQuota(FormValidationAction):
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_username(self, value, dispatcher, tracker, domain):
-        username = value.lower()
+        if not tracker.get_slot('loggedin'):
+            username   = value.lower()
+            login_type = 'username'
+            count      = 0
+            
+            db = DatabaseConnection()
 
-        db = DatabaseConnection()
-        count = db.count('user_info', f"Username = '{username}'")
-        db.disconnect()
+            count = db.count('user_info', f"Username = '{username}'")
+            if count == 1:
+                login_type = 'Username'
+            else:
+                count = db.count('user_info', f"L_Number = '{username}'")
+                if count == 1:
+                    login_type = 'L_Number'
+                else:
+                    count = db.count('user_info', f"Phone_Number = '{username}'")
+                    if count == 1:
+                        login_type = 'Phone_Number'
 
-        if count == 1:
-            return {'username': username}
+            db.disconnect()
 
-        elif count == 0:
+            if count == 1:
+                print('\n> validate_username:', username, login_type)
+                return {'username': username, 'loggedin': False, 'login_type': login_type}
+
+            elif count == 0:
+                utterance = get_utter_from_lang(
+                    tracker,
+                    'Sorry, {} is not a registered Username, L Number, of Phone Number.'.format(username),
+                    'Désolé, {} n\'est pas un Utilisateur, L Number, ou Numéro de Téléphone enregistré.'.format(username),
+                    'عذرًا، {} ليس مستخدمًا مسجلاً'.format(username),
+                    'Ներողություն, {} - ը գրանցված օգտվող չէ:'.format(username)
+                )
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return {'username': None, 'loggedin': False, 'login_type': None}
+
+            else:
+                login_type = login_type.replace('_', ' ')
+                utterance = f'There seems to be {count} users with the {login_type} {username}. Please report this error.'
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return {'username': None, 'loggedin': False, 'login_type': None}
+        
+        else: # Already logged in
             utterance = get_utter_from_lang(
                 tracker,
-                'Sorry, {} is not a registered user.'.format(username),
-                'Désolé, {} n\'est pas un utilisateur enregistré.'.format(username),
-                'عذرًا، {} ليس مستخدمًا مسجلاً'.format(username),
-                'Ներողություն, {} - ը գրանցված օգտվող չէ:'.format(username)
+                'You are already logged in. If you want to log out, please say "log out".',
+                'Vous êtes déjà connecté. Si vous souhaitez vous déconnecter, veuillez dire «déconnexion» ou «log out».',
+                'لقد قمت بتسجيل الدخول بالفعل. إذا كنت تريد الخروج ، من فضلك قل "تسجيل الخروج" أو "log out".',
+                'Դուք արդեն մուտք եք գործել համակարգ: Եթե ցանկանում եք դուրս գալ, խնդրում ենք ասել «դուրս գալ» կամ «log out»:'
             )
+            print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
-            return {'username': None}
+            return {'password': 'secret', 'loggedin': True}
 
-        else:
-            dispatcher.utter_message(f'There seems to be {count} users with the username {username}. Please report this error.')
-            return {'username': None}
-    
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_password(self, value, dispatcher, tracker, domain):
-        username = tracker.get_slot('username')
-        password = tracker.get_slot('password')
+        if not tracker.get_slot('loggedin'):
+            username = tracker.get_slot('username')
+            password = tracker.get_slot('password')
+            login_type = tracker.get_slot('login_type')
 
-        db = DatabaseConnection()
-        count = db.count('user_info', f"Username = '{username}' AND Password = '{password}'")
-        db.disconnect()
+            db = DatabaseConnection()
+            count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
+            db.disconnect()
 
-        if count == 1:
-            return {'password': password}
+            if count == 1:
+                print('\n> validate_password:', username, password)
+                return {'password': 'secret', 'loggedin': True}
 
-        else:
+            else:
+                utterance = get_utter_from_lang(
+                    tracker,
+                    'Sorry, you entered an incorrect password for {}.'.format(username),
+                    'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
+                    'عذرًا ، لقد أدخلت كلمة مرور غير صحيحة لـ {}'.format(username),
+                    'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)
+                )
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return {'password': None, 'loggedin': False}
+
+        else: # Already logged in
+            username = tracker.get_slot('username')
             utterance = get_utter_from_lang(
-                tracker,
-                'Sorry, you entered an incorrect password for {}.'.format(username),
-                'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
-                'عذرًا ، لقد أدخلت كلمة مرور غير صحيحة لـ {}'.format(username),
-                'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)
-            )
+                    tracker,
+                    'You are logged in as {}.'.format(username),
+                    'Vous êtes connecté en tant que {}'.format(username),
+                    'أنت مسجل دخولك باسم {}.'.format(username),
+                    'Դուք մուտք եք գործել որպես {}:'.format(username)
+                )
+            print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
-            return {'password': None}
+            return {'username': username, 'password': 'secret', 'loggedin': True}
 
 
 
@@ -247,6 +306,7 @@ class ActionUtterGreet(Action):
     def name(self):
         return 'action_greet'
     def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
         dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_greet'))
         return []
 
@@ -256,6 +316,7 @@ class ActionUtterGoodbye(Action):
     def name(self):
         return 'action_goodbye'
     def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
         dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_goodbye'))
         return []
             
@@ -266,12 +327,14 @@ class ActionUtterGoodbye(Action):
 ####################################################################################################
 
 
+
 class ActionRecoverCredentials(Action):
     def name(self):
         return 'action_recover_credentials'
 
 
     def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
         url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
         url = '\n\n' + url
 
@@ -282,8 +345,33 @@ class ActionRecoverCredentials(Action):
             'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
             'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'
         )            
-        
+        print('\nBOT:', utterance)
         dispatcher.utter_message(text = utterance + url)
+
+        return []
+
+
+
+class ActionLoggedIn(Action):
+    def name(self):
+        return 'action_logged_in'
+
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        if tracker.get_slot('loggedin'):
+            username = tracker.get_slot('username')
+            login_type = tracker.get_slot('login_type').replace('_', ' ')
+
+            utterance = get_utter_from_lang(
+                tracker,
+                'You are logged in with {} being {}'.format(login_type, username),
+                'Vous êtes connecté avec {} étant {}'.format(login_type, username),
+                'لقد قمت بتسجيل الدخول {} يجري {}'.format(login_type, username),
+                'Դուք մուտք եք գործել ՝}} լինելով {}'.format(login_type, username)
+            )            
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
 
         return []
 
@@ -301,8 +389,7 @@ class ActionChangeLanguage(Action):
     
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
-        print(str(tracker.latest_message))
+        announce(self, tracker)
 
         buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
             {'title': 'English',  'payload': '/set_language{"language": "English"}'},
@@ -331,8 +418,7 @@ class ActionSetLanguage(Action):
     
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
-        print(str(tracker.latest_message))
+        announce(self, tracker)
 
         current_language = tracker.slots['language'].title()
         
@@ -357,8 +443,77 @@ class ActionSetLanguage(Action):
 class ActionFetchQuota(Action):
     def name(self) -> Text:
         return 'action_fetch_quota'
-    
 
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+
+        if tracker.get_slot('loggedin') == True:
+            results    = None
+            username   = tracker.get_slot('username')
+            login_type = tracker.get_slot('login_type')
+
+            try:
+                db = DatabaseConnection()
+                results = db.query("SELECT Quota, Consumption, Speed "
+                    "FROM `user_info` INNER JOIN `consumption` "
+                    "ON `user_info`.`ID` = `consumption`.`UserID` "
+                    f"WHERE {login_type} = '{username}'")
+                db.disconnect()
+
+            except Exception as e:
+                print(f'\n> ActionFetchQuota: [ERROR1] {e}')
+                dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
+                return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
+
+            if len(results) != 1:
+                utterance = f'Sorry, {username} is not a registered username.'
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
+
+            try:
+                quota, consumption, speed = results[0]
+                if int(quota) == -1:
+                    utterance = get_utter_from_lang(
+                        tracker,
+                        'You spent {} GB of your unlimited quota this month.'.format(consumption),
+                        'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
+                        '.لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر'.format(consumption),
+                        'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)
+                    )
+                    print('\nBOT:', utterance)
+                    dispatcher.utter_message(utterance)
+                else:
+                    ratio = consumption*100/quota
+                    utterance = get_utter_from_lang(
+                        tracker,
+                        'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
+                        'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
+                        '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
+                        'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)
+                    )
+                    print('\nBOT:', utterance)
+                    dispatcher.utter_message(utterance)
+
+            except Exception as e:
+                print(f'\n> ActionFetchQuota: [ERROR2] {e}')
+                dispatcher.utter_message('Sorry, there was an error.')
+
+            return []
+        
+        else: # Not logged in
+            utterance = get_utter_from_lang(
+                tracker,
+                'You are not logged in. Please type "log in" to log in.',
+                'Vous n\'êtes pas connecté. Veuillez ecrire «connexion» ou «log in» pour vous connecter.',
+                'أنت لم تسجل الدخول. من فضلك قل "تسجيل الدخول" لتسجيل الدخول.',
+                'Դուք մուտք չեք գործել: Մուտք գործելու համար խնդրում ենք ասել «մուտք գործել»:'
+            )
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
+
+    
+    '''
     def run(self, dispatcher, tracker, domain):
         print('='*100 + '\n' + self.name())
         print(str(tracker.latest_message))
@@ -410,6 +565,7 @@ class ActionFetchQuota(Action):
             dispatcher.utter_message('Sorry, there was an error.')
 
         return [SlotSet('password', None)]
+    '''
 
 
 
@@ -420,8 +576,7 @@ class ActionCheckExistence(Action):
         return 'action_check_existence'
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
-        print(str(tracker.latest_message))
+        announce(self, tracker)
 
         pokemon_name = None
         latest = tracker.latest_message
@@ -452,6 +607,7 @@ class ActionCheckWeather(Action):
             return name
         except:
             return alpha2
+
 
     def call_api(self, city_name):
         api_key = 'd24a63d18af95420958d7bb8b5839016'
@@ -487,8 +643,7 @@ class ActionCheckWeather(Action):
 
     
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
-        print(str(tracker.latest_message))
+        announce(self, tracker)
 
         latest = tracker.latest_message
         
@@ -497,16 +652,20 @@ class ActionCheckWeather(Action):
                 if blob['entity'] == 'city_name':
                     city_name = blob['value']
                     result = self.utter_weather(city_name)
+                    print('\nBOT:', result)
                     dispatcher.utter_message(result)
                 return [SlotSet('city_name', city_name)]
         
         elif tracker.slots['city_name']:
             city_name  = tracker.slots['city_name']
             result = self.utter_weather(city_name)
+            print('\nBOT:', result)
             dispatcher.utter_message(result)
         
         else:
-            dispatcher.utter_message('Please provide a city or country to check the weather.')
+            utterance = 'Please provide a city or country to check the weather.'
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
         
         return []
 
@@ -517,8 +676,7 @@ class ActionOutOfScope(Action):
         return 'action_out_of_scope'
 
     def run(self, dispatcher, tracker, domain):
-        print('='*100 + '\n' + self.name())
-        print(str(tracker.latest_message))
+        announce(self, tracker)
 
         latest = tracker.latest_message
         intent = latest['intent']['name']
