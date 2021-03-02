@@ -2,13 +2,13 @@ import os
 
 number = 0
 
-dirs = os.listdir('.')
-dirs.remove(__file__.split('\\')[-1])
+base_dir = '../data/nlu'
+dirs = os.listdir(base_dir)
 dirs.remove('nlu.yml')
 
 for d in dirs:
     local = 0
-    with open(d, 'r', encoding='utf-8') as f:
+    with open('../data/nlu/' + d, 'r', encoding='utf-8') as f:
         for line in f:
             l = line.strip()
             if l.startswith('- ') and not l.startswith('- intent:'):
@@ -16,5 +16,5 @@ for d in dirs:
     number += local
     print(f'{local}\texamples in {d}')
 
-print(f'\n{number} total examples'
+print(f'\n{number} total NLU examples'
       f'\n20% = {int(number*0.2)}')
