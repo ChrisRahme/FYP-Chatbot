@@ -1,0 +1,11 @@
+forms:
+  form_log_in:
+    password:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    username:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+e2e_actions: []

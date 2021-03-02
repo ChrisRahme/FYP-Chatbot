@@ -1,7 +1,6 @@
 # Folders
 .old/
 __pycache__/
-domain/
 .tensorboard/
 .tensorboard.old/
 

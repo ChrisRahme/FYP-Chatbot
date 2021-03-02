@@ -1,0 +1,49 @@
+intents:
+- get_weather:
+    use_entities: true
+- confirm_exists:
+    use_entities: true
+- greet:
+    use_entities: []
+- goodbye:
+    use_entities: []
+- how_are_you:
+    use_entities: true
+- affirm:
+    use_entities: []
+- deny:
+    use_entities: []
+- stop:
+    use_entities: []
+- mood_great:
+    use_entities: []
+- mood_unhappy:
+    use_entities: []
+- bot_challenge:
+    use_entities: []
+- demand_joke:
+    use_entities: []
+- out_of_scope:
+    use_entities: []
+- change_language:
+    use_entities: []
+- set_language:
+    use_entities: true
+- query_quota:
+    use_entities: true
+- faq:
+    use_entities: []
+- thanks:
+    use_entities: []
+- forgot_credentials:
+    use_entities: []
+- log_in:
+    use_entities: []
+- inform_product_type:
+    use_entities: true
+- inform_topic_type:
+    use_entities: true
+- need_help:
+    use_entities: true
+- inform_account_type:
+    use_entities: true

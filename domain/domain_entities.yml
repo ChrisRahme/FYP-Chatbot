@@ -1,0 +1,8 @@
+entities:
+- city_name
+- pokemon_name
+- person_name
+- language
+- product_type
+- topic_type
+- account_type
