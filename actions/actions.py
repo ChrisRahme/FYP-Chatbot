@@ -121,6 +121,7 @@ def get_template_from_lang(tracker, template):
             template = template + '_hy'
         else:
             template = template + '_en'
+        print(f'\n> get_template_from_lang: {template}')
     except Exception as e:
         print(f'\n> get_template_from_lang: [ERROR] {e}')
 
@@ -304,7 +305,7 @@ class ValidateFormLogIn(FormValidationAction):
 
 class ActionUtterGreet(Action):
     def name(self):
-        return 'action_greet'
+        return 'action_utter_greet'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_greet'))
@@ -314,12 +315,22 @@ class ActionUtterGreet(Action):
 
 class ActionUtterGoodbye(Action):
     def name(self):
-        return 'action_goodbye'
+        return 'action_utter_goodbye'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_goodbye'))
         return []
             
+
+
+class ActionUtterYoureWelcome(Action):
+    def name(self):
+        return 'action_utter_youre_welcome'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_youre_welcome'))
+        return []
+
 
 
 ####################################################################################################
