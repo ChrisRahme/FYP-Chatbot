@@ -40,11 +40,11 @@ intents:
 - faq:
     use_entities: []
 - thanks:
-    use_entities: true
+    use_entities: []
 - forgot_credentials:
-    use_entities: true
+    use_entities: []
 - log_in:
-    use_entities: true
+    use_entities: []
 - inform_product_type:
     use_entities: true
 - inform_topic_type:
@@ -112,6 +112,21 @@ slots:
     - username
     - l_number
     - phone_number
+  product_type:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  topic_type:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  account_type:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
   requested_slot:
     type: rasa.shared.core.slots.UnfeaturizedSlot
     initial_value: null
@@ -235,11 +250,38 @@ responses:
       From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
 
        From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
-  utter_youare_welcome:
+  utter_youare_welcome_en:
   - text: You're welcome! How else can I help?
+  - text: No problem. What else can I help you with?
+  - text: Anytime! Can I help with anything else?
+  - text: You're welcome! What else can I help you with?
+  - text: No problem. Can I help with anything else?
+  - text: Anytime! Do you need help with something else?
+  utter_youare_welcome_fr:
+  - text: Je vous en prie! Comment puis-je encore aider?
+  - text: Aucun problème. Que puis-je faire d'autre pour vous?
+  - text: Ravi d'aider! Puis-je aider avec autre chose?
+  - text: Je vous en prie! Que puis-je faire d'autre pour vous?
+  - text: Aucun souci. Puis-je aider avec autre chose?
+  - text: Pas de problème! Avez-vous besoin d'aide pour autre chose? 
+  utter_youare_welcome_ar:
+  - text: على الرحب والسعة! كيف لا يزال بإمكاني المساعدة؟
+  - text: لايوجد اي مشكلة. ما الذي يمكنني أن أفعله من أجلك؟
+  - text: سررت بمساعدتك! هل يمكنني المساعدة بشيء آخر؟
+  - text: على الرحب والسعة! ما الذي يمكنني أن أفعله من أجلك؟
+  - text: لا مشكلة. هل يمكنني المساعدة بشيء آخر؟
+  - text: لا مشكلة! هل تحتاج إلى مساعدة في أي شيء آخر؟
+  utter_youare_welcome_hy:
+  - text: Խնդրեմ! Ինչպե՞ս կարող եմ դեռ օգնել?
+  - text: Խնդիր չկա. Ինչ կարող եմ անել քեզ համար?
+  - text: Հաճելի է ձեզ օգնել! Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
+  - text: Խնդրեմ! Ինչ կարող եմ անել քեզ համար?
+  - text: Ոչ մի խնդիր. Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
+  - text: Ոչ մի խնդիր! Ուրիշի՞ն օգնության կարիք ունեք?
 actions:
-- action_greet
-- action_goodbye
+- action_utter_greet
+- action_utter_goodbye
+- action_utter_youre_welcome
 - action_logged_in
 - action_out_of_scope
 - action_change_language

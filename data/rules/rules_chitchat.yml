@@ -5,12 +5,12 @@ rules:
 - rule: Say hello anytime the user says hello
   steps:
   - intent: greet
-  - action: action_greet
+  - action: action_utter_greet
 
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
-  - action: action_goodbye
+  - action: action_utter_goodbye
 
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
@@ -31,3 +31,8 @@ rules:
   steps:
   - intent: faq
   - action: utter_faq
+
+- rule: Say you're welcome
+  steps:
+  - intent: thanks
+  - action: action_utter_youre_welcome

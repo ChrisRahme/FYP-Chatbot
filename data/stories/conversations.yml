@@ -5,7 +5,7 @@ stories:
 - story: Story from Conversation ID f46aaf60042341619e90c9b454aa58e9
   steps:
   - intent: greet
-  - action: action_greet
+  - action: action_utter_greet
   - intent: query_quota
   - action: action_fetch_quota
   - intent: log_in

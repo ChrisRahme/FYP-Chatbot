@@ -183,6 +183,9 @@ nlu:
     - nope
     - not ok
     - non
+    - no thanks
+    - thx but no
+    - thank you but no
     - pas vraiment
     - nein
     - pas du tout
@@ -194,6 +197,8 @@ nlu:
     - je ne crois pas
     - je ne veux pas
     - pas ok
+    - merci mais non
+    - non merci
     - la2
     - ma bade
     - ensa
@@ -347,3 +352,35 @@ nlu:
     - stop
     - cancel
     - i dont want
+- intent: thanks
+  examples: |
+    - thanks
+    - thank you
+    - thanks a lot
+    - thank you very much
+    - k thx
+    - thx a lot
+    - ok 10x
+    - thank youuu <3
+    - merci
+    - merci beaucoup
+    - merci bcp
+    - merciiii
+    - shoukran
+    - choukran 
+    - thx 7bb
+    - okayyy thanks khaye
+    - شكرا
+    - شكرا لك
+    - شكر كثيرا
+    - شكرا جزيلا لك
+    - ك ثكس
+    - شكرا كثيرا
+    - حسنا، شكر
+    - طيب شكرا
+    - շնորհակալություն
+    - շատ շնորհակալություն
+    - կ thx
+    - ok շնորհակալություն
+    - այդ շատ
+    - լավ 10x

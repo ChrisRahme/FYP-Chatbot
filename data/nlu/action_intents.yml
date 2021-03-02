@@ -71,3 +71,5 @@ nlu:
     - what is the weather today
     - weather in [bei](city_name)
     - weather in [beirut](city_name) plz
+    - wats the eeathre
+    - whats the weather

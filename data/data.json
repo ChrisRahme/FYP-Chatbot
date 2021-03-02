@@ -70,18 +70,6 @@
         "intent": "greet"
       },
       {
-        "text": "merci",
-        "intent": "thanks"
-      },
-      {
-        "text": "thanks",
-        "intent": "thanks"
-      },
-      {
-        "text": "thx",
-        "intent": "thanks"
-      },
-      {
         "text": "hey man",
         "intent": "greet"
       },

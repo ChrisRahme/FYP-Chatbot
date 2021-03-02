@@ -47,6 +47,7 @@ nlu:
     - ինձ անհրաժեշտ է մուտք գործել
     - whats my pwd
     - je c pas c quoi mon password
+    - i dont know my password
 - intent: log_in
   examples: |
     - i want to log in
