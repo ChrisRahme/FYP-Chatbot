@@ -16,5 +16,5 @@ for d in dirs:
     number += local
     print(f'{local}\texamples in {d}')
 
-print(f'\n{number} total NLU examples'
+input(f'\n{number} total NLU examples'
       f'\n20% = {int(number*0.2)}')
