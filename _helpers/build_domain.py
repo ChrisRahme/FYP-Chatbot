@@ -4,7 +4,7 @@ import os
 import glob
 import hiyapyco
 
-path = 'domain'
+path = '../domain'
 yaml_list = []
 
 
@@ -18,5 +18,5 @@ for filename in globs:
 merged_yaml = hiyapyco.load(yaml_list, method=hiyapyco.METHOD_MERGE)
 print(hiyapyco.dump(merged_yaml))
 
-domain_yml_file = open('.test_domain.yml', 'w+', encoding='utf-8')
+domain_yml_file = open('../.test_domain.yml', 'w+', encoding='utf-8')
 domain_yml_file.writelines(hiyapyco.dump(merged_yaml))
