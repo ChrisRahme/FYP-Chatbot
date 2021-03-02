@@ -43,11 +43,24 @@ intents:
     use_entities: true
 - forgot_credentials:
     use_entities: true
+- log_in:
+    use_entities: true
+- inform_product_type:
+    use_entities: true
+- inform_topic_type:
+    use_entities: true
+- need_help:
+    use_entities: true
+- inform_account_type:
+    use_entities: true
 entities:
 - city_name
 - pokemon_name
 - person_name
 - language
+- product_type
+- topic_type
+- account_type
 slots:
   out_of_scope:
     type: rasa.shared.core.slots.TextSlot
@@ -84,6 +97,21 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
+  loggedin:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: false
+    auto_fill: false
+    influence_conversation: true
+  login_type:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+    values:
+    - none
+    - username
+    - l_number
+    - phone_number
   requested_slot:
     type: rasa.shared.core.slots.UnfeaturizedSlot
     initial_value: null
@@ -212,6 +240,7 @@ responses:
 actions:
 - action_greet
 - action_goodbye
+- action_logged_in
 - action_out_of_scope
 - action_change_language
 - action_set_language
@@ -221,9 +250,9 @@ actions:
 - action_ask_username
 - action_ask_password
 - action_recover_credentials
-- validate_form_query_quota
+- validate_form_log_in
 forms:
-  form_query_quota:
+  form_log_in:
     password:
     - intent_name: None
       not_intent: stop
