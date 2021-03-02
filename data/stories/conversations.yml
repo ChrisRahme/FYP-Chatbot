@@ -2,76 +2,46 @@ version: "2.0"
 
 stories:
 
-- story: Story from Conversation ID 3cf37e9b194e4434a8b1ed3db4151c81
+- story: Story from Conversation ID f46aaf60042341619e90c9b454aa58e9
   steps:
+  - intent: greet
+  - action: action_greet
   - intent: query_quota
-  - action: form_query_quota
-  - active_loop: form_query_quota
+  - action: action_fetch_quota
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
   - slot_was_set:
     - requested_slot: username
   - intent: out_of_scope
-  - action: form_query_quota
+  - action: form_log_in
   - slot_was_set:
-    - username: marc
-  - slot_was_set:
-    - requested_slot: password
+    - username: chris
   - intent: out_of_scope
-  - action: form_query_quota
-  - slot_was_set:
-    - password: marc
-  - slot_was_set:
-    - requested_slot: null
+  - action: form_log_in
   - active_loop: null
-  - action: utter_wait
-  - action: action_fetch_quota
   - slot_was_set:
-    - password: null
-
-- story: Story 2 from Conversation ID 3cf37e9b194e4434a8b1ed3db4151c81
-  steps:
-  - intent: change_language
-  - action: action_change_language
-  - intent: set_language
-    entities:
-    - language: French
-  - slot_was_set:
-    - language: French
-  - action: action_set_language
-  - slot_was_set:
-    - language: French
-
-- story: Story 3 from Conversation ID 3cf37e9b194e4434a8b1ed3db4151c81
-  steps:
+    - password: secret
+  - action: action_logged_in
   - intent: query_quota
-  - action: form_query_quota
-  - active_loop: form_query_quota
-  - slot_was_set:
-    - username: marc
-  - slot_was_set:
-    - requested_slot: password
-  - intent: out_of_scope
-  - action: form_query_quota
-  - slot_was_set:
-    - password: marc
-  - slot_was_set:
-    - requested_slot: null
-  - active_loop: null
-  - action: utter_wait
   - action: action_fetch_quota
-  - slot_was_set:
-    - password: null
 
-- story: Story from Conversation ID 9d86a76624dc4d22975bfe531a463a69
+- story: Story from Conversation ID 6631e0835f634e528b340e1b0be33201
   steps:
-  - intent: change_language
-  - action: action_change_language
-  - intent: set_language
-    entities:
-    - language: French
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
   - slot_was_set:
-    - language: French
-  - action: action_set_language
+    - requested_slot: username
+  - intent: out_of_scope
+  - action: form_log_in
   - slot_was_set:
-    - language: French
-  - intent: thanks
-  - action: utter_youare_welcome
+    - username: chris
+  - intent: out_of_scope
+  - action: form_log_in
+  - active_loop: null
+  - slot_was_set:
+    - password: secret
+  - action: action_logged_in
+  - intent: query_quota
+  - action: action_fetch_quota

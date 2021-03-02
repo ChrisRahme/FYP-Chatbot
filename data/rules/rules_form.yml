@@ -1,0 +1,21 @@
+version: "2.0"
+
+rules:
+
+- rule: Activate log_in form
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in # Keep requesting form slots until they're filled in
+
+- rule: Submit log_in form
+  condition: # Condition that form is active
+  - active_loop: form_log_in
+  steps:
+  - action: form_log_in
+  - active_loop: null # Stop the form
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - password: secret
+  - action: action_logged_in
