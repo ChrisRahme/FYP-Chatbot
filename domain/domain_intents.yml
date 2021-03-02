@@ -10,25 +10,25 @@ intents:
 - confirm_exists:
     use_entities: true
 - greet:
-    use_entities: true
+    use_entities: false
 - goodbye:
-    use_entities: true
+    use_entities: false
 - how_are_you:
-    use_entities: true
+    use_entities: false
 - affirm:
-    use_entities: true
+    use_entities: false
 - deny:
-    use_entities: true
+    use_entities: false
 - stop:
-    use_entities: true
+    use_entities: false
 - mood_great:
-    use_entities: true
+    use_entities: false
 - mood_unhappy:
-    use_entities: true
+    use_entities: false
 - bot_challenge:
-    use_entities: true
+    use_entities: false
 - demand_joke:
-    use_entities: true
+    use_entities: false
 - out_of_scope:
     use_entities: true
 - change_language:
@@ -38,11 +38,11 @@ intents:
 - query_quota:
     use_entities: true
 - faq:
-    use_entities: true
+    use_entities: false
 - thanks:
-    use_entities: true
+    use_entities: false
 - forgot_credentials:
-    use_entities: true
+    use_entities: false
 - log_in:
     use_entities: true
 - inform_product_type:
