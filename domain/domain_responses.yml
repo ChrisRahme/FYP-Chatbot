@@ -1,3 +1,12 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents: []
+entities: []
+slots: {}
 responses:
   utter_greet_en:
   - text: Hi, I’m GDS automated virtual assistant. How can I help you today?
@@ -129,7 +138,7 @@ responses:
   - text: Ravi d'aider! Puis-je aider avec autre chose?
   - text: Je vous en prie! Que puis-je faire d'autre pour vous?
   - text: Aucun souci. Puis-je aider avec autre chose?
-  - text: Pas de problème! Avez-vous besoin d'aide pour autre chose? 
+  - text: Pas de problème! Avez-vous besoin d'aide pour autre chose?
   utter_youare_welcome_ar:
   - text: على الرحب والسعة! كيف لا يزال بإمكاني المساعدة؟
   - text: لايوجد اي مشكلة. ما الذي يمكنني أن أفعله من أجلك؟
@@ -144,3 +153,6 @@ responses:
   - text: Խնդրեմ! Ինչ կարող եմ անել քեզ համար?
   - text: Ոչ մի խնդիր. Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
   - text: Ոչ մի խնդիր! Ուրիշի՞ն օգնության կարիք ունեք?
+actions: []
+forms: {}
+e2e_actions: []

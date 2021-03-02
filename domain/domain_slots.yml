@@ -1,3 +1,11 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents: []
+entities: []
 slots:
   out_of_scope:
     type: rasa.shared.core.slots.TextSlot
@@ -200,7 +208,7 @@ responses:
   - text: Ravi d'aider! Puis-je aider avec autre chose?
   - text: Je vous en prie! Que puis-je faire d'autre pour vous?
   - text: Aucun souci. Puis-je aider avec autre chose?
-  - text: Pas de problème! Avez-vous besoin d'aide pour autre chose? 
+  - text: Pas de problème! Avez-vous besoin d'aide pour autre chose?
   utter_youare_welcome_ar:
   - text: على الرحب والسعة! كيف لا يزال بإمكاني المساعدة؟
   - text: لايوجد اي مشكلة. ما الذي يمكنني أن أفعله من أجلك؟
