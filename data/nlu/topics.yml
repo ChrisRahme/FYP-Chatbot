@@ -1,0 +1,55 @@
+version: "2.0"
+nlu:
+# Wireless - Internet - CableVision TV - DSL
+- intent: inform_product_type
+  examples: |
+    - [wireless](product_type)
+    - [internet](product_type)
+    - [cablevision](product_type)
+    - [dsl](product_type)
+# Consumer/Residential - Small Business - Bank
+- intent: inform_account_type
+  examples: |
+    - [consumer](account_type)
+    - [small business](account_type)
+    - [bank](account_type)
+# Billing, plans & equipment setup - Payments - Shopping - Order Status - Moving or changing service - Troubleshooting & repairs - Online account & sign-in help
+- intent: inform_topic_type
+  examples: |
+    - [setup](topic_type)
+    - [payments](topic_type)
+    - [shopping](topic_type)
+    - [order](topic_type)
+    - [changing](topic_type)
+    - [troubleshooting](topic_type)
+    - [account](topic_type)
+- intent: need_help
+  examples: |
+    - i need help
+    - help me plz
+    - help please
+    - how can u help
+    - what can you do?
+    - j'ai besoin d'aide
+    - aide moi stp
+    - Aidez-moi, s'il vous plaît
+    - comment pouvez-vous aider
+    - comment tu peux m'aider
+    - Que pouvez-vous faire
+    - keske tu peux faire?
+    - se3edne plz
+    - chou fik ta3moul
+    - kif fik tse3edne
+    - kif fike tse3dine?
+    - 3ande machekil
+    - bade mouse3ade
+    - انا بحاجة الى مساعدة
+    - الرجاء مساعدتي
+    - ساعدنى من فضلك
+    - كيف يمكنك المساعدة
+    - ما الذي تستطيع القيام به
+    - ես օգնության կարիք ունեմ
+    - օգնիր ինձ plz
+    - օգնեք խնդրում եմ
+    - ինչպե՞ս կարող ես օգնել
+    - ինչ կարող ես դու անել
