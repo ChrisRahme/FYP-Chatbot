@@ -144,6 +144,54 @@ slots:
     - changing
     - troubleshooting
     - account
+  a_noise:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  b_modem_on:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  c_modem_led_green:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  d_nb_phones:
+    type: float
+    initial_value: null
+    auto_fill: false
+  e_nb_sockets:
+    type: float
+    initial_value: null
+    auto_fill: false
+  f_splitter_installed:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  g_rj_plugged:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  h_modem_led_green:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  i_other_plug:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  j_other_modem:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  k_has_pbx:
+    type: bool
+    initial_value: null
+    auto_fill: false
+  l_has_line:
+    type: bool
+    initial_value: null
+    auto_fill: false
   requested_slot:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -323,4 +371,103 @@ forms:
     - intent_name: None
       not_intent: stop
       type: from_text
+  form_troubleshoot_internet:
+    a_noise:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    b_modem_on:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    c_modem_led_green:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    d_nb_phones:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    e_nb_sockets:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    f_splitter_installed:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    g_rj_plugged:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    h_modem_led_green:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    i_other_plug:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    j_other_modem:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    k_has_pbx:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
+    l_has_line:
+    - type: from_intent
+      intent: affirm
+      value: True
+      not_intent: stop
+    - type: from_intent
+      intent: deny
+      value: False
+      not_intent: stop
 e2e_actions: []
