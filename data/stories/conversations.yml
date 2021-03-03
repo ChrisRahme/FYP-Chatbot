@@ -1,7 +1,5 @@
 version: "2.0"
-
 stories:
-
 - story: Story from Conversation ID f46aaf60042341619e90c9b454aa58e9
   steps:
   - intent: greet
@@ -25,7 +23,7 @@ stories:
   - action: action_logged_in
   - intent: query_quota
   - action: action_fetch_quota
-
+  
 - story: Story from Conversation ID 6631e0835f634e528b340e1b0be33201
   steps:
   - intent: log_in
@@ -45,3 +43,35 @@ stories:
   - action: action_logged_in
   - intent: query_quota
   - action: action_fetch_quota
+
+- story: Story from Conversation ID 2cb79ef0363f4e95bd9b2a13a5dae8bb
+  steps:
+  - intent: change_language
+  - action: action_utter_change_language
+  - intent: set_language
+    entities:
+    - language: french
+  - slot_was_set:
+    - language: french
+  - action: action_set_language
+  - action: action_utter_greet
+  - intent: inform_service_type
+    entities:
+    - service_type: internet
+  - slot_was_set:
+    - service_type: internet
+  - action: action_utter_account_types
+  - intent: inform_account_type
+    entities:
+    - account_type: consumer
+  - slot_was_set:
+    - account_type: consumer
+  - action: action_utter_topic_types
+  - intent: inform_topic_type
+    entities:
+    - topic_type: billing
+  - slot_was_set:
+    - topic_type: billing
+  - action: action_utter_topic_samples
+  - intent: faq
+  - action: utter_faq/check_bill

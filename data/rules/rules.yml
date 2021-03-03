@@ -5,7 +5,7 @@ rules:
 - rule: Show language buttons
   steps:
   - intent: change_language
-  - action: action_change_language
+  - action: action_utter_change_language
 
 - rule: Set new language
   steps:
@@ -15,4 +15,29 @@ rules:
 - rule: Redirect the user to account recovery
   steps:
   - intent: forgot_credentials
-  - action: action_recover_credentials
+  - action: action_utter_recover_credentials
+
+- rule: Ask about service type
+  steps:
+  - intent: ask_service_types
+  - action: action_utter_greet
+
+- rule: Ask about account types
+  steps:
+  - intent: ask_account_types
+  - action: action_utter_account_types
+
+- rule: Ask about chat topics
+  steps:
+  - intent: ask_topic_types
+  - action: action_utter_topic_types
+
+- rule: Choose account type
+  steps:
+  - intent: inform_service_type
+  - action: action_utter_account_types
+
+- rule: Choose chat topic
+  steps:
+  - intent: inform_account_type
+  - action: action_utter_topic_types
