@@ -2,7 +2,7 @@ version: '2.0'
 config:
   store_entities_as_slots: true
 session_config:
-  session_expiration_time: 300
+  session_expiration_time: 600
   carry_over_slots_to_new_session: true
 intents:
 - get_weather:
@@ -45,7 +45,7 @@ intents:
     use_entities: []
 - log_in:
     use_entities: []
-- inform_product_type:
+- inform_service_type:
     use_entities: true
 - inform_topic_type:
     use_entities: true
@@ -58,7 +58,7 @@ entities:
 - pokemon_name
 - person_name
 - language
-- product_type
+- service_type
 - topic_type
 - account_type
 slots:
@@ -112,23 +112,40 @@ slots:
     - username
     - l_number
     - phone_number
-  product_type:
-    type: rasa.shared.core.slots.TextSlot
+  service_type:
+    type: rasa.shared.core.slots.CategoricalSlot
     initial_value: null
     auto_fill: true
-    influence_conversation: false
-  topic_type:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
+    influence_conversation: true
+    values:
+    - wireless
+    - internet
+    - dsl
+    - cablevision
   account_type:
-    type: rasa.shared.core.slots.TextSlot
+    type: rasa.shared.core.slots.CategoricalSlot
     initial_value: null
     auto_fill: true
-    influence_conversation: false
+    influence_conversation: true
+    values:
+    - consumer
+    - business
+    - bank
+  topic_type:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - billing
+    - payments
+    - shopping
+    - order
+    - changing
+    - troubleshooting
+    - account
   requested_slot:
-    type: rasa.shared.core.slots.UnfeaturizedSlot
+    type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
     influence_conversation: false
@@ -282,16 +299,19 @@ actions:
 - action_utter_greet
 - action_utter_goodbye
 - action_utter_youre_welcome
+- action_utter_account_types
+- action_utter_topic_types
+- action_utter_topic_samples
+- action_utter_change_language
 - action_logged_in
 - action_out_of_scope
-- action_change_language
 - action_set_language
 - action_check_existence
 - action_check_weather
 - action_fetch_quota
 - action_ask_username
 - action_ask_password
-- action_recover_credentials
+- action_utter_recover_credentials
 - validate_form_log_in
 forms:
   form_log_in:
