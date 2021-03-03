@@ -48,6 +48,7 @@ nlu:
     - change la lnague
     - change la lnagie
     - est ce que tu parle francais
+    - i wanf to chanfe the lang
 - intent: set_language
   examples: |
     - Set language to [English](language)
@@ -55,3 +56,4 @@ nlu:
     - Set language to [Arabic](language)
     - Set language to [Armenian](language)
     - set language to [french](language)
+    - [french](language)

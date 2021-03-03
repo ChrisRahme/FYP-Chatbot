@@ -17,6 +17,7 @@ nlu:
     - yo
     - sup
     - wassup
+    - wazzap
     - hello again
     - bonjour
     - salut
@@ -67,6 +68,8 @@ nlu:
     - bye bye
     - see you later
     - well, goodbye then!
+    - cya
+    - ciao
     - au revoir
     - a plus
     - à bientôt
@@ -132,9 +135,11 @@ nlu:
     - yas
     - yes thank you!
     - yes please
+    - thats right
     - ok
     - okay
     - okie dokie
+    - deal
     - oui
     - wesh
     - ouais
@@ -146,6 +151,7 @@ nlu:
     - oui stp
     - oui merci
     - ouais ok
+    - c'est juste
     - eh
     - na3am
     - akid
@@ -304,6 +310,9 @@ nlu:
     - am I talking to a human?
     - what's your name
     - who are you
+    - am I talking to an actual person?
+    - you're a bot aren't you?
+    - are you even a real person?
     - test
     - Etes-vous un robot?
     - est-tu un robot?

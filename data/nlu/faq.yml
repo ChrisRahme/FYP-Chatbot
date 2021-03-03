@@ -1,5 +1,5 @@
 version: "2.0"
-nlu: # https://rasa.com/docs/rasa/chitchat-faqs
+nlu:
 - intent: faq/buy_prepaid_card
   examples: |
     - From where we can purchase a prepaid card?
@@ -7,21 +7,19 @@ nlu: # https://rasa.com/docs/rasa/chitchat-faqs
     - how do i but adsl prepaid?
     - i want to buy 4G prepaid card
     - hpw can i but fiber optic card
-
 - intent: faq/get_bill
   examples: |
     - How can I get my bill?
     - how to get bill
     - i want to get my bill
     - get bill
-
 - intent: faq/check_bill
   examples: |
     - How can I check my bill?
     - how to check bill
     - i want to check my bill
     - check bill
-
+    - how can i check my bill
 - intent: faq/available_payment_methods
   examples: |
     - What are the payment methods available?
@@ -29,7 +27,6 @@ nlu: # https://rasa.com/docs/rasa/chitchat-faqs
     - how to pay
     - what are payment methods
     - i want to pay
-
 - intent: faq/change_payment_method
   examples: |
     - How can I change my payment method?

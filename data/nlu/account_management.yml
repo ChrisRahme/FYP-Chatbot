@@ -51,13 +51,17 @@ nlu:
 - intent: log_in
   examples: |
     - i want to log in
+    - i want to sign in
     - login
     - sign in
     - signin
+    - yes log in
+    - yes sign in
     - je veux me connecter
     - je veux sign in
     - connexion
     - s'identifier
+    - je veux m'indentifier
     - identification
     - bade a3moul log in
     - bade a3tik el username

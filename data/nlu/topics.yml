@@ -1,28 +1,184 @@
 version: "2.0"
 nlu:
-# Wireless - Internet - CableVision TV - DSL
-- intent: inform_product_type
+- intent: ask_service_types
   examples: |
-    - [wireless](product_type)
-    - [internet](product_type)
-    - [cablevision](product_type)
-    - [dsl](product_type)
-# Consumer/Residential - Small Business - Bank
+    - what are your services
+    - what services do u offer
+    - what r the services
+    - what are the services you offer
+    - change service type
+    - no change the type of service
+    - the servie type is wrong
+    - quels sont vos services
+    - quels services offrez-vous
+    - quels sont les services
+    - quels sont les services que vous proposez
+    - qu'est-ce que vous avez comme service
+    - keske vous avez comme services
+    - changer le type de service
+    - change le type de service
+    - le type de service est faux
+    - la2 mech hayda el service type
+    - el service type ghalat
+    - ghayir el service type
+    - ما هي خدماتك
+    - ما هي الخدمات التي تقدمها
+    - ما هي الخدمات
+    - ما الخدمة التي لديك
+    - تغيير نوع الخدمة
+    - نوع الخدمة خاطئ
+    - որոնք են ձեր ծառայությունները
+    - ինչ ծառայություններ եք առաջարկում
+    - որոնք են ծառայությունները
+    - ինչ ծառայություն ունեք
+    - keske դուք ունեք որպես ծառայություններ
+    - փոխել ծառայության տեսակը
+    - ծառայության տեսակը սխալ է
+- intent: inform_service_type
+  examples: |
+    - [wireless](service_type)
+    - [internet](service_type)
+    - [Cablevision TV]{"entity": "service_type", "value": "cablevision"}
+    - [cablevision](service_type)
+    - [tv]{"entity": "service_type", "value": "cablevision"}
+    - [dsl internet]{"entity": "service_type", "value": "dsl"}
+    - [dsl](service_type)
+- intent: ask_account_types
+  examples: |
+    - i am not a business
+    - no not bank
+    - no not consumer
+    - change account type
+    - change type of account
+    - no i want the change the type of the account
+    - the account type is wrong
+    - incorrect account type
+    - i want to select account type
+    - je ne suis pas une entreprise
+    - non pas banque
+    - non pas consommateur
+    - changer de type de compte
+    - change le type de compte
+    - non je veux changer le type de compte
+    - le type de compte est faux
+    - type de compte incorrect
+    - la2 mech hayda el account type
+    - el account type ghalat
+    - ghayir el account type
+    - أنا لست صاحب عمل
+    - لا ليس بنك
+    - لا ليس مستهلكًا
+    - تغيير نوع الحساب
+    - أريد تغيير نوع الحساب
+    - نوع الحساب خاطئ
+    - نوع الحساب غير صحيح
+    - ես բիզնես չեմ
+    - ոչ ոչ բանկ
+    - ոչ սպառող
+    - փոխել հաշվի տեսակը
+    - ոչ, ես ուզում եմ փոխել հաշվի տեսակը
+    - հաշվի տեսակը սխալ է
+    - հաշվի սխալ տեսակը
 - intent: inform_account_type
   examples: |
+    - [Consumer / Residential]{"entity": "account_type", "value": "consumer"}
     - [consumer](account_type)
-    - [small business](account_type)
-    - [bank](account_type)
-# Billing, plans & equipment setup - Payments - Shopping - Order Status - Moving or changing service - Troubleshooting & repairs - Online account & sign-in help
+    - [residential]{"entity": "account_type", "value": "consumer"}
+    - [Small Business]{"entity": "account_type", "value": "business"}
+    - [business](account_type)
+    - [Bank]{"entity": "account_type", "value": "bank"}
+    - /inform_account_type{"account_type": "consumer"}
+- intent: ask_topic_types
+  examples: |
+    - no this is not the topic
+    - change the topic
+    - change subject
+    - what can we talk about
+    - what are the topics
+    - what r the other subjects
+    - oops sorry i pressed the wrong topic
+    - this is not the topic
+    - change topic type
+    - topic type incorrect
+    - no no not this topics
+    - ok another topic
+    - i want to see yhe topics again
+    - what are all the topics
+    - non ce n'est pas le sujet
+    - change de topic
+    - non c'est pas le bon topic
+    - change de sujet
+    - de quoi pouvons-nous parler
+    - de quoi on peut parler
+    - c quoi les autres topics
+    - quels sont les sujets
+    - oups désolé j'ai appuyé sur le mauvais sujet
+    - sorry j'ai pressé le mauvais topic
+    - ce n'est pas le sujet
+    - change le type de sujet
+    - type de sujet incorrect
+    - non non pas ce sujet
+    - non pas ce topic
+    - ok un autre sujet
+    - je veux revoir vos sujets
+    - cest quoi les autres sujets
+    - quels sont tous les sujets
+    - لا هذا ليس الموضوع
+    - غير الموضوع
+    - ما الذي يمكن أن نتحدث عنه
+    - ما هي المواضيع
+    - عفوًا ، لقد ضغطت على الموضوع الخطأ
+    - هذا ليس الموضوع
+    - تغيير نوع الموضوع
+    - نوع الموضوع غير صحيح
+    - لا لا ليس هذه المواضيع
+    - طيب موضوع آخر
+    - أريد أن أرى المواضيع مرة أخرى
+    - ما هي كل المواضيع
+    - ոչ, սա թեման չէ
+    - փոխել թեման
+    - ինչի՞ մասին կարելի է խոսել
+    - որոնք են թեմաները
+    - վայ, կներեք, ես սխալ թեմա եմ սեղմել
+    - սա թեման չէ
+    - փոխել թեմայի տեսակը
+    - թեմայի տեսակը սխալ է
+    - ոչ ոչ ոչ այս թեմաները
+    - լավ մեկ այլ թեմա
+    - Ես ուզում եմ նորից տեսնել թեմաները
+    - որոնք են բոլոր թեմաները
 - intent: inform_topic_type
   examples: |
-    - [setup](topic_type)
-    - [payments](topic_type)
-    - [shopping](topic_type)
+    - [Billing, plans & equipment setup]{"entity": "topic_type", "value": "billing"}
+    - [billing plans]{"entity": "topic_type", "value": "billing"}
+    - [billing](topic_type)
+    - [plans]{"entity": "topic_type", "value": "billing"}
+    - [equipment]{"entity": "topic_type", "value": "billing"}
+    - [setup]{"entity": "topic_type", "value": "billing"}
+    - [equipment setup]{"entity": "topic_type", "value": "billing"}
+    - [Payments]{"entity": "topic_type", "value": "payments"}
+    - [payment](topic_type)
+    - [Shopping]{"entity": "topic_type", "value": "shopping"}
+    - [shop]{"entity": "topic_type", "value": "shopping"}
+    - [Order Status]{"entity": "topic_type", "value": "order"}
     - [order](topic_type)
+    - [status]{"entity": "topic_type", "value": "order"}
+    - [Moving or Changing Service]{"entity": "topic_type", "value": "changing"}
+    - [moving]{"entity": "topic_type", "value": "changing"}
+    - [moving or changing]{"entity": "topic_type", "value": "changing"}
     - [changing](topic_type)
+    - [Troubleshooting & Repairs]{"entity": "topic_type", "value": "troubleshooting"}
     - [troubleshooting](topic_type)
+    - [troubleshoot]{"entity": "topic_type", "value": "troubleshooting"}
+    - [repairs]{"entity": "topic_type", "value": "troubleshooting"}
+    - [repair]{"entity": "topic_type", "value": "troubleshooting"}
+    - [Online Account & Sign-in Help]{"entity": "topic_type", "value": "account"}
     - [account](topic_type)
+    - [online]{"entity": "topic_type", "value": "account"}
+    - [sign-in]{"entity": "topic_type", "value": "account"}
+    - [sign in]{"entity": "topic_type", "value": "account"}
+    - [online account]{"entity": "topic_type", "value": "account"}
+    - [sign in help]{"entity": "topic_type", "value": "account"}
 - intent: need_help
   examples: |
     - i need help
@@ -53,3 +209,58 @@ nlu:
     - օգնեք խնդրում եմ
     - ինչպե՞ս կարող ես օգնել
     - ինչ կարող ես դու անել
+- synonym: cablevision
+  examples: |
+    - Cablevision TV
+    - tv
+- synonym: dsl
+  examples: |
+    - dsl internet
+- synonym: consumer
+  examples: |
+    - Consumer / Residential
+    - residential
+- synonym: business
+  examples: |
+    - Small Business
+- synonym: bank
+  examples: |
+    - Bank
+- synonym: billing
+  examples: |
+    - Billing, plans & equipment setup
+    - billing plans
+    - plans
+    - equipment
+    - setup
+    - equipment setup
+- synonym: payments
+  examples: |
+    - Payments
+- synonym: shopping
+  examples: |
+    - Shopping
+    - shop
+- synonym: order
+  examples: |
+    - Order Status
+    - status
+- synonym: changing
+  examples: |
+    - Moving or Changing Service
+    - moving
+    - moving or changing
+- synonym: troubleshooting
+  examples: |
+    - Troubleshooting & Repairs
+    - troubleshoot
+    - repairs
+    - repair
+- synonym: account
+  examples: |
+    - Online Account & Sign-in Help
+    - online
+    - sign-in
+    - sign in
+    - online account
+    - sign in help
