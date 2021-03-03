@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Text, Optional
 
 from rasa_sdk import Action, FormValidationAction, Tracker
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import ActionReverted, AllSlotsReset, SlotSet, FollowupAction, ReminderCancelled, ReminderScheduled, SessionStarted, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
@@ -89,9 +89,16 @@ def announce(action, tracker = None):
 
 
 
-def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
+def get_text_from_lang(tracker, utter_en = '', utter_fr = None, utter_ar = None, utter_hy = None):
     current_language = 'English'
     utterance = utter_en
+
+    if not utter_fr:
+        utter_fr = utterance
+    if not utter_ar:
+        utter_ar = utterance
+    if not utter_hy:
+        utter_hy = utterance
 
     try:
         current_language = tracker.slots['language'].title()
@@ -102,7 +109,7 @@ def get_utter_from_lang(tracker, utter_en, utter_fr, utter_ar, utter_hy):
         elif current_language == 'Armenian':
             utterance = utter_hy
     except Exception as e:
-        print(f'\n> get_utter_from_lang: [ERROR] {e}')
+        print(f'\n> get_text_from_lang: [ERROR] {e}')
 
     return utterance
 
@@ -129,6 +136,33 @@ def get_template_from_lang(tracker, template):
 
 
 
+def get_buttons_from_lang(tracker, titles_en, titles_fr, titles_ar, titles_hy, payloads):
+    current_language = 'English'
+    length  = len(payloads)
+    buttons = []
+
+    try:
+        current_language = tracker.slots['language'].title()
+        if current_language == 'French':
+            for i in range(length):
+                buttons.append({'title': titles_fr[i], 'payload': payloads[i]})
+        elif current_language == 'Arabic':
+            for i in range(length):
+                buttons.append({'title': titles_ar[i], 'payload': payloads[i]})
+        elif current_language == 'Armenian':
+            for i in range(length):
+                buttons.append({'title': titles_hy[i], 'payload': payloads[i]})
+        else:
+            for i in range(length):
+                buttons.append({'title': titles_en[i], 'payload': payloads[i]})
+        print(f'\n> get_buttons_from_lang: {buttons}')
+    except Exception as e:
+        print(f'\n> get_buttons_from_lang: [ERROR] {e}')
+
+    return buttons
+
+
+
 ####################################################################################################
 # SLOTS                                                                                            #
 ####################################################################################################
@@ -141,12 +175,12 @@ class ActionAskUsername(Action):
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        utterance = get_utter_from_lang(
+        utterance = get_text_from_lang(
             tracker,
-            'Please enter your username.',
-            'S\'il vous plaît entrez votre nom d\'utilisateur.',
-            '.(username) الرجاء إدخال اسم المستخدم',
-            'Խնդրում ենք մուտքագրել ձեր օգտվողի անունը: (username).'
+            'Please enter your Username, L Number, or Phone Number.',
+            'S\'il vous plaît entrez votre Nom d\'Utilisateur, L Number, ou Numéro de Téléphone.',
+            '.(Username أو L Number أو Phone Number) الرجاء إدخال اسم المستخدم',
+            'Խնդրում ենք մուտքագրել ձեր օգտվողի անունը: (Username, L Number, կամ Phone Number).'
         )
         print('\nBOT:', utterance)
         dispatcher.utter_message(utterance)
@@ -160,7 +194,7 @@ class ActionAskPassword(Action):
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        utterance = get_utter_from_lang(
+        utterance = get_text_from_lang(
             tracker,
             'Please enter your password.',
             'S\'il vous plaît entrez votre mot de passe.',
@@ -218,7 +252,7 @@ class ValidateFormLogIn(FormValidationAction):
                 return {'username': username, 'loggedin': False, 'login_type': login_type}
 
             elif count == 0:
-                utterance = get_utter_from_lang(
+                utterance = get_text_from_lang(
                     tracker,
                     'Sorry, {} is not a registered Username, L Number, of Phone Number.'.format(username),
                     'Désolé, {} n\'est pas un Utilisateur, L Number, ou Numéro de Téléphone enregistré.'.format(username),
@@ -237,7 +271,7 @@ class ValidateFormLogIn(FormValidationAction):
                 return {'username': None, 'loggedin': False, 'login_type': None}
         
         else: # Already logged in
-            utterance = get_utter_from_lang(
+            utterance = get_text_from_lang(
                 tracker,
                 'You are already logged in. If you want to log out, please say "log out".',
                 'Vous êtes déjà connecté. Si vous souhaitez vous déconnecter, veuillez dire «déconnexion» ou «log out».',
@@ -265,7 +299,7 @@ class ValidateFormLogIn(FormValidationAction):
                 return {'password': 'secret', 'loggedin': True}
 
             else:
-                utterance = get_utter_from_lang(
+                utterance = get_text_from_lang(
                     tracker,
                     'Sorry, you entered an incorrect password for {}.'.format(username),
                     'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
@@ -278,7 +312,7 @@ class ValidateFormLogIn(FormValidationAction):
 
         else: # Already logged in
             username = tracker.get_slot('username')
-            utterance = get_utter_from_lang(
+            utterance = get_text_from_lang(
                     tracker,
                     'You are logged in as {}.'.format(username),
                     'Vous êtes connecté en tant que {}'.format(username),
@@ -308,7 +342,22 @@ class ActionUtterGreet(Action):
         return 'action_utter_greet'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_greet'))
+        template = get_template_from_lang(tracker, 'utter_greet')
+        buttons  = get_buttons_from_lang(
+            tracker,
+            ['Wireless', 'Internet', 'DSL Internet', 'CableVision TV'],
+            ['Sans Fil', 'Internet', 'Internet DSL', 'CableVision TV'],
+            ['لاسلكي','إنترنت','DSL إنترنت','تلفزيون الكابل'],
+            ['Անլար', 'Ինտերնետ', 'DSL ինտերնետ', 'CableVision TV'],
+            [
+                '/inform_service_type{"service_type": "wireless"}',
+                '/inform_service_type{"service_type": "internet"}',
+                '/inform_service_type{"service_type": "dsl"}',
+                '/inform_service_type{"service_type": "cablevision"}'
+            ]
+        )
+        print('\nBOT: {utter_greet}')
+        dispatcher.utter_message(template = template, buttons = buttons)
         return []
 
 
@@ -339,9 +388,39 @@ class ActionUtterYoureWelcome(Action):
 
 
 
-class ActionRecoverCredentials(Action):
+class ActionUtterChangeLanguage(Action):
     def name(self):
-        return 'action_recover_credentials'
+        return 'action_utter_change_language'
+    
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+
+        buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
+            {'title': 'English',  'payload': '/set_language{"language": "English"}'},
+            {'title': 'Français', 'payload': '/set_language{"language": "French"}'},
+            {'title': 'عربي',     'payload': '/set_language{"language": "Arabic"}'},
+            {'title': 'հայերեն',  'payload': '/set_language{"language": "Armenian"}'}
+        ]
+        
+        text = get_text_from_lang(
+            tracker,
+            'Choose a language:',
+            'Choisissez une langue:',
+            ':اختر لغة',
+            'Ընտրեք լեզու ՝'
+        )            
+        
+        print('\nBOT:', text, buttons)
+        dispatcher.utter_message(text = text, buttons = buttons)
+
+        return []
+
+
+
+class ActionUtterRecoverCredentials(Action):
+    def name(self):
+        return 'action_utter_recover_credentials'
 
 
     def run(self, dispatcher, tracker, domain):
@@ -349,7 +428,7 @@ class ActionRecoverCredentials(Action):
         url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
         url = '\n\n' + url
 
-        utterance = get_utter_from_lang(
+        utterance = get_text_from_lang(
             tracker,
             'If you need help recovering your IDM ID or your password, click on the link below:',
             'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
@@ -374,7 +453,7 @@ class ActionLoggedIn(Action):
             username = tracker.get_slot('username')
             login_type = tracker.get_slot('login_type').replace('_', ' ')
 
-            utterance = get_utter_from_lang(
+            utterance = get_text_from_lang(
                 tracker,
                 'You are logged in with {} being {}'.format(login_type, username),
                 'Vous êtes connecté avec {} étant {}'.format(login_type, username),
@@ -388,38 +467,191 @@ class ActionLoggedIn(Action):
 
 
 
-####################################################################################################
-# ACTIONS                                                                                          #
-####################################################################################################
-
-
-
-class ActionChangeLanguage(Action):
+class ActionUtterAccountTypes(Action):
     def name(self):
-        return 'action_change_language'
-    
+        return 'action_utter_account_types'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            'Which account type are you asking about?',
+            'Quel type de compte avez-vous?',
+            'ما نوع الحساب الذي تسأل عنه؟',
+            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'
+        )
+        buttons  = get_buttons_from_lang(
+            tracker,
+            ['Consumer / Residential', 'Small Business', 'Bank'],
+            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
+            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
+            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ'],
+            [
+                '/inform_account_type{"account_type": "consumer"}',
+                '/inform_account_type{"account_type": "business"}',
+                '/inform_account_type{"account_type": "bank"}'
+            ]
+        )
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text, buttons = buttons)
+        return []
+
+
+
+class ActionUtterTopicTypes(Action):
+    def name(self):
+        return 'action_utter_topic_types'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            'Choose a topic to chat about:',
+            'Choisissez un sujet de discussion:',
+            'اختر موضوعًا للمناقشة:',
+            'Ընտրեք քննարկման թեմա:'
+        )
+        buttons  = get_buttons_from_lang(
+            tracker,
+            ['Billing, Plans & Equipment Setup', 'Payments', 'Shopping', 'Order Status', 'Moving or Changing Service', 'Troubleshooting & Repairs', 'Online Account & Sign-in Help'],
+            ['Facturation, Plans et Configuration de l\'Équipement', 'Paiements', 'Achats', 'Statut de Commande', 'Déménagement ou Changement de Service', 'Dépannage et Réparations', 'Compte en Ligne et Aide à la Connexion'],
+            ['إعداد الفواتير والخطط والمعدات', 'المدفوعات', 'التسوق', 'حالة الطلب', 'نقل أو تغيير الخدمة', 'استكشاف الأخطاء وإصلاحها والإصلاحات', 'حساب عبر الإنترنت وتعليمات تسجيل الدخول'],
+            ['Վճարների, պլանների և սարքավորումների տեղադրում', 'Վճարներ', 'Գնումներ', 'Պատվերի կարգավիճակ', 'Շարժվող կամ փոխելու ծառայություն', 'Խնդիրների լուծում և վերանորոգում', 'Առցանց հաշվի և մուտքի օգնություն'],
+            [
+                '/inform_topic_type{"topic_type": "billing"}',
+                '/inform_topic_type{"topic_type": "payments"}',
+                '/inform_topic_type{"topic_type": "shopping"}',
+                '/inform_topic_type{"topic_type": "order"}',
+                '/inform_topic_type{"topic_type": "changing"}',
+                '/inform_topic_type{"topic_type": "troubleshooting"}',
+                '/inform_topic_type{"topic_type": "account"}'
+            ]
+        )
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text, buttons = buttons)
+        return []
+
+
+
+class ActionUtterTopicSamples(Action):
+    def name(self):
+        return 'action_utter_topic_samples'
+
+
+    def get_sample_questions(self, topic_type, account_type, service_type):
+        examples_en = [
+            'sample question 1',
+            'sample question 2',
+            'sample question 3'
+        ]
+        examples_fr = examples_en
+        examples_ar = examples_en
+        examples_hy = examples_en
+
+        if topic_type == 'billing' or topic_type == 'payment':
+            examples_en = [
+                'Where can I purchase a prepaid card?',
+                'How can I get my bill?',
+                'How can I check my bill?',
+                'What are the available payment methods?',
+                'How can I change my payment method?'
+            ]
+            examples_fr = examples_en
+            examples_ar = examples_en
+            examples_hy = examples_en
+
+        elif topic_type == 'account':
+            examples_en = [
+                'I forgot my username',
+                'I don\'t know my password',
+                'I\'m having trouble logging in'
+            ]
+            examples_fr = [
+                'J\'ai oublié mon nom d\'utilisateur',
+                'Je ne connais pas mon mot de passe',
+                'Je n\'arrive pas à m\'identifier'
+            ]
+            examples_ar = [
+                'لقد نسيت اسم المستخدم',
+                'نسيت كلمة المرور',
+                'أحتاج إلى مساعدة في تسجيل الدخول'
+            ]
+            examples_hy = [
+                'Մոռացել եմ օգտանունս',
+                'Ես մոռացել եմ իմ գաղտնաբառը',
+                'ինձ անհրաժեշտ է մուտք գործել'
+            ]
+
+        elif topic_type == 'troubleshooting':
+            examples_en = [
+                'I don\'t have Internet'
+                'My Internet is slow'
+            ]
+            examples_fr = [
+                'Je n\'ai pas Internet'
+                'Ma connexion est lente'
+            ]
+            examples_ar = examples_en
+            examples_hy = examples_en
+
+        return examples_en, examples_fr, examples_ar, examples_hy
+
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
+        service_type = tracker.get_slot('service_type') # wireless - internet - dsl - cablevision
+        account_type = tracker.get_slot('account_type') # consumer - business - bank
+        topic_type   = tracker.get_slot('topic_type')   # billing - payments - shopping - order - changing - troubleshooting - account
 
-        buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
-            {'title': 'English',  'payload': '/set_language{"language": "English"}'},
-            {'title': 'Français', 'payload': '/set_language{"language": "French"}'},
-            {'title': 'عربي',     'payload': '/set_language{"language": "Arabic"}'},
-            {'title': 'հայերեն',  'payload': '/set_language{"language": "Armenian"}'}
-        ]
-        
-        utterance = get_utter_from_lang(
-            tracker,
-            'Choose a language:',
-            'Choisissez une langue:',
-            ':اختر لغة',
-            'Ընտրեք լեզու ՝'
-        )            
-        
-        dispatcher.utter_message(text = utterance, buttons = buttons)
+        examples_en, examples_fr, examples_ar, examples_hy = self.get_sample_questions(topic_type, account_type, service_type)
+
+        examples_en = '\n- '.join(examples_en)
+        examples_fr = '\n- '.join(examples_fr)
+        examples_ar = '\n- '.join(examples_ar)
+        examples_hy = '\n- '.join(examples_hy)
+
+        text_en = (
+            'You chose:'
+            f'\n- Service type: {service_type}'
+            f'\n- Account type: {account_type}'
+            f'\n- Topic: {topic_type}'
+            f'\n- You can say things like:'
+            f'\n- {examples_en}'
+        )
+        text_fr = (
+            'Vous avez choisi:'
+             f'\n- Type de service: {service_type}'
+             f'\n- Type de compte: {account_type}'
+             f'\n- Topic: {topic_type}'
+            f'\nVous pouvez demander:'
+            f'\n- {examples_fr}'
+        )
+        text_ar = (
+            'اخترت:'
+            f'\n- نوع الخدمة: {service_type}'
+            f'\n- نوع الحساب: {account_type}'
+            f'\n- الموضوع: {topic_type}'
+            f'\nتستطيع أن تسأل:'
+            f'\n- {examples_ar}'
+        )
+        text_hy = (
+            'Դուք ընտրեցիք:'
+            f'\n- ծառայության տեսակը: {service_type}'
+            f'\n- Հաշվի տեսակը: {account_type}'
+            f'\n- Թեմա: {topic_type}'
+            f'\nԴու կարող ես հարցնել:'
+            f'\n- {examples_hy}'
+        )
+
+        utterance = get_text_from_lang(tracker, text_en, text_fr, text_ar, text_hy)            
+        print('\nBOT:', utterance)
+        dispatcher.utter_message(utterance)
 
         return []
+
+
+
+####################################################################################################
+# ACTIONS                                                                                          #
+####################################################################################################
 
 
 
@@ -446,8 +678,10 @@ class ActionSetLanguage(Action):
             utterance = 'I only understand English, French, Arabic, and Armenian. The language is now English.'
         
         dispatcher.utter_message(utterance)
-
-        return [] #[SlotSet('language', current_language)]
+        
+        if not tracker.get_slot('service_type'):
+            return [FollowupAction('action_utter_greet')]
+        return []
 
 
 
@@ -485,7 +719,7 @@ class ActionFetchQuota(Action):
             try:
                 quota, consumption, speed = results[0]
                 if int(quota) == -1:
-                    utterance = get_utter_from_lang(
+                    utterance = get_text_from_lang(
                         tracker,
                         'You spent {} GB of your unlimited quota this month.'.format(consumption),
                         'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
@@ -496,7 +730,7 @@ class ActionFetchQuota(Action):
                     dispatcher.utter_message(utterance)
                 else:
                     ratio = consumption*100/quota
-                    utterance = get_utter_from_lang(
+                    utterance = get_text_from_lang(
                         tracker,
                         'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
                         'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
@@ -513,7 +747,7 @@ class ActionFetchQuota(Action):
             return []
         
         else: # Not logged in
-            utterance = get_utter_from_lang(
+            utterance = get_text_from_lang(
                 tracker,
                 'You are not logged in. Please type "log in" to log in.',
                 'Vous n\'êtes pas connecté. Veuillez ecrire «connexion» ou «log in» pour vous connecter.',
@@ -553,7 +787,7 @@ class ActionFetchQuota(Action):
         try:
             quota, consumption, speed = results[0]
             if int(quota) == -1:
-                utterance = get_utter_from_lang(
+                utterance = get_text_from_lang(
                     tracker,
                     'You spent {} GB of your unlimited quota this month.'.format(consumption),
                     'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
@@ -563,7 +797,7 @@ class ActionFetchQuota(Action):
                 dispatcher.utter_message(utterance)
             else:
                 ratio = consumption*100/quota
-                utterance = get_utter_from_lang(
+                utterance = get_text_from_lang(
                     tracker,
                     'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
                     'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
