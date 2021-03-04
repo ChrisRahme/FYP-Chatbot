@@ -28,6 +28,7 @@ pipeline:
   evaluate_every_number_of_epochs: 5         # Tensorboard setting
   tensorboard_log_directory: "./.tensorboard" # Tensorboard setting
   tensorboard_log_level: "epoch"             # Tensorboard setting
+- name: RegexEntityExtractor
 - name: EntitySynonymMapper
 - name: ResponseSelector
   epochs: 31
