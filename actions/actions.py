@@ -220,10 +220,9 @@ class ValidateFormLogIn(FormValidationAction):
     
     # Custom Slot Mappings: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
-        required_slots = predefined_slots
+        required_slots = ['username', 'password']
         return required_slots
 
-    '''
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_username(self, value, dispatcher, tracker, domain):
         if not tracker.get_slot('loggedin'):
@@ -322,7 +321,6 @@ class ValidateFormLogIn(FormValidationAction):
             print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
             return {'username': username, 'password': 'secret', 'loggedin': True}
-    '''
 
 
 class ValidateFormTroubleshootInternet(FormValidationAction):
