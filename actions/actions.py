@@ -471,15 +471,15 @@ class ActionLoggedIn(Action):
                 'You are logged in with {} being {}'.format(login_type, username),
                 'Vous êtes connecté avec {} étant {}'.format(login_type, username),
                 'لقد قمت بتسجيل الدخول {} يجري {}'.format(login_type, username),
-                'Դուք մուտք եք գործել ՝}} լինելով {}'.format(login_type, username)
+                'Դուք մուտք եք գործել ՝{} լինելով {}'.format(login_type, username)
             )            
             print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
 
-            return []
-
-        else:
-            return [SlotSet('username', None), SlotSet('password', None)]
+        return []
+#
+#        else:
+#            return [SlotSet('username', None), SlotSet('password', None)]
 
 
 
