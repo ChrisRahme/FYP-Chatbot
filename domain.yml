@@ -45,14 +45,18 @@ intents:
     use_entities: []
 - log_in:
     use_entities: []
+- ask_service_types
 - inform_service_type:
     use_entities: true
+- ask_topic_types
 - inform_topic_type:
+    use_entities: true
+- ask_account_types
+- inform_account_type:
     use_entities: true
 - need_help:
     use_entities: true
-- inform_account_type:
-    use_entities: true
+- internet_problem
 entities:
 - city_name
 - pokemon_name
@@ -145,53 +149,69 @@ slots:
     - troubleshooting
     - account
   a_noise:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   b_modem_on:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   c_modem_led_green:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   d_nb_phones:
-    type: float
+    type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
   e_nb_sockets:
-    type: float
+    type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
+    max_value: 1.0
+    min_value: 0.0
   f_splitter_installed:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   g_rj_plugged:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   h_modem_led_green:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   i_other_plug:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   j_other_modem:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   k_has_pbx:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   l_has_line:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
+    influence_conversation: true
   requested_slot:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -361,6 +381,7 @@ actions:
 - action_ask_password
 - action_utter_recover_credentials
 - validate_form_log_in
+- validate_form_troubleshoot_internet
 forms:
   form_log_in:
     password:
@@ -373,32 +394,32 @@ forms:
       type: from_text
   form_troubleshoot_internet:
     a_noise:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     b_modem_on:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     c_modem_led_green:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     d_nb_phones:
     - intent_name: None
       not_intent: stop
@@ -408,66 +429,66 @@ forms:
       not_intent: stop
       type: from_text
     f_splitter_installed:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     g_rj_plugged:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     h_modem_led_green:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     i_other_plug:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     j_other_modem:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     k_has_pbx:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
     l_has_line:
-    - type: from_intent
-      intent: affirm
-      value: True
+    - intent: affirm
       not_intent: stop
-    - type: from_intent
-      intent: deny
-      value: False
+      type: from_intent
+      value: true
+    - intent: deny
       not_intent: stop
+      type: from_intent
+      value: false
 e2e_actions: []
