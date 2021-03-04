@@ -74,4 +74,4 @@ stories:
     - topic_type: billing
   - action: action_utter_topic_samples
   - intent: faq
-  - action: utter_faq/check_bill
+  - action: utter_faq
