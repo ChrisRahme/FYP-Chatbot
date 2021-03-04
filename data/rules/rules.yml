@@ -19,7 +19,9 @@ rules:
 
 - rule: Ask about service type
   steps:
-  - intent: ask_service_types
+  - or:
+    - intent: ask_service_types
+    - intent: need_help
   - action: action_utter_greet
 
 - rule: Ask about account types

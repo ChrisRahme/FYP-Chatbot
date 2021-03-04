@@ -446,9 +446,10 @@ class ActionUtterRecoverCredentials(Action):
             'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
             'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
             'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'
-        )            
-        print('\nBOT:', utterance)
-        dispatcher.utter_message(text = utterance + url)
+        )
+        text = utterance + '\n' + url
+        print('\nBOT:', text)
+        dispatcher.utter_message(text)
 
         return []
 
@@ -475,7 +476,10 @@ class ActionLoggedIn(Action):
             print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
 
-        return []
+            return []
+
+        else:
+            return [SlotSet('username', None), SlotSet('password', None)]
 
 
 
@@ -594,11 +598,11 @@ class ActionUtterTopicSamples(Action):
 
         elif topic_type == 'troubleshooting':
             examples_en = [
-                'I don\'t have Internet'
+                'I don\'t have Internet',
                 'My Internet is slow'
             ]
             examples_fr = [
-                'Je n\'ai pas Internet'
+                'Je n\'ai pas Internet',
                 'Ma connexion est lente'
             ]
             examples_ar = examples_en
@@ -625,7 +629,7 @@ class ActionUtterTopicSamples(Action):
             f'\n- Service type: {service_type}'
             f'\n- Account type: {account_type}'
             f'\n- Topic: {topic_type}'
-            f'\n- You can say things like:'
+            f'\nYou can say things like:'
             f'\n- {examples_en}'
         )
         text_fr = (

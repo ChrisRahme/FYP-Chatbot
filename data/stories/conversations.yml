@@ -75,3 +75,32 @@ stories:
   - action: action_utter_topic_samples
   - intent: faq
   - action: utter_faq
+
+- story: Story from Conversation ID 0e8404fb7f934d478a60acc06f50eaba
+  steps:
+  - intent: greet
+  - action: action_utter_greet
+  - slot_was_set:
+    - service_type: internet
+  - intent: inform_service_type
+    entities:
+    - service_type: internet
+  - action: action_utter_account_types
+  - slot_was_set:
+    - account_type: consumer
+  - intent: inform_account_type
+    entities:
+    - account_type: consumer
+  - action: action_utter_topic_types
+  - slot_was_set:
+    - topic_type: account
+  - intent: inform_topic_type
+    entities:
+    - topic_type: account
+  - action: action_utter_topic_samples
+  - intent: internet_problem
+  - action: action_default_fallback
+  - intent: forgot_credentials
+  - action: action_utter_recover_credentials
+  - intent: affirm
+  - action: action_out_of_scope

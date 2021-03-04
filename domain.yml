@@ -45,18 +45,22 @@ intents:
     use_entities: []
 - log_in:
     use_entities: []
-- ask_service_types
+- ask_service_types:
+    use_entities: true
 - inform_service_type:
     use_entities: true
-- ask_topic_types
+- ask_topic_types:
+    use_entities: true
 - inform_topic_type:
     use_entities: true
-- ask_account_types
+- ask_account_types:
+    use_entities: true
 - inform_account_type:
     use_entities: true
 - need_help:
     use_entities: true
-- internet_problem
+- internet_problem:
+    use_entities: true
 entities:
 - city_name
 - pokemon_name
@@ -168,14 +172,14 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: true
-    max_value: 1.0
+    max_value: 100.0
     min_value: 0.0
   e_nb_sockets:
     type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-    max_value: 1.0
+    max_value: 100.0
     min_value: 0.0
   f_splitter_installed:
     type: rasa.shared.core.slots.BooleanSlot
