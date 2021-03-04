@@ -175,8 +175,6 @@ nlu:
     - [Online Account & Sign-in Help]{"entity": "topic_type", "value": "account"}
     - [account](topic_type)
     - [online]{"entity": "topic_type", "value": "account"}
-    - [sign-in]{"entity": "topic_type", "value": "account"}
-    - [sign in]{"entity": "topic_type", "value": "account"}
     - [online account]{"entity": "topic_type", "value": "account"}
     - [sign in help]{"entity": "topic_type", "value": "account"}
 - intent: need_help
