@@ -1,0 +1,21 @@
+version: "2.0"
+
+stories:
+
+- story: Out of scope and search
+  steps:
+  - or: 
+    - intent: out_of_scope
+    - intent: nlu_fallback
+  - action: action_out_of_scope
+  - intent: affirm
+  - action: action_out_of_scope
+
+- story: Out of scope and don't search
+  steps:
+  - or: 
+    - intent: out_of_scope
+    - intent: nlu_fallback
+  - action: action_out_of_scope
+  - intent: deny
+  - action: action_out_of_scope

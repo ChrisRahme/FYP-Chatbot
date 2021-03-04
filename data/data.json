@@ -68,10 +68,95 @@
       {
         "text": "مرحبا",
         "intent": "greet"
+      },
+      {
+        "text": "hey man",
+        "intent": "greet"
+      },
+      {
+        "text": "hi kifak",
+        "intent": "greet"
+      },
+      {
+        "text": "hello how are you",
+        "intent": "greet"
       }
     ],
     "regex_features": [],
     "lookup_tables": [],
-    "entity_synonyms": []
+    "entity_synonyms": [
+      {
+        "value": "English",
+        "synonyms": [
+          "en",
+          "eng",
+          "anglais",
+          "anglaise",
+          "englise",
+          "englize",
+          "إنجليزية",
+          "إنكليزي",
+          "الإنجليزية",
+          "անգլերեն"
+        ]
+      },
+      {
+        "value": "French",
+        "synonyms": [
+          "fr",
+          "france",
+          "francais",
+          "français",
+          "française",
+          "فرنسي",
+          "فرنسية",
+          "الفرنسية",
+          "ֆրանսերեն"
+        ]
+      },
+      {
+        "value": "Armenian",
+        "synonyms": [
+          "frensewe",
+          "hy",
+          "hay",
+          "hayastan",
+          "arm",
+          "armenien",
+          "armenienne",
+          "arménien",
+          "arménienne",
+          "armenie",
+          "armane",
+          "armenia",
+          "أرمنية",
+          "أرميني",
+          "الأرمنية",
+          "հայը",
+          "հայ",
+          "հայերեն",
+          "Հայաստան"
+        ]
+      },
+      {
+        "value": "Arabic",
+        "synonyms": [
+          "ar",
+          "arabe",
+          "leb",
+          "libanais",
+          "libanaise",
+          "arab",
+          "3arabe",
+          "lebnene",
+          "عربية",
+          "العربية",
+          "عربي",
+          "لبناني",
+          "լիբանանյան",
+          "արաբերեն"
+        ]
+      }
+    ]
   }
 }

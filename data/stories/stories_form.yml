@@ -1,0 +1,44 @@
+version: "2.0"
+
+stories:
+
+# - story: User fills quota form
+#   steps:
+#   - intent: query_quota
+#   - action: form_log_in
+#   - active_loop: form_log_in
+
+# - story: User fills quota form and stops
+#   steps:
+#   - intent: query_quota
+#   - action: form_log_in
+#   - active_loop: form_log_in
+#   - or:
+#     - intent: stop
+#     - intent: deny
+#   - action: action_deactivate_loop
+#   - active_loop: null
+#   - action: utter_okay
+
+- story: User asks for quota
+  steps:
+  - intent: query_quota
+  - action: action_fetch_quota
+
+- story: User fills login form
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+
+- story: User fills login form and stops
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - or:
+    - intent: stop
+    - intent: deny
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_okay

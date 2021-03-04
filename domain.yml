@@ -2,7 +2,7 @@ version: '2.0'
 config:
   store_entities_as_slots: true
 session_config:
-  session_expiration_time: 300
+  session_expiration_time: 600
   carry_over_slots_to_new_session: true
 intents:
 - get_weather:
@@ -39,11 +39,36 @@ intents:
     use_entities: true
 - faq:
     use_entities: []
+- thanks:
+    use_entities: []
+- forgot_credentials:
+    use_entities: []
+- log_in:
+    use_entities: []
+- ask_service_types:
+    use_entities: true
+- inform_service_type:
+    use_entities: true
+- ask_topic_types:
+    use_entities: true
+- inform_topic_type:
+    use_entities: true
+- ask_account_types:
+    use_entities: true
+- inform_account_type:
+    use_entities: true
+- need_help:
+    use_entities: true
+- internet_problem:
+    use_entities: true
 entities:
 - city_name
 - pokemon_name
 - person_name
 - language
+- service_type
+- topic_type
+- account_type
 slots:
   out_of_scope:
     type: rasa.shared.core.slots.TextSlot
@@ -80,20 +105,155 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
+  loggedin:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: false
+    auto_fill: false
+    influence_conversation: true
+  login_type:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+    values:
+    - none
+    - username
+    - l_number
+    - phone_number
+  service_type:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - wireless
+    - internet
+    - dsl
+    - cablevision
+  account_type:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - consumer
+    - business
+    - bank
+  topic_type:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - billing
+    - payments
+    - shopping
+    - order
+    - changing
+    - troubleshooting
+    - account
+  a_noise:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  b_modem_on:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  c_modem_led_green:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  d_nb_phones:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+    max_value: 100.0
+    min_value: 0.0
+  e_nb_sockets:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+    max_value: 100.0
+    min_value: 0.0
+  f_splitter_installed:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  g_rj_plugged:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  h_modem_led_green:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  i_other_plug:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  j_other_modem:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  k_has_pbx:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  l_has_line:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
   requested_slot:
-    type: rasa.shared.core.slots.UnfeaturizedSlot
+    type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
     influence_conversation: false
 responses:
-  utter_greet:
-  - text: Hi! How are you?
-  - text: Hey there!
+  utter_greet_en:
+  - text: Hi, I’m GDS automated virtual assistant. How can I help you today?
+  - text: So I can get you to the right place, tell me what you’d like help with.
   - text: Hello, how can I help?
-  utter_goodbye:
+  utter_greet_fr:
+  - text: Bonjour, je suis l'assistant virtuel automatisé de GDS. Comment puis-je vous aider aujourd'hui?
+  - text: Pour que je puisse vous guider, dites-moi si vous aimeriez obtenir de l’aide.
+  - text: Bonjour, comment puis-je aider?
+  utter_greet_ar:
+  - text: مرحبًا ، أنا مساعد افتراضي تلقائي لنظام GDS. كيف استطيع مساعدتك اليوم؟
+  - text: حتى أتمكن من توصيلك إلى المكان الصحيح ، أخبرني بما تريد المساعدة فيه.
+  - text: مرحبًا ، كيف يمكنني المساعدة؟
+  utter_greet_hy:
+  - text: Ողջույն, ես GDS ավտոմատացված վիրտուալ օգնական եմ. Ինչպե՞ս կարող եմ օգնել ձեզ այսօր?
+  - text: Այսպիսով, ես կարող եմ ձեզ ճիշտ տեղ հասցնել, ասա ինձ, թե ինչի հետ կցանկանայիր օգնել.
+  - text: Ողջույն, ինչպե՞ս կարող եմ օգնել?
+  utter_goodbye_en:
   - text: Bye!
   - text: Goodbye!
   - text: See you soon!
+  utter_goodbye_fr:
+  - text: À plus!
+  - text: Au revoir!
+  - text: À bientôt!
+  utter_goodbye_ar:
+  - text: وداعا!
+  - text: مع السلامة!
+  - text: اراك قريبا!
+  utter_goodbye_hy:
+  - text: yeտեսություն!
+  - text: Ցտեսություն!
+  - text: Շուտով կհանդիպենք!
   utter_iam_fine:
   - text: I'm fine.
   - text: I'm doing great, thanks for asking!
@@ -179,17 +339,55 @@ responses:
       From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
 
        From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
+  utter_youare_welcome_en:
+  - text: You're welcome! How else can I help?
+  - text: No problem. What else can I help you with?
+  - text: Anytime! Can I help with anything else?
+  - text: You're welcome! What else can I help you with?
+  - text: No problem. Can I help with anything else?
+  - text: Anytime! Do you need help with something else?
+  utter_youare_welcome_fr:
+  - text: Je vous en prie! Comment puis-je encore aider?
+  - text: Aucun problème. Que puis-je faire d'autre pour vous?
+  - text: Ravi d'aider! Puis-je aider avec autre chose?
+  - text: Je vous en prie! Que puis-je faire d'autre pour vous?
+  - text: Aucun souci. Puis-je aider avec autre chose?
+  - text: Pas de problème! Avez-vous besoin d'aide pour autre chose?
+  utter_youare_welcome_ar:
+  - text: على الرحب والسعة! كيف لا يزال بإمكاني المساعدة؟
+  - text: لايوجد اي مشكلة. ما الذي يمكنني أن أفعله من أجلك؟
+  - text: سررت بمساعدتك! هل يمكنني المساعدة بشيء آخر؟
+  - text: على الرحب والسعة! ما الذي يمكنني أن أفعله من أجلك؟
+  - text: لا مشكلة. هل يمكنني المساعدة بشيء آخر؟
+  - text: لا مشكلة! هل تحتاج إلى مساعدة في أي شيء آخر؟
+  utter_youare_welcome_hy:
+  - text: Խնդրեմ! Ինչպե՞ս կարող եմ դեռ օգնել?
+  - text: Խնդիր չկա. Ինչ կարող եմ անել քեզ համար?
+  - text: Հաճելի է ձեզ օգնել! Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
+  - text: Խնդրեմ! Ինչ կարող եմ անել քեզ համար?
+  - text: Ոչ մի խնդիր. Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
+  - text: Ոչ մի խնդիր! Ուրիշի՞ն օգնության կարիք ունեք?
 actions:
+- action_utter_greet
+- action_utter_goodbye
+- action_utter_youre_welcome
+- action_utter_account_types
+- action_utter_topic_types
+- action_utter_topic_samples
+- action_utter_change_language
+- action_logged_in
 - action_out_of_scope
-- action_change_language
 - action_set_language
 - action_check_existence
 - action_check_weather
 - action_fetch_quota
 - action_ask_username
 - action_ask_password
+- action_utter_recover_credentials
+- validate_form_log_in
+- validate_form_troubleshoot_internet
 forms:
-  form_query_quota:
+  form_log_in:
     password:
     - intent_name: None
       not_intent: stop
@@ -198,4 +396,103 @@ forms:
     - intent_name: None
       not_intent: stop
       type: from_text
+  form_troubleshoot_internet:
+    a_noise:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    b_modem_on:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    c_modem_led_green:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    d_nb_phones:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    e_nb_sockets:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    f_splitter_installed:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    g_rj_plugged:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    h_modem_led_green:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    i_other_plug:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    j_other_modem:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    k_has_pbx:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    l_has_line:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
 e2e_actions: []

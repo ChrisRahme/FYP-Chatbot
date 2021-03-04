@@ -20,6 +20,7 @@ nlu:
     - depenses internet
     - % de consommation
     - quelle est ma limite de consommation internet...
+    - ade el consumption
     - ما هي حصتي
     - كم من الإنترنت لدي
     - ما هو استهلاكي للإنترنت
@@ -35,6 +36,7 @@ nlu:
     - مصاريف الانترنت
     - نسبة الاستهلاك
     - ما هو حد استهلاك الإنترنت الخاص بي
+    - مرحبا ماهو كوتة
     - որն է իմ քվոտան
     - որքան ինտերնետ ունեմ
     - ինչ է իմ քվոտան
@@ -59,3 +61,11 @@ nlu:
     - مرحبا ماهو كوتة
     - whats my consumpyion
     - whata my quota
+    - what is my quota
+    - what us my quota
+    - what my quota
+    - what is my conso
+    - what's my conso\
+    - now whats my quota
+    - i want to see my conso
+    - i want my quota

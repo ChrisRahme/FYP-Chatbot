@@ -2,6 +2,6 @@ cx-Oracle==8.1.0
 google==3.0.0
 mysql-connector-python==8.0.23
 pycountry==20.7.3
-rasa-sdk==2.2.0
+rasa-sdk==2.3.1
 requests==2.25.1
 spacy==3.0.3

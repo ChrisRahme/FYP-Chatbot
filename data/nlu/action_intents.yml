@@ -76,3 +76,5 @@ nlu:
     - weather in [Beirut](city_name), [Lebanon](city_name).
     - [lebanon](city_name) [beirut](city_name)
     - what about the weather today ?
+    - wats the eeathre
+    - whats the weather
