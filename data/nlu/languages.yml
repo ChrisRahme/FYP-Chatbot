@@ -50,6 +50,10 @@ nlu:
     - est ce que tu parle francais
     - i wanf to chanfe the lang
     - [french](language)
+    - change langauge
+    - [arabic](language)
+    - change langgs
+    - i want to change lang
 - intent: set_language
   examples: |
     - Set language to [English](language)

@@ -79,6 +79,7 @@ nlu:
     - ոչ, ես ուզում եմ փոխել հաշվի տեսակը
     - հաշվի տեսակը սխալ է
     - հաշվի սխալ տեսակը
+    - what are the account types
 - intent: inform_account_type
   examples: |
     - [Consumer / Residential]{"entity": "account_type", "value": "consumer"}
@@ -258,7 +259,7 @@ nlu:
   examples: |
     - Online Account & Sign-in Help
     - online
-    - sign-in
-    - sign in
     - online account
     - sign in help
+    - sign-in
+    - sign in
