@@ -98,9 +98,7 @@ stories:
     entities:
     - topic_type: account
   - action: action_utter_topic_samples
-  - intent: internet_problem
-  - action: action_default_fallback
   - intent: forgot_credentials
   - action: action_utter_recover_credentials
-  - intent: affirm
-  - action: action_out_of_scope
+  - intent: thanks
+  - action: action_utter_youre_welcome
