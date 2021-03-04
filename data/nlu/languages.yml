@@ -44,12 +44,12 @@ nlu:
     - غيير اللغة
     - change la langue
     - cghange language
-    - change lang
     - change la langige
     - change la lnague
     - change la lnagie
     - est ce que tu parle francais
     - i wanf to chanfe the lang
+    - [french](language)
 - intent: set_language
   examples: |
     - Set language to [English](language)

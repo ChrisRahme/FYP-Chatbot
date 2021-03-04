@@ -56,6 +56,8 @@ nlu:
     - whats my pwd
     - je c pas c quoi mon password
     - i dont know my password
+    - i dont knowww my pass what is it
+    - i forgot my password
 - intent: log_in
   examples: |
     - i want to log in
