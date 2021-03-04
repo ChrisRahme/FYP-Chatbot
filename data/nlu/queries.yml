@@ -58,7 +58,6 @@ nlu:
     - quelle est ma consommation?
     - je veux voir combien j'ai utilisee
     - whats my  quota
-    - مرحبا ماهو كوتة
     - whats my consumpyion
     - whata my quota
     - what is my quota
@@ -69,3 +68,6 @@ nlu:
     - now whats my quota
     - i want to see my conso
     - i want my quota
+    - whats my auota
+    - quelle est ma conso
+    - xonsumption
