@@ -222,6 +222,8 @@ slots:
     auto_fill: true
     influence_conversation: false
 responses:
+  utter_upcoming_feature:
+  - text: Sorry, I can't do that yet, but we're working on it!
   utter_greet_en:
   - text: Hi, I’m GDS automated virtual assistant. How can I help you today?
   - text: So I can get you to the right place, tell me what you’d like help with.

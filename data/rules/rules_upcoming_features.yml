@@ -1,0 +1,8 @@
+version: "2.0"
+
+rules:
+
+- rule: Internet problem
+  steps:
+  - intent: internet_problem
+  - action: utter_upcoming_feature
