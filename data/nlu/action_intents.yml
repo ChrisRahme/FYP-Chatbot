@@ -71,5 +71,10 @@ nlu:
     - what is the weather today
     - weather in [bei](city_name)
     - weather in [beirut](city_name) plz
+    - hi, what is the predicted wind speed in [Bekaa](city_name), [Lebanon](city_name)
+    - wind speed in [Beirut](city_name), [Lebanon](city_name)
+    - weather in [Beirut](city_name), [Lebanon](city_name).
+    - [lebanon](city_name) [beirut](city_name)
+    - what about the weather today ?
     - wats the eeathre
     - whats the weather
