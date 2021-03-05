@@ -1,4 +1,4 @@
-language: en
+language: en_core_web_md
 pipeline:
 - name: SpacyNLP
 - name: SpacyTokenizer
@@ -18,14 +18,14 @@ pipeline:
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
-  evaluate_on_number_of_examples: 180
+  evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
 - name: RegexEntityExtractor
 - name: EntitySynonymMapper
 - name: ResponseSelector
-  epochs: 31
+  epochs: 41
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
@@ -40,11 +40,11 @@ policies:
 - name: AugmentedMemoizationPolicy
 - name: TEDPolicy
   max_history: 8
-  epochs: 151
+  epochs: 71
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
-  evaluate_on_number_of_examples: 180
+  evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
