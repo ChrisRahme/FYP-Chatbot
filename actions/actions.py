@@ -102,14 +102,18 @@ def get_text_from_lang(tracker, utter_en = '', utter_fr = None, utter_ar = None,
 
     try:
         current_language = tracker.slots['language'].title()
-        if current_language == 'French':
-            utterance = utter_fr
-        elif current_language == 'Arabic':
-            utterance = utter_ar
-        elif current_language == 'Armenian':
-            utterance = utter_hy
     except Exception as e:
-        print(f'\n> get_text_from_lang: [ERROR] {e}')
+        current_language = 'English'
+        print(f'\n> get_template_from_lang: [ERROR] {e}')
+
+    if current_language == 'French':
+        utterance = utter_fr
+    elif current_language == 'Arabic':
+        utterance = utter_ar
+    elif current_language == 'Armenian':
+        utterance = utter_hy
+    else:
+        utterance = utter_en
 
     return utterance
 
@@ -120,17 +124,19 @@ def get_template_from_lang(tracker, template):
 
     try:
         current_language = tracker.slots['language'].title()
-        if current_language == 'French':
-            template = template + '_fr'
-        elif current_language == 'Arabic':
-            template = template + '_ar'
-        elif current_language == 'Armenian':
-            template = template + '_hy'
-        else:
-            template = template + '_en'
-        print(f'\n> get_template_from_lang: {template}')
     except Exception as e:
+        current_language = 'English'
         print(f'\n> get_template_from_lang: [ERROR] {e}')
+
+    if current_language == 'French':
+        template = template + '_fr'
+    elif current_language == 'Arabic':
+        template = template + '_ar'
+    elif current_language == 'Armenian':
+        template = template + '_hy'
+    else:
+        template = template + '_en'
+    print(f'\n> get_template_from_lang: {template}')
 
     return template
 
@@ -143,21 +149,22 @@ def get_buttons_from_lang(tracker, titles_en, titles_fr, titles_ar, titles_hy, p
 
     try:
         current_language = tracker.slots['language'].title()
-        if current_language == 'French':
-            for i in range(length):
-                buttons.append({'title': titles_fr[i], 'payload': payloads[i]})
-        elif current_language == 'Arabic':
-            for i in range(length):
-                buttons.append({'title': titles_ar[i], 'payload': payloads[i]})
-        elif current_language == 'Armenian':
-            for i in range(length):
-                buttons.append({'title': titles_hy[i], 'payload': payloads[i]})
-        else:
-            for i in range(length):
-                buttons.append({'title': titles_en[i], 'payload': payloads[i]})
-        print(f'\n> get_buttons_from_lang: {buttons}')
     except Exception as e:
-        print(f'\n> get_buttons_from_lang: [ERROR] {e}')
+        current_language = 'English'
+        print(f'\n> get_template_from_lang: [ERROR] {e}')
+    
+    if current_language == 'French':
+        for i in range(length):
+            buttons.append({'title': titles_fr[i], 'payload': payloads[i]})
+    elif current_language == 'Arabic':
+        for i in range(length):
+            buttons.append({'title': titles_ar[i], 'payload': payloads[i]})
+    elif current_language == 'Armenian':
+        for i in range(length):
+            buttons.append({'title': titles_hy[i], 'payload': payloads[i]})
+    else:
+        for i in range(length):
+            buttons.append({'title': titles_en[i], 'payload': payloads[i]})
 
     return buttons
 
@@ -366,7 +373,7 @@ class ActionUtterGreet(Action):
                 '/inform_service_type{"service_type": "cablevision"}'
             ]
         )
-        print('\nBOT: {utter_greet}')
+        print('\nBOT: {utter_greet}', buttons)
         dispatcher.utter_message(template = template, buttons = buttons)
         return []
 
