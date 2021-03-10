@@ -15,8 +15,3 @@ stories:
   - action: action_out_of_scope
   - intent: deny
   - action: action_out_of_scope
-
-- story: User asks for quota
-  steps:
-  - intent: query_quota
-  - action: action_fetch_quota

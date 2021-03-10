@@ -8,6 +8,7 @@ nlu:
     - I want to eat
     - Where is the nearest restaurant?
     - I want to go home
+    - What is a chatbot?
     - What's the size of Earth?
     - I want to go to Facebook
     - Log in to Instagram
@@ -15,10 +16,12 @@ nlu:
     - Call my mom
     - Send a message to by brother
     - Corona news
+    - [Lebanon](city_name) news
     - ii wanna piza
     - i want pizza
     - where's the nearest restaurant
     - covid news
+    - [lebanon](city_name) news
     - how old are you
     - what's your age?
     - kiss me
@@ -51,12 +54,3 @@ nlu:
     - asdfsd
     - andrea
     - kuckca
-    - fsg
-    - kk4
-    - asaasa
-    - aaa
-    - 123456
-    - L123456
-    - cc
-    - 6
-    - 3

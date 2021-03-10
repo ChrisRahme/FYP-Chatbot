@@ -2,13 +2,13 @@ version: "2.0"
 
 rules:
 
-- rule: Activate form_log_in
+- rule: Activate log_in form
   steps:
   - intent: log_in
   - action: form_log_in
   - active_loop: form_log_in # Keep requesting form slots until they're filled in
 
-- rule: Submit form_log_in
+- rule: Submit log_in form
   condition: # Condition that form is active
   - active_loop: form_log_in
   steps:
@@ -18,22 +18,4 @@ rules:
     - requested_slot: null
   - slot_was_set:
     - password: secret
-  - action: action_submit_form_log_in
-
-- rule: Activate form_troubleshoot_internet
-  steps:
-  - intent: internet_problem
-  - action: form_troubleshoot_internet
-  - active_loop: form_troubleshoot_internet # Keep requesting form slots until they're filled in
-
-- rule: Submit form_troubleshoot_internet
-  condition: # Condition that form is active
-  - active_loop: form_log_in
-  steps:
-  - action: form_troubleshoot_internet
-  - active_loop: null # Stop the form
-  - slot_was_set:
-    - requested_slot: null
-  # - slot_was_set:
-  #   - ti_form_completed: True
-  - action: action_submit_form_troubleshoot_internet
+  - action: action_logged_in

@@ -1,10 +1,9 @@
 # Folders
 .old/
-.tensorboard/
-.tensorboard.old/
 __pycache__/
 domain/
-results/
+.tensorboard/
+.tensorboard.old/
 
 
 # Files in folders
@@ -12,10 +11,7 @@ models/*.tar.gz
 
 
 # Files
-.db
 .DS_store
 .google-cookie
 .test_domain.yml
-events.db
-rasa.db
 story_graph.dot

@@ -8,10 +8,10 @@ import time
 import os
 
 from pathlib import Path
-from typing import Any, ClassVar, Dict, List, Text, Optional
+from typing import Any, Dict, List, Text, Optional
 
 from rasa_sdk import Action, FormValidationAction, Tracker
-from rasa_sdk.events import ActionExecuted, ActionReverted, ActiveLoop, AllSlotsReset, SlotSet, FollowupAction, ReminderCancelled, ReminderScheduled, SessionStarted, UserUtteranceReverted
+from rasa_sdk.events import ActionReverted, AllSlotsReset, SlotSet, FollowupAction, ReminderCancelled, ReminderScheduled, SessionStarted, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
@@ -22,26 +22,6 @@ from rasa_sdk.types import DomainDict
 ####################################################################################################
 # HELPER CLASSES & FUNCTIONS                                                                       #
 ####################################################################################################
-
-
-
-conversation_data = {} # {sender_id: {'password_tries': 0}, ...}
-
-lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
-
-text_does_it_work = [
-    'Does it work now?',
-    'Cela fonctionne-t-il maintenant?',
-    'هل يعمل الآن؟',
-    'Հիմա աշխատու՞մ է?']
-
-buttons_yes_no_emoji = [
-    {'title': '👍', 'payload': '/affirm'},
-    {'title': '👎', 'payload': '/deny'}]
-
-button_stop_emoji = [{'title': '🚫', 'payload': '/stop'}]
-
-buttons_yes_no_stop_emoji = buttons_yes_no_emoji + button_stop_emoji
 
 
 
@@ -108,102 +88,85 @@ def announce(action, tracker = None):
     print(output)
 
 
-def reset_slots(tracker, slots, exceptions):
-    events = []
 
-    for exception in exceptions:
-        if exception in slots:
-            slots.remove(exception)
+def get_text_from_lang(tracker, utter_en = '', utter_fr = None, utter_ar = None, utter_hy = None):
+    current_language = 'English'
+    utterance = utter_en
 
-    for slot in slots:
-        if tracker.get_slot(slot) is not None:
-            events.append(SlotSet(slot, None))
+    if not utter_fr:
+        utter_fr = utterance
+    if not utter_ar:
+        utter_ar = utterance
+    if not utter_hy:
+        utter_hy = utterance
 
-    return events
-
-
-
-def get_lang(tracker):
     try:
-        lang = tracker.slots['language'].title()
-        return lang
+        current_language = tracker.slots['language'].title()
     except Exception as e:
-        print(f'\n> get_lang: [ERROR] {e}')
-        return 'English'
+        current_language = 'English'
+        print(f'\n> get_template_from_lang: [ERROR] {e}')
 
+    if current_language == 'French':
+        utterance = utter_fr
+    elif current_language == 'Arabic':
+        utterance = utter_ar
+    elif current_language == 'Armenian':
+        utterance = utter_hy
+    else:
+        utterance = utter_en
 
-
-def get_lang_index(tracker):
-    return lang_list.index(get_lang(tracker))
-
-
-
-def get_text_from_lang(tracker, utter_list = []):
-    lang_index = get_lang_index(tracker)
-
-    if not utter_list: # No text was given for any language
-        utter_list.append('[NO TEXT DEFINED]')
-
-    if lang_index >= len(utter_list): # No text defined for current language
-        lang_index = 0
-
-    return utter_list[lang_index]
+    return utterance
 
 
 
 def get_template_from_lang(tracker, template):
-    return template + '_' + get_lang(tracker)
+    current_language = 'English'
+
+    try:
+        current_language = tracker.slots['language'].title()
+    except Exception as e:
+        current_language = 'English'
+        print(f'\n> get_template_from_lang: [ERROR] {e}')
+
+    if current_language == 'French':
+        template = template + '_fr'
+    elif current_language == 'Arabic':
+        template = template + '_ar'
+    elif current_language == 'Armenian':
+        template = template + '_hy'
+    else:
+        template = template + '_en'
+    print(f'\n> get_template_from_lang: {template}')
+
+    return template
 
 
 
-def get_buttons_from_lang(tracker, titles = [], payloads = []):
-    lang_index = get_lang_index(tracker)
-    buttons    = []
+def get_buttons_from_lang(tracker, titles_en, titles_fr, titles_ar, titles_hy, payloads):
+    current_language = 'English'
+    length  = len(payloads)
+    buttons = []
 
-    if lang_index >= len(payloads): # No text defined for current language
-        lang_index = 0
+    try:
+        current_language = tracker.slots['language'].title()
+    except Exception as e:
+        current_language = 'English'
+        print(f'\n> get_template_from_lang: [ERROR] {e}')
     
-    for i in range(min(len(titles[lang_index]), len(payloads))):
-        buttons.append({'title': titles[lang_index][i], 'payload': payloads[i]})
+    if current_language == 'French':
+        for i in range(length):
+            buttons.append({'title': titles_fr[i], 'payload': payloads[i]})
+    elif current_language == 'Arabic':
+        for i in range(length):
+            buttons.append({'title': titles_ar[i], 'payload': payloads[i]})
+    elif current_language == 'Armenian':
+        for i in range(length):
+            buttons.append({'title': titles_hy[i], 'payload': payloads[i]})
+    else:
+        for i in range(length):
+            buttons.append({'title': titles_en[i], 'payload': payloads[i]})
 
     return buttons
-
-
-
-####################################################################################################
-# DEFAULT ACTIONS                                       https://rasa.com/docs/rasa/default-actions #
-####################################################################################################
-
-
-
-class ActionSessionStart(Action):
-    def name(self):
-        return 'action_session_start'
-
-    @staticmethod
-    def fetch_slots(tracker):
-        slots = []
-        slots_to_keep = []
-        
-        for slot_name in slots_to_keep:
-            slot_value = tracker.get_slot(slot_name)
-            if slot_value is not None:
-                slots.append(SlotSet(key = slot_name, value = slot_value))
-
-        return slots
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        print(tracker.sender_id)
-
-        events = [SessionStarted()]
-        events.extend(self.fetch_slots(tracker))
-        #events.append(ActionExecuted('action_utter_change_language'))
-        events.append(ActionExecuted('action_listen'))
-
-        conversation_data[tracker.sender_id] = {'password_tries': 0}
-        
-        return events
 
 
 
@@ -219,14 +182,15 @@ class ActionAskUsername(Action):
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        text = get_text_from_lang(
+        utterance = get_text_from_lang(
             tracker,
-            ['Please enter your Username, L Number, or Phone Number, or press "🚫" to stop.',
-            'Veuillez entrer votre nom d\'utilisateur, L Number, ou Numéro de Téléphone, ou appuyez sur "🚫" pour arrêter.',
-            'الرجاء إدخال اسم المستخدم أو رقم L أو رقم الهاتف ، أو اضغط على "🚫" للإيقاف.',
-            'Կանգնեցնելու համար խնդրում ենք մուտքագրել ձեր օգտանունը, L համարը կամ հեռախոսահամարը կամ սեղմել «🚫»:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
+            'Please enter your Username, L Number, or Phone Number.',
+            'S\'il vous plaît entrez votre Nom d\'Utilisateur, L Number, ou Numéro de Téléphone.',
+            '.(Username أو L Number أو Phone Number) الرجاء إدخال اسم المستخدم',
+            'Խնդրում ենք մուտքագրել ձեր օգտվողի անունը: (Username, L Number, կամ Phone Number).'
+        )
+        print('\nBOT:', utterance)
+        dispatcher.utter_message(utterance)
         return []
 
 
@@ -237,230 +201,15 @@ class ActionAskPassword(Action):
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        text = get_text_from_lang(
+        utterance = get_text_from_lang(
             tracker,
-            ['Please enter your password.',
+            'Please enter your password.',
             'S\'il vous plaît entrez votre mot de passe.',
             '.(password) من فضلك أدخل رقمك السري',
-            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-
-
-
-class ActionAskTiaNoise(Action):
-    def name(self):
-        return 'action_ask_tia_noise'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Is there noise on the line where the ADSL number is connected?',
-            'Y a-t-il du bruit sur la ligne où le numéro ADSL est connecté?',
-            'هل توجد ضوضاء على الخط الموصل به رقم ADSL؟',
-            'Արդյո՞ք աղմուկ կա այն գծի վրա, որտեղ միացված է ADSL համարը:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
-        return []
-
-
-
-class ActionAskTibModemOn(Action):
-    def name(self):
-        return 'action_ask_tib_modem_on'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please make sure your modem is turned on.',
-            'Veuillez vous assurer que votre modem est allumé.',
-            'يرجى التأكد من تشغيل المودم الخاص بك.',
-            'Համոզվեք, որ ձեր մոդեմը միացված է:'
-            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
-        return []
-
-
-
-class ActionAskTicModemGreen(Action):
-    def name(self):
-        return 'action_ask_tic_modem_green'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please reboot your modem, wait 30 seconds, and make sure the power LED on your modem is green.',
-            'Veuillez redémarrer votre modem, attendez 30 secondes et assurez-vous que la DEL (LED) de votre modem est verte.',
-            'يُرجى إعادة تشغيل المودم الخاص بك ، وانتظر 30 ثانية ، وتأكد من أن مصباح الطاقة (LED) الموجود في المودم الخاص بك أخضر.',
-            'Վերաբեռնեք ձեր մոդեմը, սպասեք 30 վայրկյան և համոզվեք, որ ձեր մոդեմի էլեկտրական LED- ը կանաչ է:'
-            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
-        return []
-
-
-
-class ActionAskTidNbPhones(Action):
-    def name(self):
-        return 'action_ask_tid_nb_phones'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['How many faxes and phones do you have?',
-            'Combien de fax et de téléphones fixes avez-vous?',
-            'كم عدد الفاكسات والهواتف التي لديك؟',
-            'Քանի՞ ֆաքս և հեռախոս ունեք:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-
-
-
-class ActionAskTieNbSockets(Action):
-    def name(self):
-        return 'action_ask_tie_nb_sockets'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['How many phone wall sockets do you have?',
-            'Combien de prises téléphoniques murales avez-vous?',
-            'كم عدد مآخذ توصيل الحائط بالهاتف لديك؟',
-            'Քանի՞ հեռախոսի պատի վարդակ ունեք:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-
-
-
-class ActionAskTifSplitterInstalled(Action):
-    def name(self):
-        return 'action_ask_tif_splitter_installed'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please use the following picture to check if your splitter is correctly installed on all your fixed phones and modems.',
-            'Veuillez utiliser l\'image suivante pour vérifier si votre répartiteur est correctement installé sur tous vos téléphones fixes et modems.',
-            'الرجاء استخدام الصورة التالية للتحقق مما إذا كان جهاز التقسيم مثبتًا بشكل صحيح على جميع الهواتف الثابتة وأجهزة المودم.',
-            'Խնդրում ենք օգտագործել հետևյալ նկարը ՝ ստուգելու համար, թե արդյոք ձեր բաժանարարը ճիշտ է տեղադրված ձեր բոլոր ֆիքսված հեռախոսների և մոդեմների վրա:'
-            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/aV0uxGx.png')
-        return []
-
-
-
-class ActionAskTigRjPlugged(Action):
-    def name(self):
-        return 'action_ask_tig_rj_plugged'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please make sure the phone cable plugged in the modem is RJ11 and not the Ethernet port.',
-            'Veuillez vous assurer que le câble téléphonique branché sur le modem est RJ11 et non le port Ethernet.',
-            'يرجى التأكد من أن كبل الهاتف المتصل بالمودم هو RJ11 وليس منفذ Ethernet.',
-            'Խնդրում ենք համոզվեք, որ մոդեմի մեջ միացված հեռախոսի մալուխը RJ11 է և ոչ թե Ethernet պորտ:'
-            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/9aUcYs5.png')
-        return []
-
-
-
-class ActionAskTihOtherPlug(Action):
-    def name(self):
-        return 'action_ask_tih_other_plug'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Try to plug the modem into another socket.',
-            'Essayez de brancher le modem sur une autre prise.',
-            'حاول توصيل المودم بمقبس آخر.',
-            'Փորձեք մոդեմը միացնել մեկ այլ վարդակի:'
-            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work) + ' (' + get_text_from_lang(
-                tracker,
-                ['Press "no" if you can\'t use another socket.',
-                'Appuyez sur "non" si vous ne pouvez pas utiliser une autre prise.',
-                'اضغط على "لا" إذا كنت لا تستطيع استخدام مقبس آخر.',
-                'Սեղմեք «ոչ» -ը, եթե այլ վարդակից չեք կարող օգտվել:'
-            ]) + ')'
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
-        return []
-
-
-
-class ActionAskTiiOtherModem(Action):
-    def name(self):
-        return 'action_ask_tii_other_modem'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Try to plug the modem into another socket.',
-            'Essayez de brancher le modem sur une autre prise.',
-            'حاول توصيل المودم بمقبس آخر.',
-            'Փորձեք մոդեմը միացնել մեկ այլ վարդակի:'
-            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work) + ' (' + get_text_from_lang(
-                tracker,
-                ['Press "no" if you can\'t use another modem.',
-                'Appuyez sur "non" si vous ne pouvez pas utiliser un autre modem.',
-                'اضغط على "لا" إذا كنت لا تستطيع استخدام مودم آخر.',
-                'Սեղմեք «ոչ» -ը, եթե այլ մոդեմ չեք կարող օգտագործել:'
-            ]) + ')'
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
-        return []
-
-
-
-class ActionAskTijHasPbx(Action):
-    def name(self):
-        return 'action_ask_tij_has_pbx'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Do you have a PBX?',
-            'Avez-vous un PBX?',
-            'هل لديك مقسم؟',
-            'Ունե՞ք PBX:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://techextension.com/images/cloud_pbx_connections.png')
-        return []
-
-
-
-class ActionAskTikHasLine(Action):
-    def name(self):
-        return 'action_ask_tik_has_line'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Do you have an Internet line?',
-            'Avez-vous une ligne Internet?',
-            'هل لديك خط انترنت؟',
-            'Ինտերնետային գիծ ունե՞ք:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
+            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'
+        )
+        print('\nBOT:', utterance)
+        dispatcher.utter_message(utterance)
         return []
 
 
@@ -468,65 +217,6 @@ class ActionAskTikHasLine(Action):
 ####################################################################################################
 # FORM VALIDATION ACTIONS                                                                          #
 ####################################################################################################
-
-
-
-async def global_validate_username(value, dispatcher, tracker, domain):
-    if not tracker.get_slot('loggedin'):
-        username   = value.lower()
-        login_type = 'Username'
-        count      = 0
-        
-        db = DatabaseConnection()
-
-        count = db.count('user_info', f"Username = '{username}'")
-        if count == 1:
-            login_type = 'Username'
-        else:
-            count = db.count('user_info', f"L_Number = '{username}'")
-            if count == 1:
-                login_type = 'L_Number'
-            else:
-                count = db.count('user_info', f"Phone_Number = '{username}'")
-                if count == 1:
-                    login_type = 'Phone_Number'
-                else:
-                    count = 0
-
-        db.disconnect()
-
-        if count == 1:
-            print('\n> validate_username:', username, login_type)
-            return {'username': username.title(), 'loggedin': False, 'login_type': login_type}
-
-        elif count == 0:
-            text = get_text_from_lang(
-                tracker,
-                ['Sorry, {} is not a registered Username, L Number, of Phone Number. Please try again or press "🚫" to stop.'.format(username),
-                'Désolé, {} n\'est pas un Utilisateur, L Number, ou Numéro de Téléphone enregistré. Veuillez réessayer ou appuyez sur "🚫" pour arrêter.'.format(username),
-                'عذرًا ، {} ليس اسم مستخدم مسجلاً ، رقم L ، لرقم هاتف. يرجى المحاولة مرة أخرى أو الضغط على "🚫" للتوقف.'.format(username),
-                'Ներողություն, {} գրանցված Մականուն, L համար, հեռախոսահամար չէ: Խնդրում ենք կրկին փորձել կամ սեղմել «🚫» ՝ դադարեցնելու համար:'.format(username)])
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-            return {'username': None, 'loggedin': False, 'login_type': None}
-
-        else:
-            login_type = login_type.replace('_', ' ')
-            text = f'There seems to be {count} users with the {login_type} {username}. Please report this error.'
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-            return {'username': None, 'loggedin': False, 'login_type': None}
-    
-    else: # Already logged in
-        text = get_text_from_lang(
-            tracker,
-            ['You are already logged in. If you want to log out, please say "log out".',
-            'Vous êtes déjà connecté. Si vous souhaitez vous déconnecter, veuillez dire «déconnexion» ou «log out».',
-            'لقد قمت بتسجيل الدخول بالفعل. إذا كنت تريد الخروج ، من فضلك قل "تسجيل الخروج" أو "log out".',
-            'Դուք արդեն մուտք եք գործել համակարգ: Եթե ցանկանում եք դուրս գալ, խնդրում ենք ասել «դուրս գալ» կամ «log out»:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text)
-        return {'password': 'secret', 'loggedin': True}
 
 
 
@@ -540,10 +230,63 @@ class ValidateFormLogIn(FormValidationAction):
         required_slots = ['username', 'password']
         return required_slots
 
-
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_username(self, value, dispatcher, tracker, domain):
-        return await global_validate_username(value, dispatcher, tracker, domain)
+        if not tracker.get_slot('loggedin'):
+            username   = value.lower()
+            login_type = 'username'
+            count      = 0
+            
+            db = DatabaseConnection()
+
+            count = db.count('user_info', f"Username = '{username}'")
+            if count == 1:
+                login_type = 'Username'
+            else:
+                count = db.count('user_info', f"L_Number = '{username}'")
+                if count == 1:
+                    login_type = 'L_Number'
+                else:
+                    count = db.count('user_info', f"Phone_Number = '{username}'")
+                    if count == 1:
+                        login_type = 'Phone_Number'
+
+            db.disconnect()
+
+            if count == 1:
+                print('\n> validate_username:', username, login_type)
+                return {'username': username, 'loggedin': False, 'login_type': login_type}
+
+            elif count == 0:
+                utterance = get_text_from_lang(
+                    tracker,
+                    'Sorry, {} is not a registered Username, L Number, of Phone Number.'.format(username),
+                    'Désolé, {} n\'est pas un Utilisateur, L Number, ou Numéro de Téléphone enregistré.'.format(username),
+                    'عذرًا، {} ليس مستخدمًا مسجلاً'.format(username),
+                    'Ներողություն, {} - ը գրանցված օգտվող չէ:'.format(username)
+                )
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return {'username': None, 'loggedin': False, 'login_type': None}
+
+            else:
+                login_type = login_type.replace('_', ' ')
+                utterance = f'There seems to be {count} users with the {login_type} {username}. Please report this error.'
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return {'username': None, 'loggedin': False, 'login_type': None}
+        
+        else: # Already logged in
+            utterance = get_text_from_lang(
+                tracker,
+                'You are already logged in. If you want to log out, please say "log out".',
+                'Vous êtes déjà connecté. Si vous souhaitez vous déconnecter, veuillez dire «déconnexion» ou «log out».',
+                'لقد قمت بتسجيل الدخول بالفعل. إذا كنت تريد الخروج ، من فضلك قل "تسجيل الخروج" أو "log out".',
+                'Դուք արդեն մուտք եք գործել համակարգ: Եթե ցանկանում եք դուրս գալ, խնդրում ենք ասել «դուրս գալ» կամ «log out»:'
+            )
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
+            return {'password': 'secret', 'loggedin': True}
 
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
@@ -552,13 +295,6 @@ class ValidateFormLogIn(FormValidationAction):
             username = tracker.get_slot('username')
             password = tracker.get_slot('password')
             login_type = tracker.get_slot('login_type')
-            password_tries = tracker.get_slot('password_tries')
-
-            # if password_tries >= 3:
-            #     text = 'You entered a wrong password 3 times. Please try logging in again.'
-            #     print('\nBOT:', text)
-            #     dispatcher.utter_message(text)
-            #     return {'requested_slot': None, 'username': None, 'password': None, 'loggedin': False, 'password_tries': 0}
 
             db = DatabaseConnection()
             count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
@@ -566,155 +302,49 @@ class ValidateFormLogIn(FormValidationAction):
 
             if count == 1:
                 print('\n> validate_password:', username, password)
-                return {'password': 'secret', 'loggedin': True, 'password_tries': 0}
+                return {'password': 'secret', 'loggedin': True}
 
             else:
-                text = get_text_from_lang(
+                utterance = get_text_from_lang(
                     tracker,
-                    ['Sorry, you entered an incorrect password for {}.'.format(username),
+                    'Sorry, you entered an incorrect password for {}.'.format(username),
                     'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
                     'عذرًا ، لقد أدخلت كلمة مرور غير صحيحة لـ {}'.format(username),
-                    'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)])
-                print('\nBOT:', text)
-                dispatcher.utter_message(text)
-                return {'password': None, 'loggedin': False, 'password_tries': password_tries+1}
+                    'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)
+                )
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return {'password': None, 'loggedin': False}
 
         else: # Already logged in
             username = tracker.get_slot('username')
-            text = get_text_from_lang(
+            utterance = get_text_from_lang(
                     tracker,
-                    ['You are logged in as {}.'.format(username),
+                    'You are logged in as {}.'.format(username),
                     'Vous êtes connecté en tant que {}'.format(username),
                     'أنت مسجل دخولك باسم {}.'.format(username),
-                    'Դուք մուտք եք գործել որպես {}:'.format(username)])
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-            return {'username': username, 'password': 'secret', 'loggedin': True, 'password_tries': 0}
-
-
-    # async def run(self, dispatcher, tracker, domain):
-    #     announce(self, tracker)
-
-    #     if tracker.get_slot('password_tries') >= 3:
-    #         return [SlotSet('requested_slot', None), SlotSet('username', None), SlotSet('password', None), SlotSet('login_type', None), SlotSet('password_tries', 0)]
-    #     await super().run(dispatcher, tracker, domain)
-
+                    'Դուք մուտք եք գործել որպես {}:'.format(username)
+                )
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
+            return {'username': username, 'password': 'secret', 'loggedin': True}
 
 
 class ValidateFormTroubleshootInternet(FormValidationAction):
     def name(self):
         return 'validate_form_troubleshoot_internet'
 
-
-    async def validate_username(self, value, dispatcher, tracker, domain):
-        slots = await global_validate_username(value, dispatcher, tracker, domain)
-        slots['ti_form_completed'] = True
-        return 
-
     
+    # Custom Slot Mappings: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
-        text_contact_ogero = get_text_from_lang(
-            tracker,
-            ['Please try to contact Ogero on 1515 to resolve the noise on the line'])
-        text_if_works = get_text_from_lang(
-            tracker,
-            ['Great! Glad that it works now.'])
-
-        required_slots = ['tia_noise']
-        if tracker.get_slot('tia_noise') == True: # There is noise on the line, stop
-            print('\nBOT:', text_contact_ogero)
-            dispatcher.utter_message(text_contact_ogero)
-        else: # There is no noise on the line, continue
-            required_slots.append('tib_modem_on')
-            if tracker.get_slot('tib_modem_on') == True: # The modem is on and it works, stop
-                print('\nBOT:', text_if_works)
-                dispatcher.utter_message(text_if_works)
-            else: # The modem is on and it doesn't work, continue
-                required_slots.append('tic_modem_green')
-                if tracker.get_slot('tic_modem_green') == True: # The LED is green and it works, stop
-                    print('\nBOT:', text_if_works)
-                    dispatcher.utter_message(text_if_works)
-                else: # The LED is green and it doesn't work, continue
-                    required_slots.extend(['tid_nb_phones', 'tie_nb_sockets', 'tif_splitter_installed'])
-                    if tracker.get_slot('tif_splitter_installed') == True: # The splitter is properly installed on all phones and modems and it works, stop
-                        print('\nBOT:', text_if_works)
-                        dispatcher.utter_message(text_if_works)
-                    else: # The splitter is properly installed on all phones and modems and it doesn't work, continue
-                        required_slots.append('tig_rj_plugged')
-                        if tracker.get_slot('tig_rj_plugged') == True: # The RJ11 is plugged in and it works, stop
-                            print('\nBOT:', text_if_works)
-                            dispatcher.utter_message(text_if_works)
-                        else: # The RJ11 is plugged in and it doesn't work, continue
-                            required_slots.append('tih_other_plug')
-                            if tracker.get_slot('tih_other_plug') == True: # The modem was plugged somewhere else and it works, stop
-                                print('\nBOT:', text_if_works)
-                                dispatcher.utter_message(text_if_works)
-                            else: # The modem was plugged somewhere else and it doesn't work, continue
-                                required_slots.append('tii_other_modem')
-                                if tracker.get_slot('tii_other_modem') == True: # Another modem is plugged in and it works, stop
-                                    print('\nBOT:', text_if_works)
-                                    dispatcher.utter_message(text_if_works)
-                                else: # Another modem is plugged in and it doesn't work, continue
-                                    required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])
-                                    
+        required_slots = [predefined_slots[1], predefined_slots[0]] # To ask for username before password
         return required_slots
 
 
 
 ####################################################################################################
-# FORM SUBMIT ACTIONS                                                                              #
+# FORM ACTIONS                                                                                     #
 ####################################################################################################
-
-
-
-class ActionSubmitFormLogIn(Action):
-    def name(self):
-        return 'action_submit_form_log_in'
-
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        if tracker.get_slot('loggedin'):
-            username = tracker.get_slot('username')
-            login_type = tracker.get_slot('login_type').replace('_', ' ')
-
-            text = get_text_from_lang(
-                tracker,
-                ['You are logged in with {} being {}'.format(login_type, username),
-                'Vous êtes connecté avec {} étant {}'.format(login_type, username),
-                'لقد قمت بتسجيل الدخول {} يجري {}'.format(login_type, username),
-                'Դուք մուտք եք գործել ՝{} լինելով {}'.format(login_type, username)])            
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-
-        return []
-
-
-
-class ActionSubmitFormTroubleshootInternet(Action):
-    def name(self):
-        return 'action_submit_form_troubleshoot_internet'
-
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-
-        slots_to_reset = list(domain['forms']['form_troubleshoot_internet'].keys())
-        exceptions = ['username', 'ti_form_completed']
-        events = reset_slots(tracker, slots_to_reset, exceptions)
-        events.append(SlotSet('ti_form_completed', False))
-
-        if tracker.get_slot('tik_has_line') is not None and tracker.get_slot('username') is not None: # User has completed the form
-            username   = tracker.get_slot('username').title()
-            #login_type = tracker.get_slot('login_type').replace('_', ' ')
-
-            text = get_text_from_lang(
-                tracker,
-                ['A case was created for {} {}.'.format(login_type, username)])
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-
-        return events
 
 
 
@@ -732,10 +362,10 @@ class ActionUtterGreet(Action):
         template = get_template_from_lang(tracker, 'utter_greet')
         buttons  = get_buttons_from_lang(
             tracker,
-            [['Wireless', 'Internet', 'DSL Internet', 'CableVision TV'],
+            ['Wireless', 'Internet', 'DSL Internet', 'CableVision TV'],
             ['Sans Fil', 'Internet', 'Internet DSL', 'CableVision TV'],
             ['لاسلكي','إنترنت','DSL إنترنت','تلفزيون الكابل'],
-            ['Անլար', 'Ինտերնետ', 'DSL ինտերնետ', 'CableVision TV']],
+            ['Անլար', 'Ինտերնետ', 'DSL ինտերնետ', 'CableVision TV'],
             [
                 '/inform_service_type{"service_type": "wireless"}',
                 '/inform_service_type{"service_type": "internet"}',
@@ -764,9 +394,7 @@ class ActionUtterYoureWelcome(Action):
         return 'action_utter_youre_welcome'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        template = get_template_from_lang(tracker, 'utter_youre_welcome')
-        print('\nBOT:', template)
-        dispatcher.utter_message(template = template)
+        dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_youre_welcome'))
         return []
 
 
@@ -794,10 +422,11 @@ class ActionUtterChangeLanguage(Action):
         
         text = get_text_from_lang(
             tracker,
-            ['Choose a language:',
+            'Choose a language:',
             'Choisissez une langue:',
             ':اختر لغة',
-            'Ընտրեք լեզու ՝'])            
+            'Ընտրեք լեզու ՝'
+        )            
         
         print('\nBOT:', text, buttons)
         dispatcher.utter_message(text = text, buttons = buttons)
@@ -816,17 +445,46 @@ class ActionUtterRecoverCredentials(Action):
         url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
         url = '\n\n' + url
 
-        text = get_text_from_lang(
+        utterance = get_text_from_lang(
             tracker,
-            ['If you need help recovering your IDM ID or your password, click on the link below:',
+            'If you need help recovering your IDM ID or your password, click on the link below:',
             'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
             'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
-            'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'])
-        text = text + '\n' + url
+            'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'
+        )
+        text = utterance + '\n' + url
         print('\nBOT:', text)
         dispatcher.utter_message(text)
 
         return []
+
+
+
+class ActionLoggedIn(Action):
+    def name(self):
+        return 'action_logged_in'
+
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        if tracker.get_slot('loggedin'):
+            username = tracker.get_slot('username')
+            login_type = tracker.get_slot('login_type').replace('_', ' ')
+
+            utterance = get_text_from_lang(
+                tracker,
+                'You are logged in with {} being {}'.format(login_type, username),
+                'Vous êtes connecté avec {} étant {}'.format(login_type, username),
+                'لقد قمت بتسجيل الدخول {} يجري {}'.format(login_type, username),
+                'Դուք մուտք եք գործել ՝{} լինելով {}'.format(login_type, username)
+            )            
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
+
+        return []
+#
+#        else:
+#            return [SlotSet('username', None), SlotSet('password', None)]
 
 
 
@@ -837,16 +495,17 @@ class ActionUtterAccountTypes(Action):
         announce(self, tracker)
         text = get_text_from_lang(
             tracker,
-            ['Which account type are you asking about?',
+            'Which account type are you asking about?',
             'Quel type de compte avez-vous?',
             'ما نوع الحساب الذي تسأل عنه؟',
-            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
+            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'
+        )
         buttons  = get_buttons_from_lang(
             tracker,
-            [['Consumer / Residential', 'Small Business', 'Bank'],
+            ['Consumer / Residential', 'Small Business', 'Bank'],
             ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
             ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
-            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
+            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ'],
             [
                 '/inform_account_type{"account_type": "consumer"}',
                 '/inform_account_type{"account_type": "business"}',
@@ -866,16 +525,17 @@ class ActionUtterTopicTypes(Action):
         announce(self, tracker)
         text = get_text_from_lang(
             tracker,
-            ['Choose a topic to chat about:',
+            'Choose a topic to chat about:',
             'Choisissez un sujet de discussion:',
             'اختر موضوعًا للمناقشة:',
-            'Ընտրեք քննարկման թեմա:'])
+            'Ընտրեք քննարկման թեմա:'
+        )
         buttons  = get_buttons_from_lang(
             tracker,
-            [['Billing, Plans & Equipment Setup', 'Payments', 'Shopping', 'Order Status', 'Moving or Changing Service', 'Troubleshooting & Repairs', 'Online Account & Sign-in Help'],
+            ['Billing, Plans & Equipment Setup', 'Payments', 'Shopping', 'Order Status', 'Moving or Changing Service', 'Troubleshooting & Repairs', 'Online Account & Sign-in Help'],
             ['Facturation, Plans et Configuration de l\'Équipement', 'Paiements', 'Achats', 'Statut de Commande', 'Déménagement ou Changement de Service', 'Dépannage et Réparations', 'Compte en Ligne et Aide à la Connexion'],
             ['إعداد الفواتير والخطط والمعدات', 'المدفوعات', 'التسوق', 'حالة الطلب', 'نقل أو تغيير الخدمة', 'استكشاف الأخطاء وإصلاحها والإصلاحات', 'حساب عبر الإنترنت وتعليمات تسجيل الدخول'],
-            ['Վճարների, պլանների և սարքավորումների տեղադրում', 'Վճարներ', 'Գնումներ', 'Պատվերի կարգավիճակ', 'Շարժվող կամ փոխելու ծառայություն', 'Խնդիրների լուծում և վերանորոգում', 'Առցանց հաշվի և մուտքի օգնություն']],
+            ['Վճարների, պլանների և սարքավորումների տեղադրում', 'Վճարներ', 'Գնումներ', 'Պատվերի կարգավիճակ', 'Շարժվող կամ փոխելու ծառայություն', 'Խնդիրների լուծում և վերանորոգում', 'Առցանց հաշվի և մուտքի օգնություն'],
             [
                 '/inform_topic_type{"topic_type": "billing"}',
                 '/inform_topic_type{"topic_type": "payments"}',
@@ -1002,9 +662,9 @@ class ActionUtterTopicSamples(Action):
             f'\n- {examples_hy}'
         )
 
-        text = get_text_from_lang(tracker, [text_en, text_fr, text_ar, text_hy])            
-        print('\nBOT:', text)
-        dispatcher.utter_message(text)
+        utterance = get_text_from_lang(tracker, text_en, text_fr, text_ar, text_hy)            
+        print('\nBOT:', utterance)
+        dispatcher.utter_message(utterance)
 
         return []
 
@@ -1053,7 +713,7 @@ class ActionFetchQuota(Action):
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
 
-        if tracker.get_slot('loggedin'):
+        if tracker.get_slot('loggedin') == True:
             results    = None
             username   = tracker.get_slot('username')
             login_type = tracker.get_slot('login_type')
@@ -1082,20 +742,22 @@ class ActionFetchQuota(Action):
                 if int(quota) == -1:
                     utterance = get_text_from_lang(
                         tracker,
-                        ['You spent {} GB of your unlimited quota this month.'.format(consumption),
+                        'You spent {} GB of your unlimited quota this month.'.format(consumption),
                         'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
                         '.لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر'.format(consumption),
-                        'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)])
+                        'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)
+                    )
                     print('\nBOT:', utterance)
                     dispatcher.utter_message(utterance)
                 else:
                     ratio = consumption*100/quota
                     utterance = get_text_from_lang(
                         tracker,
-                        ['You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
+                        'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
                         'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
                         '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
-                        'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)])
+                        'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)
+                    )
                     print('\nBOT:', utterance)
                     dispatcher.utter_message(utterance)
 
@@ -1108,12 +770,68 @@ class ActionFetchQuota(Action):
         else: # Not logged in
             utterance = get_text_from_lang(
                 tracker,
-                ['You are not logged in. Please type "log in" to log in.',
+                'You are not logged in. Please type "log in" to log in.',
                 'Vous n\'êtes pas connecté. Veuillez ecrire «connexion» ou «log in» pour vous connecter.',
                 'أنت لم تسجل الدخول. من فضلك قل "تسجيل الدخول" لتسجيل الدخول.',
-                'Դուք մուտք չեք գործել: Մուտք գործելու համար խնդրում ենք ասել «մուտք գործել»:'])
+                'Դուք մուտք չեք գործել: Մուտք գործելու համար խնդրում ենք ասել «մուտք գործել»:'
+            )
             print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
+
+    
+    '''
+    def run(self, dispatcher, tracker, domain):
+        print('='*100 + '\n' + self.name())
+        print(str(tracker.latest_message))
+
+        results = None
+        username = tracker.get_slot('username')
+        password = tracker.get_slot('password')
+
+        try:
+            db = DatabaseConnection()
+            #results = db.simple_query('test_table', 'Quota, Consumption, Speed', f"Name = '{username}'")
+            results = db.query("SELECT Quota, Consumption, Speed "
+                "FROM `user_info` INNER JOIN `consumption` "
+                "ON `user_info`.`ID` = `consumption`.`UserID` "
+                f"WHERE Username = '{username}' AND Password = '{password}'")
+            db.disconnect()
+        except Exception as e:
+            print(f'\n> ActionFetchQuota: [ERROR1] {e}')
+            dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
+            return [SlotSet('password', None)]
+
+        if len(results) != 1:
+            dispatcher.utter_message(f'Sorry, {username} is not a registered user or your password is incorrect.')
+            return [SlotSet('username', None), SlotSet('password', None)]
+
+        try:
+            quota, consumption, speed = results[0]
+            if int(quota) == -1:
+                utterance = get_text_from_lang(
+                    tracker,
+                    'You spent {} GB of your unlimited quota this month.'.format(consumption),
+                    'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
+                    '.لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر'.format(consumption),
+                    'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)
+                )
+                dispatcher.utter_message(utterance)
+            else:
+                ratio = consumption*100/quota
+                utterance = get_text_from_lang(
+                    tracker,
+                    'You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
+                    'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
+                    '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
+                    'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)
+                )
+                dispatcher.utter_message(utterance)
+        except Exception as e:
+            print(f'\n> ActionFetchQuota: [ERROR2] {e}')
+            dispatcher.utter_message('Sorry, there was an error.')
+
+        return [SlotSet('password', None)]
+    '''
 
 
 
@@ -1231,14 +949,11 @@ class ActionOutOfScope(Action):
         query  = tracker.slots['out_of_scope']
 
         if intent == 'out_of_scope':
-            text = 'Sorry, I don\'t understand. Do you want me to search that on Google?'
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
+            dispatcher.utter_message('Sorry, I don\'t understand. Do you want me to search that on Google?')
             return [SlotSet('out_of_scope', latest['text'])]
 
         elif intent == 'affirm' and query != None:
             try:
-                text = 'Here are the top results:'
                 urls = [url for url in googlesearch.search(
                     query=query,
                     tld='com.lb',
@@ -1248,8 +963,7 @@ class ActionOutOfScope(Action):
                     pause=1,
                     extra_params={'filter': '0'})
                 ]
-                print('\nBOT:', text)
-                dispatcher.utter_message(text)
+                dispatcher.utter_message('Here are the top results:')
 
                 for url in urls:
                     dispatcher.utter_message(str(url))
@@ -1263,39 +977,6 @@ class ActionOutOfScope(Action):
         elif (intent == 'deny' or intent == 'stop') and query != None:
             dispatcher.utter_message('Okay.')
             return [SlotSet('out_of_scope', None)]
-
-
-
-####################################################################################################
-# SILENT ACTIONS                                                                                   #
-####################################################################################################
-
-
-
-class ActionResetTiSlots(Action): ## TODO REMOVE?
-    def name(self):
-        return 'action_reset_ti_slots'
-    
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        events = []
-        slots_to_reset = list(domain['forms']['form_troubleshoot_internet'].keys())
-
-        if 'username' in slots_to_reset:
-            slots_to_reset.remove('username')
-
-        if 'ti_form_completed' in slots_to_reset:
-            slots_to_reset.remove('ti_form_completed')
-
-        for slot_name in slots_to_reset:
-            slot_value = tracker.get_slot(slot_name)
-            if slot_value is not None:
-                events.append(SlotSet(slot_name, None))
-
-        events.append(SlotSet('ti_form_completed', False))
-
-        return events
 
 
 

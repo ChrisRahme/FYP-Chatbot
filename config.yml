@@ -14,21 +14,18 @@ pipeline:
   min_ngram: 1
   max_ngram: 4
 - name: DIETClassifier
-  epochs: 141
+  epochs: 201
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
-  number_of_transformer_layers: 4  #2 4 4 8 4  4
-  number_of_attention_heads:    16 #4 4 8 8 8 16
   evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  checkpoint_model: True
 - name: RegexEntityExtractor
 - name: EntitySynonymMapper
 - name: ResponseSelector
-  epochs: 21
+  epochs: 41
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
@@ -37,14 +34,13 @@ pipeline:
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
 - name: FallbackClassifier
-  threshold: 0.2
-  ambiguity_threshold: 0.05
+  threshold: 0.5
+  ambiguity_threshold: 0.1
 policies:
 - name: AugmentedMemoizationPolicy
-  max_history: 8
 - name: TEDPolicy
   max_history: 8
-  epochs: 41
+  epochs: 71
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
@@ -56,5 +52,3 @@ policies:
   core_fallback_threshold: 0.3
   core_fallback_action_name: action_default_fallback
   enable_fallback_prediction: true
-  restrict_rules: true
-  check_for_contradictions: true

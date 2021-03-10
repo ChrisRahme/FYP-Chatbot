@@ -1,8 +1,6 @@
 version: "2.0"
-
 stories:
-
-- story: User greets, logs in, and asks about quota
+- story: Story from Conversation ID f46aaf60042341619e90c9b454aa58e9
   steps:
   - intent: greet
   - action: action_utter_greet
@@ -22,11 +20,11 @@ stories:
   - active_loop: null
   - slot_was_set:
     - password: secret
-  - action: action_submit_form_log_in
+  - action: action_logged_in
   - intent: query_quota
   - action: action_fetch_quota
   
-- story: User logs in and asks about quota
+- story: Story from Conversation ID 6631e0835f634e528b340e1b0be33201
   steps:
   - intent: log_in
   - action: form_log_in
@@ -36,17 +34,17 @@ stories:
   - intent: out_of_scope
   - action: form_log_in
   - slot_was_set:
-    - username: marc
+    - username: chris
   - intent: out_of_scope
   - action: form_log_in
   - active_loop: null
   - slot_was_set:
     - password: secret
-  - action: action_submit_form_log_in
+  - action: action_logged_in
   - intent: query_quota
   - action: action_fetch_quota
 
-- story: User change languages, fills types, and asks about FAQ
+- story: Story from Conversation ID 2cb79ef0363f4e95bd9b2a13a5dae8bb
   steps:
   - intent: change_language
   - action: action_utter_change_language
@@ -78,7 +76,7 @@ stories:
   - intent: faq
   - action: utter_faq
 
-- story: User fills types and forgot their credentials
+- story: Story from Conversation ID 0e8404fb7f934d478a60acc06f50eaba
   steps:
   - intent: greet
   - action: action_utter_greet
@@ -104,35 +102,3 @@ stories:
   - action: action_utter_recover_credentials
   - intent: thanks
   - action: action_utter_youre_welcome
-
-- story: User fills types and has internet problems
-  steps:
-  - intent: greet
-  - action: action_utter_greet
-  - intent: inform_service_type
-    entities:
-    - service_type: wireless
-  - slot_was_set:
-    - service_type: wireless
-  - action: action_utter_account_types
-  - intent: inform_account_type
-    entities:
-    - account_type: consumer
-  - slot_was_set:
-    - account_type: consumer
-  - action: action_utter_topic_types
-  - intent: inform_topic_type
-    entities:
-    - topic_type: troubleshooting
-  - slot_was_set:
-    - topic_type: troubleshooting
-  - action: action_utter_topic_samples
-  - slot_was_set:
-    - service_type: wireless
-  - slot_was_set:
-    - account_type: consumer
-  - slot_was_set:
-    - topic_type: troubleshooting
-  - intent: internet_problem
-  - action: form_troubleshoot_internet
-  - active_loop: form_troubleshoot_internet

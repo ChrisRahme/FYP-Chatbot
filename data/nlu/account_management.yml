@@ -63,7 +63,6 @@ nlu:
   examples: |
     - i want to log in
     - i want to sign in
-    - log in
     - login
     - sign in
     - signin
@@ -83,5 +82,6 @@ nlu:
     - ես ուզում եմ մուտք գործել
     - մուտք
     - Մուտք գործել
+    - log in
     - ok log me in
     - ok log in
