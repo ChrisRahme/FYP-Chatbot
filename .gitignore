@@ -12,6 +12,7 @@ models/*.tar.gz
 
 
 # Files
+.db
 .DS_store
 .google-cookie
 .test_domain.yml
