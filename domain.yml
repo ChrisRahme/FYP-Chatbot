@@ -105,6 +105,13 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
+  password_tries:
+    type: rasa.shared.core.slots.FloatSlot
+    initial_value: 0
+    auto_fill: true
+    influence_conversation: false
+    max_value: 3.0
+    min_value: 0.0
   loggedin:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: false
@@ -152,68 +159,68 @@ slots:
     - changing
     - troubleshooting
     - account
-  a_noise:
+  tia_noise:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  b_modem_on:
+  tib_modem_on:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  c_modem_led_green:
+  tic_modem_green:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  d_nb_phones:
+  tid_nb_phones:
     type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
     max_value: 100.0
     min_value: 0.0
-  e_nb_sockets:
+  tie_nb_sockets:
     type: rasa.shared.core.slots.FloatSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
     max_value: 100.0
     min_value: 0.0
-  f_splitter_installed:
+  tif_splitter_installed:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  g_rj_plugged:
+  tig_rj_plugged:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  h_modem_led_green:
+  tih_other_plug:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  i_other_plug:
+  tii_other_modem:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  j_other_modem:
+  tij_has_pbx:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  k_has_pbx:
+  tik_has_line:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
     auto_fill: false
     influence_conversation: true
-  l_has_line:
+  ti_form_completed:
     type: rasa.shared.core.slots.BooleanSlot
-    initial_value: null
+    initial_value: false
     auto_fill: false
     influence_conversation: true
   requested_slot:
@@ -224,35 +231,35 @@ slots:
 responses:
   utter_upcoming_feature:
   - text: Sorry, I can't do that yet, but we're working on it!
-  utter_greet_en:
+  utter_greet_English:
   - text: Hi, I’m GDS automated virtual assistant. How can I help you today?
   - text: So I can get you to the right place, tell me what you’d like help with.
   - text: Hello, how can I help?
-  utter_greet_fr:
+  utter_greet_French:
   - text: Bonjour, je suis l'assistant virtuel automatisé de GDS. Comment puis-je vous aider aujourd'hui?
   - text: Pour que je puisse vous guider, dites-moi si vous aimeriez obtenir de l’aide.
   - text: Bonjour, comment puis-je aider?
-  utter_greet_ar:
+  utter_greet_Arabic:
   - text: مرحبًا ، أنا مساعد افتراضي تلقائي لنظام GDS. كيف استطيع مساعدتك اليوم؟
   - text: حتى أتمكن من توصيلك إلى المكان الصحيح ، أخبرني بما تريد المساعدة فيه.
   - text: مرحبًا ، كيف يمكنني المساعدة؟
-  utter_greet_hy:
+  utter_greet_Armenian:
   - text: Ողջույն, ես GDS ավտոմատացված վիրտուալ օգնական եմ. Ինչպե՞ս կարող եմ օգնել ձեզ այսօր?
   - text: Այսպիսով, ես կարող եմ ձեզ ճիշտ տեղ հասցնել, ասա ինձ, թե ինչի հետ կցանկանայիր օգնել.
   - text: Ողջույն, ինչպե՞ս կարող եմ օգնել?
-  utter_goodbye_en:
+  utter_goodbye_English:
   - text: Bye!
   - text: Goodbye!
   - text: See you soon!
-  utter_goodbye_fr:
+  utter_goodbye_French:
   - text: À plus!
   - text: Au revoir!
   - text: À bientôt!
-  utter_goodbye_ar:
+  utter_goodbye_Arabic:
   - text: وداعا!
   - text: مع السلامة!
   - text: اراك قريبا!
-  utter_goodbye_hy:
+  utter_goodbye_Armenian:
   - text: yeտեսություն!
   - text: Ցտեսություն!
   - text: Շուտով կհանդիպենք!
@@ -341,28 +348,28 @@ responses:
       From prepaid to postpaid: A bank domiciliation form will be sent to your email address to be signed and stamped by the bank, or submit it online through our Website.
 
        From postpaid to prepaid: Please send an email requesting to change the payment method or submit it online through our Website, and the request will be executed at the beginning of the subsequent month.
-  utter_youare_welcome_en:
+  utter_youare_welcome_English:
   - text: You're welcome! How else can I help?
   - text: No problem. What else can I help you with?
   - text: Anytime! Can I help with anything else?
   - text: You're welcome! What else can I help you with?
   - text: No problem. Can I help with anything else?
   - text: Anytime! Do you need help with something else?
-  utter_youare_welcome_fr:
+  utter_youare_welcome_French:
   - text: Je vous en prie! Comment puis-je encore aider?
   - text: Aucun problème. Que puis-je faire d'autre pour vous?
   - text: Ravi d'aider! Puis-je aider avec autre chose?
   - text: Je vous en prie! Que puis-je faire d'autre pour vous?
   - text: Aucun souci. Puis-je aider avec autre chose?
   - text: Pas de problème! Avez-vous besoin d'aide pour autre chose?
-  utter_youare_welcome_ar:
+  utter_youare_welcome_Arabic:
   - text: على الرحب والسعة! كيف لا يزال بإمكاني المساعدة؟
   - text: لايوجد اي مشكلة. ما الذي يمكنني أن أفعله من أجلك؟
   - text: سررت بمساعدتك! هل يمكنني المساعدة بشيء آخر؟
   - text: على الرحب والسعة! ما الذي يمكنني أن أفعله من أجلك؟
   - text: لا مشكلة. هل يمكنني المساعدة بشيء آخر؟
   - text: لا مشكلة! هل تحتاج إلى مساعدة في أي شيء آخر؟
-  utter_youare_welcome_hy:
+  utter_youare_welcome_Armenian:
   - text: Խնդրեմ! Ինչպե՞ս կարող եմ դեռ օգնել?
   - text: Խնդիր չկա. Ինչ կարող եմ անել քեզ համար?
   - text: Հաճելի է ձեզ օգնել! Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
@@ -370,6 +377,7 @@ responses:
   - text: Ոչ մի խնդիր. Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
   - text: Ոչ մի խնդիր! Ուրիշի՞ն օգնության կարիք ունեք?
 actions:
+- action_session_start
 - action_utter_greet
 - action_utter_goodbye
 - action_utter_youre_welcome
@@ -377,7 +385,9 @@ actions:
 - action_utter_topic_types
 - action_utter_topic_samples
 - action_utter_change_language
-- action_logged_in
+- action_submit_form_log_in
+- action_submit_form_troubleshoot_internet
+- action_reset_ti_slots
 - action_out_of_scope
 - action_set_language
 - action_check_existence
@@ -385,6 +395,17 @@ actions:
 - action_fetch_quota
 - action_ask_username
 - action_ask_password
+- action_ask_tia_noise
+- action_ask_tib_modem_on
+- action_ask_tic_modem_green
+- action_ask_tid_nb_phones
+- action_ask_tie_nb_sockets
+- action_ask_tif_splitter_installed
+- action_ask_tig_rj_plugged
+- action_ask_tih_other_plug
+- action_ask_tii_other_modem
+- action_ask_tij_has_pbx
+- action_ask_tik_has_line
 - action_utter_recover_credentials
 - validate_form_log_in
 - validate_form_troubleshoot_internet
@@ -399,7 +420,7 @@ forms:
       not_intent: stop
       type: from_text
   form_troubleshoot_internet:
-    a_noise:
+    tia_noise:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -408,7 +429,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    b_modem_on:
+    tib_modem_on:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -417,7 +438,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    c_modem_led_green:
+    tic_modem_green:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -426,15 +447,15 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    d_nb_phones:
+    tid_nb_phones:
     - intent_name: None
       not_intent: stop
       type: from_text
-    e_nb_sockets:
+    tie_nb_sockets:
     - intent_name: None
       not_intent: stop
       type: from_text
-    f_splitter_installed:
+    tif_splitter_installed:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -443,7 +464,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    g_rj_plugged:
+    tig_rj_plugged:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -452,7 +473,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    h_modem_led_green:
+    tih_other_plug:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -461,7 +482,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    i_other_plug:
+    tii_other_modem:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -470,7 +491,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    j_other_modem:
+    tij_has_pbx:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -479,7 +500,7 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    k_has_pbx:
+    tik_has_line:
     - intent: affirm
       not_intent: stop
       type: from_intent
@@ -488,13 +509,8 @@ forms:
       not_intent: stop
       type: from_intent
       value: false
-    l_has_line:
-    - intent: affirm
+    username:
+    - intent_name: None
       not_intent: stop
-      type: from_intent
-      value: true
-    - intent: deny
-      not_intent: stop
-      type: from_intent
-      value: false
+      type: from_text
 e2e_actions: []
