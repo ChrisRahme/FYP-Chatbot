@@ -110,6 +110,7 @@ def announce(action, tracker = None):
 
 def reset_slots(tracker, slots, exceptions):
     events = []
+    none_slots = []
 
     for exception in exceptions:
         if exception in slots:
@@ -117,7 +118,12 @@ def reset_slots(tracker, slots, exceptions):
 
     for slot in slots:
         if tracker.get_slot(slot) is not None:
-            events.append(SlotSet(slot, None))
+            none_slots.append(slot)
+    
+    for slot in none_slots:
+        events.append(SlotSet(slot, None))
+
+    print('\n> reset_slots:', ', '.join(none_slots))
 
     return events
 
@@ -615,10 +621,16 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
         text_contact_ogero = get_text_from_lang(
             tracker,
-            ['Please try to contact Ogero on 1515 to resolve the noise on the line'])
+            ['Please try to contact Ogero on 1515 to resolve the noise on the line.',
+            'Veuillez essayer de contacter Ogero au 1515 pour résoudre le bruit sur la ligne.',
+            'يرجى محاولة الاتصال بـ Ogero على 1515 لحل الضوضاء على الخط.',
+            'Խնդրում ենք փորձել կապվել Ogero- ի հետ 1515-ին `գծի աղմուկը լուծելու համար:'])
         text_if_works = get_text_from_lang(
             tracker,
-            ['Great! Glad that it works now.'])
+            ['Great! I\'m glad that it works now. Anything else I can help with?',
+            'Génial! Est-ce que je peux vous aider avec autre chose?',
+            'رائعة! أي شيء آخر يمكنني المساعدة به؟',
+            'Հոյակապ Ուրիշ ինչ-որ բան կարող եմ օգնել:'])
 
         required_slots = ['tia_noise']
         if tracker.get_slot('tia_noise') == True: # There is noise on the line, stop
@@ -656,7 +668,7 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
                                     dispatcher.utter_message(text_if_works)
                                 else: # Another modem is plugged in and it doesn't work, continue
                                     required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])
-                                    
+        
         return required_slots
 
 
@@ -710,7 +722,10 @@ class ActionSubmitFormTroubleshootInternet(Action):
 
             text = get_text_from_lang(
                 tracker,
-                ['A case was created for {} {}.'.format(login_type, username)])
+                ['A case was created for {}.'.format(username),
+                'Un dossier a été créé pour {}.'.format(username),
+                'تم إنشاء حالة لـ {}.'.format(username),
+                'Գործ ստեղծվեց {} - ի համար:'.format(username)])
             print('\nBOT:', text)
             dispatcher.utter_message(text)
 
@@ -1272,30 +1287,7 @@ class ActionOutOfScope(Action):
 
 
 
-class ActionResetTiSlots(Action): ## TODO REMOVE?
-    def name(self):
-        return 'action_reset_ti_slots'
-    
 
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        events = []
-        slots_to_reset = list(domain['forms']['form_troubleshoot_internet'].keys())
-
-        if 'username' in slots_to_reset:
-            slots_to_reset.remove('username')
-
-        if 'ti_form_completed' in slots_to_reset:
-            slots_to_reset.remove('ti_form_completed')
-
-        for slot_name in slots_to_reset:
-            slot_value = tracker.get_slot(slot_name)
-            if slot_value is not None:
-                events.append(SlotSet(slot_name, None))
-
-        events.append(SlotSet('ti_form_completed', False))
-
-        return events
 
 
 
