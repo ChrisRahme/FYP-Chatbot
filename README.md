@@ -3,6 +3,13 @@
 ## Current
 
 * Actions
+  * Refactored language actions
+* Forms
+  * Added form_troubleshoot_internet with its FormValidationAction and ActionAskSlotNames
+
+## 2021.03.08
+
+* Actions
   * Added functions (Modified Database class & language-dependent template)
   * Converting utterances into actions that utter the message corresponding to the selected language.
   * Minor code changes.
