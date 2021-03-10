@@ -2,36 +2,13 @@ version: "2.0"
 
 stories:
 
-# - story: User fills quota form
-#   steps:
-#   - intent: query_quota
-#   - action: form_log_in
-#   - active_loop: form_log_in
-
-# - story: User fills quota form and stops
-#   steps:
-#   - intent: query_quota
-#   - action: form_log_in
-#   - active_loop: form_log_in
-#   - or:
-#     - intent: stop
-#     - intent: deny
-#   - action: action_deactivate_loop
-#   - active_loop: null
-#   - action: utter_okay
-
-- story: User asks for quota
-  steps:
-  - intent: query_quota
-  - action: action_fetch_quota
-
-- story: User fills login form
+- story: User fills form_log_in
   steps:
   - intent: log_in
   - action: form_log_in
   - active_loop: form_log_in
 
-- story: User fills login form and stops
+- story: User fills form_log_in and stops
   steps:
   - intent: log_in
   - action: form_log_in
@@ -42,3 +19,120 @@ stories:
   - action: action_deactivate_loop
   - active_loop: null
   - action: utter_okay
+
+- story: User fills form_troubleshoot_internet
+  steps:
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+
+- story: User fills form_troubleshoot_internet and stops
+  steps:
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_okay
+
+- story: (Conversation) User fills login form and stops when asked for username
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_okay
+
+- story: (Conversation) User fills login form and stops when asked for password
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_okay
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+  - action: form_log_in
+  - slot_was_set:
+    - username: chris
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_okay
+
+- story: (Conversation) User fills form_troubleshoot_internet
+  steps:
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+  - slot_was_set:
+    - requested_slot: tia_noise
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tia_noise: false
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tib_modem_on: false
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tic_modem_green: false
+  - intent: out_of_scope
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tid_nb_phones: '3'
+  - intent: out_of_scope
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tie_nb_sockets: '6'
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tif_splitter_installed: false
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tig_rj_plugged: false
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tih_other_plug: false
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tii_other_modem: false
+  - intent: affirm
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tij_has_pbx: true
+  - intent: affirm
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tik_has_line: true
+  - intent: out_of_scope
+  - action: form_troubleshoot_internet
+  - active_loop: null
+  - slot_was_set:
+    - username: chris
+  - action: action_submit_form_troubleshoot_internet

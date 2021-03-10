@@ -176,6 +176,7 @@ nlu:
     - Այո խնդրում եմ
     - Այո, շնորհակալություն
     - Այո լավ
+    - okay!
 - intent: deny
   examples: |
     - no
@@ -360,7 +361,24 @@ nlu:
   examples: |
     - stop
     - cancel
-    - i dont want
+    - terminate
+    - 🚫
+    - arrete
+    - annule
+    - termine
+    - arrêter
+    - annuler
+    - terminer
+    - wa2if
+    - wa2fe
+    - khalas
+    - قف
+    - وقف
+    - إلغاء
+    - المنهي
+    - انهي
+    - կանգ առեք
+    - չեղարկել
 - intent: thanks
   examples: |
     - thanks
