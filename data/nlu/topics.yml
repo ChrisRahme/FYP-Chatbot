@@ -36,8 +36,8 @@ nlu:
     - ծառայության տեսակը սխալ է
 - intent: inform_service_type
   examples: |
-    - [wireless](service_type)
-    - [internet](service_type)
+    - [wireless]{"entity": "service_type", "value": "wireless"}
+    - [internet]{"entity": "service_type", "value": "internet"}
     - [Cablevision TV]{"entity": "service_type", "value": "cablevision"}
     - [cablevision](service_type)
     - [tv]{"entity": "service_type", "value": "cablevision"}
@@ -179,6 +179,7 @@ nlu:
     - [online]{"entity": "topic_type", "value": "account"}
     - [online account]{"entity": "topic_type", "value": "account"}
     - [sign in help]{"entity": "topic_type", "value": "account"}
+    - /inform_topic_type{"topic_type": "troubleshooting"}
 - intent: need_help
   examples: |
     - i need help

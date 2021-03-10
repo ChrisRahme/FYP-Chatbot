@@ -177,6 +177,7 @@ nlu:
     - Այո, շնորհակալություն
     - Այո լավ
     - okay!
+    - /affirm
 - intent: deny
   examples: |
     - no
@@ -234,6 +235,7 @@ nlu:
     - Ես չեմ հավատում
     - ոչ լավ
     - Չեմ ուզում
+    - /deny
 - intent: mood_great
   examples: |
     - perfect
