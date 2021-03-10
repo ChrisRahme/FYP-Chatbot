@@ -3,7 +3,7 @@
 ## Current
 
 * Actions
-  * Refactored language actions
+  * Refactored language helper functions
 * Forms
   * Added form_troubleshoot_internet with its FormValidationAction and ActionAskSlotNames
 
