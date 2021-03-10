@@ -89,3 +89,64 @@ stories:
       are you a bot?
     intent: bot_challenge
   - action: utter_iamabot
+
+- story: Story from Conversation ID dd8b1aef374e4b2a8064b71ff163b60e
+  steps:
+  - intent: greet
+    user: |-
+      hi
+  - action: action_utter_greet
+  - intent: inform_service_type
+    user: |-
+      /inform_service_type{"service_type": "internet"}
+  - slot_was_set:
+    - service_type: internet
+  - action: action_utter_account_types
+  - intent: inform_account_type
+    user: |-
+      [consumer](account_type)
+  - slot_was_set:
+    - account_type: consumer
+  - action: action_utter_topic_types
+  - intent: inform_topic_type
+    user: |-
+      [account](topic_type)
+  - slot_was_set:
+    - topic_type: account
+  - action: action_utter_topic_samples
+
+- story: Story 2 from Conversation ID dd8b1aef374e4b2a8064b71ff163b60e
+  steps:
+  - intent: log_in
+    user: |-
+      log in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+    user: |-
+      123456
+  - action: form_log_in
+  - slot_was_set:
+    - username: null
+  - intent: out_of_scope
+    user: |-
+      L123456
+  - action: form_log_in
+  - slot_was_set:
+    - username: l123456
+  - intent: out_of_scope
+    user: |-
+      password
+  - action: form_log_in
+  - slot_was_set:
+    - password: null
+  - intent: stop
+    user: |-
+      stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_okay
