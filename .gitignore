@@ -16,4 +16,6 @@ models/*.tar.gz
 .DS_store
 .google-cookie
 .test_domain.yml
+events.db
+rasa.db
 story_graph.dot
