@@ -12,11 +12,8 @@ models/*.tar.gz
 
 
 # Files
+.db
 .DS_store
 .google-cookie
 .test_domain.yml
-events.db
-events.db-shm
-events.db-wal
-rasa.db
 story_graph.dot
