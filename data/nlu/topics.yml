@@ -43,6 +43,7 @@ nlu:
     - [tv]{"entity": "service_type", "value": "cablevision"}
     - [dsl internet]{"entity": "service_type", "value": "dsl"}
     - [dsl](service_type)
+    - /inform_service_type{"service_type": "internet"}
 - intent: ask_account_types
   examples: |
     - i am not a business
