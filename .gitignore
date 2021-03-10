@@ -1,9 +1,10 @@
 # Folders
 .old/
-__pycache__/
-domain/
 .tensorboard/
 .tensorboard.old/
+__pycache__/
+domain/
+results/
 
 
 # Files in folders
