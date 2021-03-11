@@ -2,6 +2,8 @@
 
 ## Current
 
+* Upgraded for Rasa 2.3.4
+  * DIET,  ResponseSelector, and TED's `model_confidence` went back from `cosine` to `linear_norm` (See [rasa issue #8014](https://github.com/rasahq/rasa/issues/8014)).
 * Actions
   * Refactored language helper functions
   * `ActionAskSlotName`s in `FormValidationAction`s now have a "stop" (🚫) button to stop the form.
@@ -44,10 +46,10 @@
 
 * Upgraded for Rasa 2.3.0
   * DIET and TED confidence use now cosine distance.
-  * DIET loss type is now cross_entropy (softmax is deprecated) and constrain_similarities is set to True (recommended when using cross_entropy).
+  * DIET loss type is now `cross_entropy` (`softmax` is deprecated) and `constrain_similarities` is set to True (recommended when using `cross_entropy`).
 * Actions & training data
   * Weather action now supports inputs without a city name and will use last city name in that case.
-  * A new Out-Of-Scope intent was added with a corresponding custom action that does a Google search.
+  * A new `out_of_scope` intent was added with a corresponding custom action that does a Google search.
 * Pipeline
   * See Rasa 2.3.0 modifications mentioned above.
   * The pipeline was changed to use SpaCy. The chatbot does a way better job at detecting city names.
