@@ -1,7 +1,7 @@
 # Extend the official Rasa SDK image
 #ARG RASA_SDK_VERSION
 #FROM rasa/rasa-sdk:{RASA_SDK_VERSION}
-FROM rasa/rasa-sdk:2.3.0
+FROM rasa/rasa-sdk:2.3.1
 #FROM rasa/rasa:2.2.3-full
 
 # Use subdirectory as working directory
