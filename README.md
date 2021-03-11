@@ -2,8 +2,13 @@
 
 ## Current
 
-* Upgraded for Rasa 2.3.4
-  * DIET,  ResponseSelector, and TED's `model_confidence` went back from `cosine` to `linear_norm` (See [rasa issue #8014](https://github.com/rasahq/rasa/issues/8014)).
+* Upgraded for [Rasa 2.3.4](https://github.com/RasaHQ/rasa/releases/tag/2.3.4)
+  * DIET,  ResponseSelector, and TED's `model_confidence` went back from `cosine` to `linear_norm` ([rasa issue #8014](https://github.com/rasahq/rasa/issues/8014)).
+  * Studying [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0).
+* Pipeline & Policies
+  * See modifications mentioned above.
+  * Tensorboard integration.
+  * Other minor changes.
 * Actions
   * Refactored language helper functions
   * `ActionAskSlotName`s in `FormValidationAction`s now have a "stop" (🚫) button to stop the form.
@@ -44,7 +49,7 @@
 
 ## 2021.02.20
 
-* Upgraded for Rasa 2.3.0
+* Upgraded for [Rasa 2.3.0](https://github.com/RasaHQ/rasa/releases/tag/2.3.0)
   * DIET and TED confidence use now cosine distance.
   * DIET loss type is now `cross_entropy` (`softmax` is deprecated) and `constrain_similarities` is set to True (recommended when using `cross_entropy`).
 * Actions & training data
