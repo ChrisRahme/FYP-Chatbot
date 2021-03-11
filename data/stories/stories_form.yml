@@ -135,4 +135,88 @@ stories:
   - active_loop: null
   - slot_was_set:
     - username: chris
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_form_troubleshoot_internet
+
+- story: (Conversation) User fills form_troubleshoot_internet 2
+  steps:
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+  - slot_was_set:
+    - requested_slot: tia_noise
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tia_noise: false
+  - slot_was_set:
+    - requested_slot: tib_modem_on
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tib_modem_on: false
+  - slot_was_set:
+    - requested_slot: tic_modem_green
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tic_modem_green: false
+  - slot_was_set:
+    - requested_slot: tid_nb_phones
+  - intent: out_of_scope
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tid_nb_phones: '4'
+  - slot_was_set:
+    - requested_slot: tie_nb_sockets
+  - intent: out_of_scope
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tie_nb_sockets: '7'
+  - slot_was_set:
+    - requested_slot: tif_splitter_installed
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tif_splitter_installed: false
+  - slot_was_set:
+    - requested_slot: tig_rj_plugged
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tig_rj_plugged: false
+  - slot_was_set:
+    - requested_slot: tih_other_plug
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tih_other_plug: false
+  - slot_was_set:
+    - requested_slot: tii_other_modem
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tii_other_modem: false
+  - slot_was_set:
+    - requested_slot: tij_has_pbx
+  - intent: affirm
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tij_has_pbx: true
+  - slot_was_set:
+    - requested_slot: tik_has_line
+  - intent: affirm
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tik_has_line: true
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - username: '71283701'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
   - action: action_submit_form_troubleshoot_internet

@@ -137,7 +137,7 @@ stories:
   - action: form_troubleshoot_internet
   - active_loop: form_troubleshoot_internet
 
-- story: (Conversation) User fills topics and troubleshoots internet 
+- story: (Conversation) User fills topics, troubleshoots internet, and finds solution
   steps:
   - intent: greet
   - action: action_utter_greet
