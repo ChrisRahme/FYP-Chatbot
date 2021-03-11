@@ -21,10 +21,14 @@ nlu:
     - Wi-Fi
     - connection
     - connexion
+- synonym: wireless
+  examples: |
+    - wire
 - synonym: cablevision
   examples: |
     - Cablevision TV
     - tv
+    - television
 - synonym: dsl
   examples: |
     - dsl internet
