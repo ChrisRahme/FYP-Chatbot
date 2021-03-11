@@ -418,10 +418,10 @@ class ActionAskTiiOtherModem(Action):
         announce(self, tracker)
         text = get_text_from_lang(
             tracker,
-            ['Try to plug the modem into another socket.',
-            'Essayez de brancher le modem sur une autre prise.',
-            'حاول توصيل المودم بمقبس آخر.',
-            'Փորձեք մոդեմը միացնել մեկ այլ վարդակի:'
+            ['Try to use another modem.',
+            'Essayez d\'utiliser un autre modem.',
+            'حاول استخدام مودم آخر.',
+            'Փորձեք օգտագործել մեկ այլ մոդեմ:'
             ]) + '\n' + get_text_from_lang(tracker, text_does_it_work) + ' (' + get_text_from_lang(
                 tracker,
                 ['Press "no" if you can\'t use another modem.',
@@ -716,7 +716,7 @@ class ActionSubmitFormTroubleshootInternet(Action):
         events = reset_slots(tracker, slots_to_reset, exceptions)
         events.append(SlotSet('ti_form_completed', False))
 
-        if tracker.get_slot('tik_has_line') is not None and tracker.get_slot('username') is not None: # User has completed the form
+        if (tracker.get_slot('tik_has_line') is not None) and (tracker.get_slot('username') is not None): # User has completed the form
             username   = tracker.get_slot('username').title()
             #login_type = tracker.get_slot('login_type').replace('_', ' ')
 
