@@ -1,20 +1,20 @@
-# Versions
+# Releases
 
 ## Current
 
 * Actions
   * Refactored language helper functions
-  * ActionAskSlotNames in FormValidationActions now have a "stop" (🚫) button to stop the form
+  * `ActionAskSlotName`s in `FormValidationAction`s now have a "stop" (🚫) button to stop the form.
 * Intents & training data
-  * Added internet_problem intent which starts form_troubleshoot_internet form
-  * Removed Pokémon features
+  * Added `internet_problem` intent which starts `form_troubleshoot_internet` form.
+  * Removed Pokémon features.
 * Forms
-  * Added form_troubleshoot_internet with its FormValidationAction and ActionAskSlotNames
+  * Added `form_troubleshoot_internet` with its `FormValidationAction` and `ActionAskSlotName`s.
 
 ## 2021.03.08
 
 * Actions
-  * Added functions (Modified Database class & language-dependent template)
+  * Added functions (Modified `Database` class & language-dependent template).
   * Converting utterances into actions that utter the message corresponding to the selected language.
   * Minor code changes.
 * Intents & training data
@@ -35,10 +35,10 @@
 ## 2021.02.24
 
 * Actions & training data
-  * Queries database when asked about quota (using form)
-  * Added "How are you?" intent
+  * Queries database when asked about quota (using form).
+  * Added `how_are_you` intent.
 * Other
-  * Added lookup table for person names
+  * Added lookup table for person names.
 
 ## 2021.02.20
 
