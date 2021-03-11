@@ -88,6 +88,10 @@
       {
         "text": "marhaba",
         "intent": "greet"
+      },
+      {
+        "text": "Hi",
+        "intent": "greet"
       }
     ],
     "regex_features": [],
