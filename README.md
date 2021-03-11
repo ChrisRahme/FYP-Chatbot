@@ -4,6 +4,9 @@
 
 * Actions
   * Refactored language helper functions
+* Intents & training data
+  * Added internet_problem intent which starts form_troubleshoot_internet form
+  * Removed Pokémon features
 * Forms
   * Added form_troubleshoot_internet with its FormValidationAction and ActionAskSlotNames
 
