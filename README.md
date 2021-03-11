@@ -4,6 +4,7 @@
 
 * Actions
   * Refactored language helper functions
+  * ActionAskSlotNames in FormValidationActions now have a "stop" (🚫) button to stop the form
 * Intents & training data
   * Added internet_problem intent which starts form_troubleshoot_internet form
   * Removed Pokémon features
