@@ -2,11 +2,6 @@ version: "2.0"
 
 rules:
 
-- rule: Pokemon check
-  steps:
-  - intent: confirm_exists
-  - action: action_check_existence
-
 - rule: Weather check
   steps:
   - intent: get_weather

@@ -1132,34 +1132,6 @@ class ActionFetchQuota(Action):
 
 
 
-class ActionCheckExistence(Action):
-    knowledge = Path('data/lookups/pokemon_name.txt').read_text().split('\n')
-
-    def name(self) -> Text:
-        return 'action_check_existence'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-
-        pokemon_name = None
-        latest = tracker.latest_message
-        
-        for blob in latest['entities']:
-            if blob['entity'] == 'pokemon_name':
-                name = blob['value'].title()
-                if name.lower() in self.knowledge:
-                    dispatcher.utter_message(text=f'Yes, {name} is a Pokémon.')
-                    pokemon_name = name
-                else:
-                    dispatcher.utter_message(text=f'{name} is not a Pokémon.')
-        
-        if pokemon_name:
-            return [SlotSet('pokemon_name', pokemon_name)]
-        
-        return []
-
-
-
 class ActionCheckWeather(Action):
     def name(self):
         return 'action_check_weather'

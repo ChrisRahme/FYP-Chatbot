@@ -1,9 +1,6 @@
 version: "2.0"
 nlu:
-- synonym: pokemon
-  examples: |
-    - pokemons
-    - pokémon
+
 - synonym: weather
   examples: |
     - temp

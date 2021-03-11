@@ -63,7 +63,6 @@ intents:
     use_entities: true
 entities:
 - city_name
-- pokemon_name
 - person_name
 - language
 - service_type
@@ -85,11 +84,6 @@ slots:
     - french
     - arabic
     - armenian
-  pokemon_name:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
   city_name:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
