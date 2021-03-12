@@ -1,0 +1,34 @@
+[
+  {
+    "text": "i want postpaid",
+    "intent_response_key_target": "faq/change_payment_method",
+    "intent_response_key_prediction": {
+      "name": "faq/available_payment_methods",
+      "confidence": 0.6615296602249146
+    }
+  },
+  {
+    "text": "i want to pay",
+    "intent_response_key_target": "faq/available_payment_methods",
+    "intent_response_key_prediction": {
+      "name": "faq/change_payment_method",
+      "confidence": 0.5610418319702148
+    }
+  },
+  {
+    "text": "how do i bring prepad card",
+    "intent_response_key_target": "faq/buy_prepaid_card",
+    "intent_response_key_prediction": {
+      "name": "faq/change_payment_method",
+      "confidence": 0.9874433279037476
+    }
+  },
+  {
+    "text": "how do i but adsl prepaid?",
+    "intent_response_key_target": "faq/buy_prepaid_card",
+    "intent_response_key_prediction": {
+      "name": "faq/available_payment_methods",
+      "confidence": 0.5064367651939392
+    }
+  }
+]

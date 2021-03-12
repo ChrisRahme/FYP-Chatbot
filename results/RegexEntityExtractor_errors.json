@@ -1,0 +1,2334 @@
+[
+  {
+    "text": "is there a pokemon named satanael",
+    "entities": [
+      {
+        "start": 25,
+        "end": 33,
+        "value": "satanael",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "ever heard of pikachu",
+    "entities": [
+      {
+        "start": 14,
+        "end": 21,
+        "value": "pikachu",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 14,
+        "end": 21,
+        "confidence_entity": 0.9974693059921265,
+        "value": "pikachu",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "hey is rasa a pokemon?",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "value": "rasa",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 7,
+        "end": 11,
+        "confidence_entity": 0.9981215596199036,
+        "value": "rasa",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tell me how cold it is in helsinki",
+    "entities": [
+      {
+        "start": 26,
+        "end": 34,
+        "value": "helsinki",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 26,
+        "end": 34,
+        "confidence_entity": 0.5856791138648987,
+        "value": "helsinki",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "sao paulo weather",
+    "entities": [
+      {
+        "start": 0,
+        "end": 9,
+        "value": "sao paulo",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 3,
+        "confidence_entity": 0.7906394004821777,
+        "value": "sao",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "city_name",
+        "start": 4,
+        "end": 9,
+        "confidence_entity": 0.792432427406311,
+        "value": "paulo",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is addis ababa cold or hot",
+    "entities": [
+      {
+        "start": 3,
+        "end": 14,
+        "value": "addis ababa",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 9,
+        "end": 14,
+        "confidence_entity": 0.9304497241973877,
+        "value": "ababa",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "topic_type",
+        "start": 20,
+        "end": 22,
+        "confidence_entity": 0.6449625492095947,
+        "value": "or",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "should i bring a jacket to switzerland",
+    "entities": [
+      {
+        "start": 27,
+        "end": 38,
+        "value": "switzerland",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "whats the climate of konichiwa",
+    "entities": [
+      {
+        "start": 21,
+        "end": 30,
+        "value": "konichiwa",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 21,
+        "end": 30,
+        "confidence_entity": 0.9905534386634827,
+        "value": "konichiwa",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in alaska",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "alaska",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.9298054575920105,
+        "value": "alaska",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "beitur temp",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "beitur",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "temp jordan",
+    "entities": [
+      {
+        "start": 5,
+        "end": 11,
+        "value": "jordan",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 5,
+        "end": 11,
+        "confidence_entity": 0.9744300246238708,
+        "value": "jordan",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "wind speed in Beirut, Lebanon",
+    "entities": [
+      {
+        "start": 14,
+        "end": 20,
+        "value": "Beirut",
+        "entity": "city_name"
+      },
+      {
+        "start": 22,
+        "end": 29,
+        "value": "Lebanon",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 14,
+        "end": 20,
+        "confidence_entity": 0.9994810223579407,
+        "value": "Beirut",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "city_name",
+        "start": 22,
+        "end": 29,
+        "confidence_entity": 0.9993104934692383,
+        "value": "Lebanon",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Cablevision TV",
+    "entities": [
+      {
+        "start": 0,
+        "end": 14,
+        "value": "cablevision",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "service_type",
+        "start": 0,
+        "end": 14,
+        "confidence_entity": 0.20512256026268005,
+        "value": "cablevision",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Consumer / Residential",
+    "entities": [
+      {
+        "start": 0,
+        "end": 22,
+        "value": "consumer",
+        "entity": "account_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "consumer",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "consumer",
+        "entity": "account_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "plans",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 5,
+        "confidence_entity": 0.5976482033729553,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "equipment",
+    "entities": [
+      {
+        "start": 0,
+        "end": 9,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 9,
+        "confidence_entity": 0.8658819198608398,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "payment",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "payment",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.9948930740356445,
+        "value": "payment",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "shop",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "value": "shopping",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 4,
+        "confidence_entity": 0.9950785636901855,
+        "value": "shopping",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Online Account & Sign-in Help",
+    "entities": [
+      {
+        "start": 0,
+        "end": 29,
+        "value": "account",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 15,
+        "end": 16,
+        "confidence_entity": 0.9385157823562622,
+        "value": "&",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "city_name",
+        "start": 21,
+        "end": 22,
+        "confidence_entity": 0.6535327434539795,
+        "value": "-",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "does ninetails exist",
+    "entities": [
+      {
+        "start": 5,
+        "end": 14,
+        "value": "ninetails",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is rasa a pokemon?",
+    "entities": [
+      {
+        "start": 3,
+        "end": 7,
+        "value": "rasa",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "are snorlax, gariddos and dittto pokemon?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 11,
+        "value": "snorlax",
+        "entity": "pokemon_name"
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "value": "gariddos",
+        "entity": "pokemon_name"
+      },
+      {
+        "start": 26,
+        "end": 32,
+        "value": "dittto",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 4,
+        "end": 11,
+        "confidence_entity": 0.8268042802810669,
+        "value": "snorlax",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "pokemon_name",
+        "start": 13,
+        "end": 21,
+        "confidence_entity": 0.8437017798423767,
+        "value": "gariddos",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "am i a pokemon",
+    "entities": [
+      {
+        "start": 3,
+        "end": 4,
+        "value": "i",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "temperature in usa",
+    "entities": [
+      {
+        "start": 15,
+        "end": 18,
+        "value": "usa",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 15,
+        "end": 18,
+        "confidence_entity": 0.9529625177383423,
+        "value": "usa",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is it hot at jounieh?",
+    "entities": [
+      {
+        "start": 13,
+        "end": 20,
+        "value": "jounieh",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is there snow in paris?",
+    "entities": [
+      {
+        "start": 17,
+        "end": 22,
+        "value": "paris",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 17,
+        "end": 22,
+        "confidence_entity": 0.9981871247291565,
+        "value": "paris",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in honolulu",
+    "entities": [
+      {
+        "start": 11,
+        "end": 19,
+        "value": "honolulu",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 19,
+        "confidence_entity": 0.9991363883018494,
+        "value": "honolulu",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "how hot is it in jounieh",
+    "entities": [
+      {
+        "start": 17,
+        "end": 24,
+        "value": "jounieh",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "beirut weather",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9990461468696594,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in bei",
+    "entities": [
+      {
+        "start": 11,
+        "end": 14,
+        "value": "bei",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "weather in Beirut, Lebanon.",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "Beirut",
+        "entity": "city_name"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "value": "Lebanon",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.9996215105056763,
+        "value": "Beirut",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "city_name",
+        "start": 19,
+        "end": 26,
+        "confidence_entity": 0.9994112253189087,
+        "value": "Lebanon",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "lebanon beirut",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "lebanon",
+        "entity": "city_name"
+      },
+      {
+        "start": 8,
+        "end": 14,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.99849534034729,
+        "value": "lebanon",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "city_name",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.9993854761123657,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "dsl",
+    "entities": [
+      {
+        "start": 0,
+        "end": 3,
+        "value": "dsl",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "service_type",
+        "start": 0,
+        "end": 3,
+        "confidence_entity": 0.8105345368385315,
+        "value": "dsl",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Billing, plans & equipment setup",
+    "entities": [
+      {
+        "start": 0,
+        "end": 32,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 15,
+        "end": 16,
+        "confidence_entity": 0.9872968196868896,
+        "value": "&",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "topic_type",
+        "start": 17,
+        "end": 26,
+        "confidence_entity": 0.6564511060714722,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "topic_type",
+        "start": 27,
+        "end": 32,
+        "confidence_entity": 0.9137448668479919,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "billing plans",
+    "entities": [
+      {
+        "start": 0,
+        "end": 13,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 8,
+        "end": 13,
+        "confidence_entity": 0.9486008286476135,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "billing",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "equipment setup",
+    "entities": [
+      {
+        "start": 0,
+        "end": 15,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 9,
+        "confidence_entity": 0.9928083419799805,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "topic_type",
+        "start": 10,
+        "end": 15,
+        "confidence_entity": 0.990352213382721,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "changing",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "changing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.4974196255207062,
+        "value": "changing",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "account",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "account",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is bulbasaur a pokemon",
+    "entities": [
+      {
+        "start": 3,
+        "end": 12,
+        "value": "bulbasaur",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 3,
+        "end": 12,
+        "confidence_entity": 0.992786705493927,
+        "value": "bulbasaur",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "can you find yaldabaoth?",
+    "entities": [
+      {
+        "start": 13,
+        "end": 23,
+        "value": "yaldabaoth",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "are pichuka and charmander pokemon?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 11,
+        "value": "pichuka",
+        "entity": "pokemon_name"
+      },
+      {
+        "start": 16,
+        "end": 26,
+        "value": "charmander",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 4,
+        "end": 11,
+        "confidence_entity": 0.8490604162216187,
+        "value": "pichuka",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "pokemon_name",
+        "start": 16,
+        "end": 26,
+        "confidence_entity": 0.9977263808250427,
+        "value": "charmander",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are you a pokemon",
+    "entities": [
+      {
+        "start": 4,
+        "end": 7,
+        "value": "you",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "whats the weather in beirut",
+    "entities": [
+      {
+        "start": 21,
+        "end": 27,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 21,
+        "end": 27,
+        "confidence_entity": 0.9994699358940125,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "how's the temperature of baghdad?",
+    "entities": [
+      {
+        "start": 25,
+        "end": 32,
+        "value": "baghdad",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 25,
+        "end": 32,
+        "confidence_entity": 0.9557872414588928,
+        "value": "baghdad",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "how is it like in heaven now",
+    "entities": [
+      {
+        "start": 18,
+        "end": 24,
+        "value": "heaven",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "climate in bern please",
+    "entities": [
+      {
+        "start": 11,
+        "end": 15,
+        "value": "bern",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 15,
+        "confidence_entity": 0.8996351361274719,
+        "value": "bern",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is it raining in al arz",
+    "entities": [
+      {
+        "start": 17,
+        "end": 23,
+        "value": "al arz",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "weather in oklahoma",
+    "entities": [
+      {
+        "start": 11,
+        "end": 19,
+        "value": "oklahoma",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 19,
+        "confidence_entity": 0.8934866189956665,
+        "value": "oklahoma",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "eather in fofofo",
+    "entities": [
+      {
+        "start": 10,
+        "end": 16,
+        "value": "fofofo",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "weather in beirut, lebanon",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "beirut",
+        "entity": "city_name"
+      },
+      {
+        "start": 19,
+        "end": 26,
+        "value": "lebanon",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.9993537068367004,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "city_name",
+        "start": 19,
+        "end": 26,
+        "confidence_entity": 0.9994208812713623,
+        "value": "lebanon",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "how hot is it in egypt",
+    "entities": [
+      {
+        "start": 17,
+        "end": 22,
+        "value": "egypt",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 17,
+        "end": 22,
+        "confidence_entity": 0.9761565327644348,
+        "value": "egypt",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in al arz",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "al arz",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "lebanon weather",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "lebanon",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.9986988306045532,
+        "value": "lebanon",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "arabic",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "arabic",
+        "entity": "language"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "cablevision",
+    "entities": [
+      {
+        "start": 0,
+        "end": 11,
+        "value": "cablevision",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "service_type",
+        "start": 0,
+        "end": 11,
+        "confidence_entity": 0.8828673362731934,
+        "value": "cablevision",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "dsl internet",
+    "entities": [
+      {
+        "start": 0,
+        "end": 12,
+        "value": "dsl",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "service_type",
+        "start": 0,
+        "end": 3,
+        "confidence_entity": 0.9844251871109009,
+        "value": "dsl",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "service_type",
+        "start": 4,
+        "end": 12,
+        "confidence_entity": 0.4954138696193695,
+        "value": "internet",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Bank",
+    "entities": [
+      {
+        "start": 0,
+        "end": 4,
+        "value": "bank",
+        "entity": "account_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 4,
+        "confidence_entity": 0.8077275156974792,
+        "value": "bank",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "setup",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "value": "billing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 5,
+        "confidence_entity": 0.9848343133926392,
+        "value": "billing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Order Status",
+    "entities": [
+      {
+        "start": 0,
+        "end": 12,
+        "value": "order",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 5,
+        "confidence_entity": 0.9518597722053528,
+        "value": "Order",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "topic_type",
+        "start": 6,
+        "end": 12,
+        "confidence_entity": 0.9692364931106567,
+        "value": "order",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "troubleshooting",
+    "entities": [
+      {
+        "start": 0,
+        "end": 15,
+        "value": "troubleshooting",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 15,
+        "confidence_entity": 0.8876473903656006,
+        "value": "troubleshooting",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "troubleshoot",
+    "entities": [
+      {
+        "start": 0,
+        "end": 12,
+        "value": "troubleshooting",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 12,
+        "confidence_entity": 0.8876473903656006,
+        "value": "troubleshooting",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "online",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "account",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.961432695388794,
+        "value": "account",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "is mamamama real",
+    "entities": [
+      {
+        "start": 3,
+        "end": 11,
+        "value": "mamamama",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is konichiwa a pokemon",
+    "entities": [
+      {
+        "start": 3,
+        "end": 12,
+        "value": "konichiwa",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 3,
+        "end": 12,
+        "confidence_entity": 0.5650749206542969,
+        "value": "konichiwa",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is pikachu a pokemon",
+    "entities": [
+      {
+        "start": 3,
+        "end": 10,
+        "value": "pikachu",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 3,
+        "end": 10,
+        "confidence_entity": 0.9973790645599365,
+        "value": "pikachu",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in london",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "london",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.9985244870185852,
+        "value": "london",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "venezuela temperature",
+    "entities": [
+      {
+        "start": 0,
+        "end": 9,
+        "value": "venezuela",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 9,
+        "confidence_entity": 0.5206852555274963,
+        "value": "venezuela",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tell me the weather in paris, marseille and lille",
+    "entities": [
+      {
+        "start": 23,
+        "end": 28,
+        "value": "paris",
+        "entity": "city_name"
+      },
+      {
+        "start": 30,
+        "end": 39,
+        "value": "marseille",
+        "entity": "city_name"
+      },
+      {
+        "start": 44,
+        "end": 49,
+        "value": "lille",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 23,
+        "end": 28,
+        "confidence_entity": 0.9964445233345032,
+        "value": "paris",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "compare clermont-ferrand to savona",
+    "entities": [
+      {
+        "start": 8,
+        "end": 24,
+        "value": "clermont-ferrand",
+        "entity": "city_name"
+      },
+      {
+        "start": 28,
+        "end": 34,
+        "value": "savona",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "beirut temp",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9995809197425842,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in beyrouth",
+    "entities": [
+      {
+        "start": 11,
+        "end": 19,
+        "value": "beyrouth",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "lebanon temp",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "lebanon",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.9993902444839478,
+        "value": "lebanon",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "honolulu",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "honolulu",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.9955406785011292,
+        "value": "honolulu",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in beirut plz",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.9994004964828491,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "hi, what is the predicted wind speed in Bekaa, Lebanon",
+    "entities": [
+      {
+        "start": 40,
+        "end": 45,
+        "value": "Bekaa",
+        "entity": "city_name"
+      },
+      {
+        "start": 47,
+        "end": 54,
+        "value": "Lebanon",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 47,
+        "end": 54,
+        "confidence_entity": 0.9989163875579834,
+        "value": "Lebanon",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "syria covid cases",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "value": "syria",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 5,
+        "confidence_entity": 0.934540867805481,
+        "value": "syria",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "beirut covid cases",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9995741248130798,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "wireless",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "wireless",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tv",
+    "entities": [
+      {
+        "start": 0,
+        "end": 2,
+        "value": "cablevision",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "service_type",
+        "start": 0,
+        "end": 2,
+        "confidence_entity": 0.971149206161499,
+        "value": "cablevision",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "business",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "business",
+        "entity": "account_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "account_type",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.8991002440452576,
+        "value": "business",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Payments",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "payments",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.9902764558792114,
+        "value": "payments",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Shopping",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "shopping",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "status",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "order",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9600116610527039,
+        "value": "order",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "moving",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "changing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.8206207156181335,
+        "value": "changing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "repair",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "troubleshooting",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.8152700662612915,
+        "value": "troubleshooting",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "online account",
+    "entities": [
+      {
+        "start": 0,
+        "end": 14,
+        "value": "account",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 14,
+        "confidence_entity": 0.5937076210975647,
+        "value": "account",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "is there a pika?",
+    "entities": [
+      {
+        "start": 11,
+        "end": 15,
+        "value": "pika",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 11,
+        "end": 15,
+        "confidence_entity": 0.9339566230773926,
+        "value": "pika",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "check is garuda is a pokemon",
+    "entities": [
+      {
+        "start": 9,
+        "end": 15,
+        "value": "garuda",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 9,
+        "end": 15,
+        "confidence_entity": 0.4288714826107025,
+        "value": "garuda",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are pikachu and charmander pokemon?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 11,
+        "value": "pikachu",
+        "entity": "pokemon_name"
+      },
+      {
+        "start": 16,
+        "end": 26,
+        "value": "charmander",
+        "entity": "pokemon_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "pokemon_name",
+        "start": 4,
+        "end": 11,
+        "confidence_entity": 0.9985297918319702,
+        "value": "pikachu",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "pokemon_name",
+        "start": 16,
+        "end": 26,
+        "confidence_entity": 0.9982038736343384,
+        "value": "charmander",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is it cold in tunis?",
+    "entities": [
+      {
+        "start": 14,
+        "end": 19,
+        "value": "tunis",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 14,
+        "end": 19,
+        "confidence_entity": 0.9788851141929626,
+        "value": "tunis",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is morocco hot?",
+    "entities": [
+      {
+        "start": 3,
+        "end": 10,
+        "value": "morocco",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "how are the temperatures of fribourg and [neuchatel]?",
+    "entities": [
+      {
+        "start": 28,
+        "end": 36,
+        "value": "fribourg",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 28,
+        "end": 36,
+        "confidence_entity": 0.80027174949646,
+        "value": "fribourg",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "sydney, york, austin, seattle weather",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "sydney",
+        "entity": "city_name"
+      },
+      {
+        "start": 8,
+        "end": 12,
+        "value": "york",
+        "entity": "city_name"
+      },
+      {
+        "start": 14,
+        "end": 20,
+        "value": "austin",
+        "entity": "city_name"
+      },
+      {
+        "start": 22,
+        "end": 29,
+        "value": "seattle",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "weather in sweden",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "sweden",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.80789715051651,
+        "value": "sweden",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "london temp",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "london",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9916660189628601,
+        "value": "london",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "weather in beirut",
+    "entities": [
+      {
+        "start": 11,
+        "end": 17,
+        "value": "beirut",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city_name",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.9997225403785706,
+        "value": "beirut",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "hordafylke weather",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "value": "hordafylke",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "What is the temperature of Earth?",
+    "entities": [
+      {
+        "start": 27,
+        "end": 32,
+        "value": "Earth",
+        "entity": "city_name"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "french",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "french",
+        "entity": "language"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "internet",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "internet",
+        "entity": "service_type"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "residential",
+    "entities": [
+      {
+        "start": 0,
+        "end": 11,
+        "value": "consumer",
+        "entity": "account_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "account_type",
+        "start": 0,
+        "end": 11,
+        "confidence_entity": 0.8789581060409546,
+        "value": "consumer",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Small Business",
+    "entities": [
+      {
+        "start": 0,
+        "end": 14,
+        "value": "business",
+        "entity": "account_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "account_type",
+        "start": 6,
+        "end": 14,
+        "confidence_entity": 0.9491331577301025,
+        "value": "Business",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "order",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "value": "order",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 5,
+        "confidence_entity": 0.7126820087432861,
+        "value": "order",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Moving or Changing Service",
+    "entities": [
+      {
+        "start": 0,
+        "end": 26,
+        "value": "changing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.8792539238929749,
+        "value": "changing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "moving or changing",
+    "entities": [
+      {
+        "start": 0,
+        "end": 18,
+        "value": "changing",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9707731604576111,
+        "value": "changing",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "topic_type",
+        "start": 10,
+        "end": 18,
+        "confidence_entity": 0.88356614112854,
+        "value": "changing",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Troubleshooting & Repairs",
+    "entities": [
+      {
+        "start": 0,
+        "end": 25,
+        "value": "troubleshooting",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 17,
+        "confidence_entity": 0.9025971293449402,
+        "value": "Troubleshooting &",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "topic_type",
+        "start": 18,
+        "end": 25,
+        "confidence_entity": 0.9677494168281555,
+        "value": "troubleshooting",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "repairs",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "troubleshooting",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.9940590858459473,
+        "value": "troubleshooting",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "sign in help",
+    "entities": [
+      {
+        "start": 0,
+        "end": 12,
+        "value": "account",
+        "entity": "topic_type"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "topic_type",
+        "start": 8,
+        "end": 12,
+        "confidence_entity": 0.5072915554046631,
+        "value": "help",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]

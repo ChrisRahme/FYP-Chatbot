@@ -1,0 +1,2282 @@
+[
+  {
+    "text": "je n'arrive pas a log in",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.2062985897064209
+    }
+  },
+  {
+    "text": "ma fie a3moul log In",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.32997435331344604
+    }
+  },
+  {
+    "text": "pass",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.15255413949489594
+    }
+  },
+  {
+    "text": "i want to sign in",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.33226296305656433
+    }
+  },
+  {
+    "text": "sign in",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "inform_topic_type",
+      "confidence": 0.2973885238170624
+    }
+  },
+  {
+    "text": "identification",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.28749245405197144
+    }
+  },
+  {
+    "text": "should i bring a jacket to switzerland",
+    "intent": "get_weather",
+    "intent_prediction": {
+      "name": "faq",
+      "confidence": 0.28818047046661377
+    }
+  },
+  {
+    "text": "good night",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.2608688175678253
+    }
+  },
+  {
+    "text": "Bonsoir",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.7501118183135986
+    }
+  },
+  {
+    "text": "\u062d\u0633\u0646\u064b\u0627\u060c \u0625\u0644\u0649 \u0627\u0644\u0644\u0642\u0627\u0621 \u0625\u0630\u0646!",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.25942569971084595
+    }
+  },
+  {
+    "text": "\u0570\u0561\u0573\u0565\u056c\u056b \u0585\u0580",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2549673020839691
+    }
+  },
+  {
+    "text": "\u0647\u0644 \u0623\u0646\u062a \u062c\u064a\u062f",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.3151645064353943
+    }
+  },
+  {
+    "text": "of course",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.22101974487304688
+    }
+  },
+  {
+    "text": "why not",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.29326820373535156
+    }
+  },
+  {
+    "text": "akid",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.17809534072875977
+    }
+  },
+  {
+    "text": "\u053c\u0561\u057e",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.26788654923439026
+    }
+  },
+  {
+    "text": "\u0531\u0575\u0578, \u0577\u0576\u0578\u0580\u0570\u0561\u056f\u0561\u056c\u0578\u0582\u0569\u0575\u0578\u0582\u0576",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.4310486912727356
+    }
+  },
+  {
+    "text": "/affirm",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.18355756998062134
+    }
+  },
+  {
+    "text": "I don't think so",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.18272024393081665
+    }
+  },
+  {
+    "text": "don't like that",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "inform_service_type",
+      "confidence": 0.19807128608226776
+    }
+  },
+  {
+    "text": "\u0645\u0633\u062a\u062d\u064a\u0644",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.4825233817100525
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u0623\u0631\u063a\u0628",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.29386699199676514
+    }
+  },
+  {
+    "text": "/deny",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.2640933692455292
+    }
+  },
+  {
+    "text": "super stoked",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.2395697385072708
+    }
+  },
+  {
+    "text": "je me sens tr\u00e8s bien",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.24727633595466614
+    }
+  },
+  {
+    "text": "tr\u00e8s bien",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.33408674597740173
+    }
+  },
+  {
+    "text": "\u0639\u0638\u064a\u0645",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.37632691860198975
+    }
+  },
+  {
+    "text": "\u0561\u0576\u0570\u0561\u057e\u0561\u057f\u0561\u056c\u056b",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.2954513132572174
+    }
+  },
+  {
+    "text": "who are you",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.3281884789466858
+    }
+  },
+  {
+    "text": "quel est votre nom",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.16656318306922913
+    }
+  },
+  {
+    "text": "comment vous appelez vous",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.22278979420661926
+    }
+  },
+  {
+    "text": "termine",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.21879351139068604
+    }
+  },
+  {
+    "text": "merci beaucoup",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.330857515335083
+    }
+  },
+  {
+    "text": "\u0643 \u062b\u0643\u0633",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.18672792613506317
+    }
+  },
+  {
+    "text": "marhaba",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.30339404940605164
+    }
+  },
+  {
+    "text": "Log in to Instagram",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.3309623599052429
+    }
+  },
+  {
+    "text": "Send a message to by brother",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "confirm_exists",
+      "confidence": 0.27210384607315063
+    }
+  },
+  {
+    "text": "how old are you",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.31886887550354004
+    }
+  },
+  {
+    "text": "google",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.3897406756877899
+    }
+  },
+  {
+    "text": "password",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.7489182353019714
+    }
+  },
+  {
+    "text": "depenses internet",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.45280560851097107
+    }
+  },
+  {
+    "text": "\u0645\u0627 \u0647\u064a \u062d\u0635\u062a\u064a",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.21770179271697998
+    }
+  },
+  {
+    "text": "\u0578\u0579 \u057d\u057a\u0561\u057c\u0578\u0572",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.370779812335968
+    }
+  },
+  {
+    "text": "Consumer / Residential",
+    "intent": "inform_account_type",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.1585964411497116
+    }
+  },
+  {
+    "text": "\u0645\u0627 \u0627\u0644\u0630\u064a \u064a\u0645\u0643\u0646 \u0623\u0646 \u0646\u062a\u062d\u062f\u062b \u0639\u0646\u0647",
+    "intent": "ask_topic_types",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.2851830720901489
+    }
+  },
+  {
+    "text": "\u056b\u0576\u0579\u056b\u055e \u0574\u0561\u057d\u056b\u0576 \u056f\u0561\u0580\u0565\u056c\u056b \u0567 \u056d\u0578\u057d\u0565\u056c",
+    "intent": "ask_topic_types",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.3555205762386322
+    }
+  },
+  {
+    "text": "Online Account & Sign-in Help",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.29981184005737305
+    }
+  },
+  {
+    "text": "/inform_topic_type{\"topic_type\": \"troubleshooting\"}",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.2733074128627777
+    }
+  },
+  {
+    "text": "\u0565\u057d \u0585\u0563\u0576\u0578\u0582\u0569\u0575\u0561\u0576 \u056f\u0561\u0580\u056b\u0584 \u0578\u0582\u0576\u0565\u0574",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.23544526100158691
+    }
+  },
+  {
+    "text": "\u056b\u0576\u0579\u057a\u0565\u055e\u057d \u056f\u0561\u0580\u0578\u0572 \u0565\u057d \u0585\u0563\u0576\u0565\u056c",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.22057731449604034
+    }
+  },
+  {
+    "text": "\u056b\u0576\u0579 \u056f\u0561\u0580\u0578\u0572 \u0565\u057d \u0564\u0578\u0582 \u0561\u0576\u0565\u056c",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.3945285379886627
+    }
+  },
+  {
+    "text": "ma connection est lente",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.44190916419029236
+    }
+  },
+  {
+    "text": "mech edir fout 3ala el facebook",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.3665366470813751
+    }
+  },
+  {
+    "text": "\u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a \u0645\u0639\u0637\u0644",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.6289840340614319
+    }
+  },
+  {
+    "text": "\u062c\u0647\u0627\u0632 \u0627\u0644\u062a\u0648\u062c\u064a\u0647 \u0644\u0627 \u064a\u0639\u0645\u0644",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.20542994141578674
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u0623\u0633\u062a\u0637\u064a\u0639 \u0627\u0644\u0630\u0647\u0627\u0628 \u0625\u0644\u0649 \u062c\u0648\u062c\u0644",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.24442359805107117
+    }
+  },
+  {
+    "text": "j'ai besoin d'aide pour me connecter",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.35528042912483215
+    }
+  },
+  {
+    "text": "\u0645\u0627 \u0647\u0648 \u0647\u0648\u064a\u062a\u064a",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.6393191814422607
+    }
+  },
+  {
+    "text": "\u056b\u0576\u0571 \u0561\u0576\u0570\u0580\u0561\u056a\u0565\u0577\u057f \u0567 \u0574\u0578\u0582\u057f\u0584 \u0563\u0578\u0580\u056e\u0565\u056c",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.36207520961761475
+    }
+  },
+  {
+    "text": "bade a3tik el username",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.48122724890708923
+    }
+  },
+  {
+    "text": "does ninetails exist",
+    "intent": "confirm_exists",
+    "intent_prediction": {
+      "name": "change_language",
+      "confidence": 0.16073757410049438
+    }
+  },
+  {
+    "text": "sup",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.17720021307468414
+    }
+  },
+  {
+    "text": "wazzap",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.3487004041671753
+    }
+  },
+  {
+    "text": "coucou",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.22379453480243683
+    }
+  },
+  {
+    "text": "\u062a\u062d\u064a\u0629",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3767946660518646
+    }
+  },
+  {
+    "text": "cya",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.34011977910995483
+    }
+  },
+  {
+    "text": "a plus",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.200446218252182
+    }
+  },
+  {
+    "text": "\u0623\u0631\u0627\u0643\u0645 \u0644\u0627\u062d\u0642\u064b\u0627",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.269637793302536
+    }
+  },
+  {
+    "text": "\u0532\u0561\u0580\u056b \u0563\u056b\u0577\u0565\u0580",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.8182523846626282
+    }
+  },
+  {
+    "text": "\u056c\u0561\u057e, \u0581\u057f\u0565\u057d\u0578\u0582\u0569\u0575\u0578\u0582\u0576, \u0578\u0582\u0580\u0565\u0574\u0576",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.25045883655548096
+    }
+  },
+  {
+    "text": "How are you?",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.24931810796260834
+    }
+  },
+  {
+    "text": "\u053b\u0576\u0579\u057a\u0565\u057d \u0565\u057d?",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.3601451516151428
+    }
+  },
+  {
+    "text": "\u053c\u0561\u057e \u0565\u057d",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.4195990264415741
+    }
+  },
+  {
+    "text": "correct",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.1610458493232727
+    }
+  },
+  {
+    "text": "wesh",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.34149616956710815
+    }
+  },
+  {
+    "text": "exactement",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.2686406970024109
+    }
+  },
+  {
+    "text": "\u0637\u0628\u0639\u0627",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.2555106282234192
+    }
+  },
+  {
+    "text": "\u0644\u0645\u0627 \u0644\u0627",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3678905963897705
+    }
+  },
+  {
+    "text": "\u0628\u0627\u0644\u0636\u0628\u0637",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.17773732542991638
+    }
+  },
+  {
+    "text": "\u056b\u0570\u0561\u0580\u056f\u0565",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.4163382351398468
+    }
+  },
+  {
+    "text": "not really",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.23960480093955994
+    }
+  },
+  {
+    "text": "nein",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.1925826519727707
+    }
+  },
+  {
+    "text": "\u063a\u064a\u0631 \u0645\u0648\u0627\u0641\u0642",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.3718893826007843
+    }
+  },
+  {
+    "text": "\u0628\u0627\u0644\u062a\u0623\u0643\u064a\u062f \u0644\u0627",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.18279121816158295
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u0627\u0639\u062a\u0642\u062f \u0647\u0630\u0627",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.361775279045105
+    }
+  },
+  {
+    "text": "\u0643\u0644\u0627",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.26777350902557373
+    }
+  },
+  {
+    "text": "parfait",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2660175859928131
+    }
+  },
+  {
+    "text": "incroyable",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.20227564871311188
+    }
+  },
+  {
+    "text": "\u0647\u0627\u0626\u0644",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.27916470170021057
+    }
+  },
+  {
+    "text": "\u0540\u0578\u0575\u0561\u056f\u0561\u057a",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.23084352910518646
+    }
+  },
+  {
+    "text": "\u0577\u0561\u057f \u056c\u0561\u057e",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.3353176414966583
+    }
+  },
+  {
+    "text": "\u0565\u0580\u057b\u0561\u0576\u056b\u056f \u0574\u0565\u056f\u0568",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.31647348403930664
+    }
+  },
+  {
+    "text": "unhappy",
+    "intent": "mood_unhappy",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.34833547472953796
+    }
+  },
+  {
+    "text": "t ki toi",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.33404117822647095
+    }
+  },
+  {
+    "text": "\u0645\u0646 \u0623\u0646\u062a",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.21730558574199677
+    }
+  },
+  {
+    "text": "\u0561\u0576\u0578\u0582\u0576\u0564 \u056b\u0576\u0579 \u0567",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.2049466222524643
+    }
+  },
+  {
+    "text": "stop",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "inform_topic_type",
+      "confidence": 0.15016575157642365
+    }
+  },
+  {
+    "text": "thank youuu <3",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.2735089659690857
+    }
+  },
+  {
+    "text": "helo",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "inform_topic_type",
+      "confidence": 0.2486288696527481
+    }
+  },
+  {
+    "text": "\u0583\u0578\u056d\u0565\u056c \u056c\u0565\u0566\u0578\u0582\u0576",
+    "intent": "change_language",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.20005449652671814
+    }
+  },
+  {
+    "text": "Pouvez-vous parler [francais] s'il vous pla\u00eet?",
+    "intent": "change_language",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.27312228083610535
+    }
+  },
+  {
+    "text": "what's your age?",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.4017881453037262
+    }
+  },
+  {
+    "text": "Kiko",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.20443867146968842
+    }
+  },
+  {
+    "text": "utilisation internet",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.31860125064849854
+    }
+  },
+  {
+    "text": "\u0643\u0645 \u063a\u064a\u063a\u0627\u0628\u0627\u064a\u062a \u0645\u062a\u0628\u0642\u064a\u0629 \u0644\u062f\u064a\u061f",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.29672908782958984
+    }
+  },
+  {
+    "text": "/inform_service_type{\"service_type\": \"internet\"}",
+    "intent": "inform_service_type",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.39330774545669556
+    }
+  },
+  {
+    "text": "changer de type de compte",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.2359497845172882
+    }
+  },
+  {
+    "text": "non je veux changer le type de compte",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.2185250222682953
+    }
+  },
+  {
+    "text": "type de compte incorrect",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.30224940180778503
+    }
+  },
+  {
+    "text": "\u0565\u057d \u0562\u056b\u0566\u0576\u0565\u057d \u0579\u0565\u0574",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.4433088004589081
+    }
+  },
+  {
+    "text": "\u0578\u0579 \u0578\u0579 \u0562\u0561\u0576\u056f",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3675062656402588
+    }
+  },
+  {
+    "text": "/inform_account_type{\"account_type\": \"consumer\"}",
+    "intent": "inform_account_type",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.4579497277736664
+    }
+  },
+  {
+    "text": "billing",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "faq",
+      "confidence": 0.2039249986410141
+    }
+  },
+  {
+    "text": "changing",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "inform_service_type",
+      "confidence": 0.20600643754005432
+    }
+  },
+  {
+    "text": "account",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.31979286670684814
+    }
+  },
+  {
+    "text": "kif fike tse3dine?",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.2510753273963928
+    }
+  },
+  {
+    "text": "\u0633\u0627\u0639\u062f\u0646\u0649 \u0645\u0646 \u0641\u0636\u0644\u0643",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.3407922387123108
+    }
+  },
+  {
+    "text": "i cant go to google",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.34140026569366455
+    }
+  },
+  {
+    "text": "\u0574\u0578\u0564\u0565\u0574\u056b \u056d\u0576\u0564\u056b\u0580",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3572234511375427
+    }
+  },
+  {
+    "text": "i cant log in",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.24323570728302002
+    }
+  },
+  {
+    "text": "s'identifier",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.18425403535366058
+    }
+  },
+  {
+    "text": "je veux m'indentifier",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.23622174561023712
+    }
+  },
+  {
+    "text": "\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.2683587074279785
+    }
+  },
+  {
+    "text": "can you find yaldabaoth?",
+    "intent": "confirm_exists",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.14103743433952332
+    }
+  },
+  {
+    "text": "good morning",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.3491750955581665
+    }
+  },
+  {
+    "text": "good evening",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.3735412657260895
+    }
+  },
+  {
+    "text": "mara7ib",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.1949567198753357
+    }
+  },
+  {
+    "text": "\u0637\u0627\u0628 \u0645\u0633\u0627\u0626\u0643",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.20493251085281372
+    }
+  },
+  {
+    "text": "\u0540\u0565\u0575",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.23236627876758575
+    }
+  },
+  {
+    "text": "good by",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.29824569821357727
+    }
+  },
+  {
+    "text": "\u00e0 bient\u00f4t",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2462976574897766
+    }
+  },
+  {
+    "text": "\u062a\u0635\u0628\u062d \u0639\u0644\u0649 \u062e\u064a\u0631",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3356786072254181
+    }
+  },
+  {
+    "text": "\u0570\u0565\u057f\u0578 \u0584\u0565\u0566",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.19719457626342773
+    }
+  },
+  {
+    "text": "deal",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.1550542116165161
+    }
+  },
+  {
+    "text": "pourquoi pas",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.34684622287750244
+    }
+  },
+  {
+    "text": "oui merci",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.35514965653419495
+    }
+  },
+  {
+    "text": "eh",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.24847513437271118
+    }
+  },
+  {
+    "text": "\u0648\u0634",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.26979348063468933
+    }
+  },
+  {
+    "text": "\u0570\u0565\u0576\u0581",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.25486263632774353
+    }
+  },
+  {
+    "text": "not ok",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.17596657574176788
+    }
+  },
+  {
+    "text": "merci mais non",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.3414539396762848
+    }
+  },
+  {
+    "text": "\u0645\u0627 \u0628\u062f\u064a",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.21288256347179413
+    }
+  },
+  {
+    "text": "\u056b\u0570\u0561\u0580\u056f\u0565 \u0578\u0579",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.5277583599090576
+    }
+  },
+  {
+    "text": "\u0535\u057d \u0564\u0580\u0561\u0576 \u0579\u0565\u0574 \u0570\u0561\u057e\u0561\u057f\u0578\u0582\u0574",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.39543867111206055
+    }
+  },
+  {
+    "text": "\u0641\u064a \u0627\u062d\u0633\u0646 \u0627\u0644\u0627\u062d\u0648\u0627\u0644",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.1897960603237152
+    }
+  },
+  {
+    "text": "what's your name",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.3622590899467468
+    }
+  },
+  {
+    "text": "\u0647\u0644 \u0623\u0646\u062a \u0631\u0648\u0628\u0648\u062a\u061f",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.2943882942199707
+    }
+  },
+  {
+    "text": "\u0645\u0627 \u0627\u0633\u0645\u0643",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.19787736237049103
+    }
+  },
+  {
+    "text": "\u0562\u0578\u057f \u0565\u057d?",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.30577248334884644
+    }
+  },
+  {
+    "text": "\u0578\u057e \u0565\u057d \u0564\u0578\u0582",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.36113184690475464
+    }
+  },
+  {
+    "text": "got a gag?",
+    "intent": "demand_joke",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.1679018884897232
+    }
+  },
+  {
+    "text": "\u0579\u0565\u0572\u0561\u0580\u056f\u0565\u056c",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.4879736602306366
+    }
+  },
+  {
+    "text": "ok \u0577\u0576\u0578\u0580\u0570\u0561\u056f\u0561\u056c\u0578\u0582\u0569\u0575\u0578\u0582\u0576",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2197083830833435
+    }
+  },
+  {
+    "text": "\u0561\u0575\u0564 \u0577\u0561\u057f",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.5570483207702637
+    }
+  },
+  {
+    "text": "hi kifak",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.17455168068408966
+    }
+  },
+  {
+    "text": "arabic",
+    "intent": "change_language",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.1869274228811264
+    }
+  },
+  {
+    "text": "Corona news",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "get_weather",
+      "confidence": 0.24966584146022797
+    }
+  },
+  {
+    "text": "sfgh",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2461691051721573
+    }
+  },
+  {
+    "text": "kuku",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.2498636394739151
+    }
+  },
+  {
+    "text": "combien de GB me reste-t-il?",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.17919820547103882
+    }
+  },
+  {
+    "text": "\u062d\u0635\u0629 \u0646\u0633\u0628\u064a\u0629",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.22987224161624908
+    }
+  },
+  {
+    "text": "je ne suis pas une entreprise",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.2510612905025482
+    }
+  },
+  {
+    "text": "\u062a\u063a\u064a\u064a\u0631 \u0646\u0648\u0639 \u0627\u0644\u062d\u0633\u0627\u0628",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.25929632782936096
+    }
+  },
+  {
+    "text": "\u0623\u0631\u064a\u062f \u062a\u063a\u064a\u064a\u0631 \u0646\u0648\u0639 \u0627\u0644\u062d\u0633\u0627\u0628",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.35355886816978455
+    }
+  },
+  {
+    "text": "\u0646\u0648\u0639 \u0627\u0644\u062d\u0633\u0627\u0628 \u062e\u0627\u0637\u0626",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.47135186195373535
+    }
+  },
+  {
+    "text": "\u0646\u0648\u0639 \u0627\u0644\u062d\u0633\u0627\u0628 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3284987211227417
+    }
+  },
+  {
+    "text": "Bank",
+    "intent": "inform_account_type",
+    "intent_prediction": {
+      "name": "inform_topic_type",
+      "confidence": 0.21458464860916138
+    }
+  },
+  {
+    "text": "\u0583\u0578\u056d\u0565\u056c \u0569\u0565\u0574\u0561\u0575\u056b \u057f\u0565\u057d\u0561\u056f\u0568",
+    "intent": "ask_topic_types",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.3164714574813843
+    }
+  },
+  {
+    "text": "\u0645\u0627 \u0627\u0644\u0630\u064a \u062a\u0633\u062a\u0637\u064a\u0639 \u0627\u0644\u0642\u064a\u0627\u0645 \u0628\u0647",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.3884604275226593
+    }
+  },
+  {
+    "text": "je ne peux pas utiliser Internet",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.2505905330181122
+    }
+  },
+  {
+    "text": "\u056b\u0574 \u056b\u0576\u057f\u0565\u0580\u0576\u0565\u057f\u0568 \u0577\u0561\u057f \u057e\u0561\u057f\u0576 \u0567",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.31099411845207214
+    }
+  },
+  {
+    "text": "\u056b\u0576\u057f\u0565\u0580\u0576\u0565\u057f\u0576 \u0561\u0576\u057b\u0561\u057f\u057e\u0561\u056e \u0567",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.4000170826911926
+    }
+  },
+  {
+    "text": "\u0623\u062d\u062a\u0627\u062c \u0625\u0644\u0649 \u0645\u0633\u0627\u0639\u062f\u0629 \u0641\u064a \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.24773338437080383
+    }
+  },
+  {
+    "text": "bade a3moul log in",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.34640976786613464
+    }
+  },
+  {
+    "text": "good afternoon",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.14998400211334229
+    }
+  },
+  {
+    "text": "bonsoir",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.3375142216682434
+    }
+  },
+  {
+    "text": "\u0623\u0647\u0644\u0627 \u0628\u0643",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.40895557403564453
+    }
+  },
+  {
+    "text": "\u0628\u0648\u0646\u0633\u0648\u0627\u0631",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.3513335585594177
+    }
+  },
+  {
+    "text": "cu",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.18652373552322388
+    }
+  },
+  {
+    "text": "ciao",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.19799448549747467
+    }
+  },
+  {
+    "text": "\u0648\u062f\u0627\u0639\u0627",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.5564579963684082
+    }
+  },
+  {
+    "text": "im ok and you?",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.2779933214187622
+    }
+  },
+  {
+    "text": "kifik",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.19721665978431702
+    }
+  },
+  {
+    "text": "y",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.26919496059417725
+    }
+  },
+  {
+    "text": "that sounds good",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.1875220537185669
+    }
+  },
+  {
+    "text": "ok",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.522088348865509
+    }
+  },
+  {
+    "text": "d'accord",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.3018433749675751
+    }
+  },
+  {
+    "text": "\u056b\u0576\u0579\u0578\u0582 \u0578\u0579",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.44998475909233093
+    }
+  },
+  {
+    "text": "\u0573\u056b\u0577\u057f \u0567",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.6021968126296997
+    }
+  },
+  {
+    "text": "pas d'accord",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.43140026926994324
+    }
+  },
+  {
+    "text": "impossible",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.1847987323999405
+    }
+  },
+  {
+    "text": "ma bade",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.2851250171661377
+    }
+  },
+  {
+    "text": "\u0644\u064a\u0633 \u0635\u062d\u064a\u062d",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.26185160875320435
+    }
+  },
+  {
+    "text": "\u0570\u0561\u0574\u0561\u0571\u0561\u0575\u0576 \u0579\u0565\u0574",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "ask_account_types",
+      "confidence": 0.22432290017604828
+    }
+  },
+  {
+    "text": "so good",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.23469723761081696
+    }
+  },
+  {
+    "text": "g\u00e9nial",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.416748046875
+    }
+  },
+  {
+    "text": "\u062c\u064a\u062f \u062c\u062f\u0627",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "how_are_you",
+      "confidence": 0.2375725358724594
+    }
+  },
+  {
+    "text": "\u0535\u057d \u056b\u0576\u0571 \u0577\u0561\u057f \u056c\u0561\u057e \u0565\u0574 \u0566\u0563\u0578\u0582\u0574",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.20670276880264282
+    }
+  },
+  {
+    "text": "I don't feel very well",
+    "intent": "mood_unhappy",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.3547150790691376
+    }
+  },
+  {
+    "text": "test",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2795436978340149
+    }
+  },
+  {
+    "text": "make me laugh",
+    "intent": "demand_joke",
+    "intent_prediction": {
+      "name": "change_language",
+      "confidence": 0.21638083457946777
+    }
+  },
+  {
+    "text": "\ud83d\udeab",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.5282695889472961
+    }
+  },
+  {
+    "text": "\u0625\u0644\u063a\u0627\u0621",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.3878523111343384
+    }
+  },
+  {
+    "text": "\u056f\u0561\u0576\u0563 \u0561\u057c\u0565\u0584",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.37492501735687256
+    }
+  },
+  {
+    "text": "shoukran",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.2078896164894104
+    }
+  },
+  {
+    "text": "choukran",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.3285973072052002
+    }
+  },
+  {
+    "text": "beirut covid cases",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "get_weather",
+      "confidence": 0.44988808035850525
+    }
+  },
+  {
+    "text": "I want to eat",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "faq",
+      "confidence": 0.20806734263896942
+    }
+  },
+  {
+    "text": "who is the tiger",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "get_weather",
+      "confidence": 0.22396132349967957
+    }
+  },
+  {
+    "text": "chatbot",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.2301243096590042
+    }
+  },
+  {
+    "text": "marc",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.3441231846809387
+    }
+  },
+  {
+    "text": "fsg",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.13413622975349426
+    }
+  },
+  {
+    "text": "internet usage",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.4732095003128052
+    }
+  },
+  {
+    "text": "\u0645\u0631\u062d\u0628\u0627 \u0645\u0627\u0647\u0648 \u0643\u0648\u062a\u0629",
+    "intent": "query_quota",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.6597518920898438
+    }
+  },
+  {
+    "text": "wireless",
+    "intent": "inform_service_type",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.23330362141132355
+    }
+  },
+  {
+    "text": "no not bank",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.4936095178127289
+    }
+  },
+  {
+    "text": "no not consumer",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.23529256880283356
+    }
+  },
+  {
+    "text": "non pas banque",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.5124909281730652
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u0644\u064a\u0633 \u0645\u0633\u062a\u0647\u0644\u0643\u064b\u0627",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.31109514832496643
+    }
+  },
+  {
+    "text": "Shopping",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "inform_account_type",
+      "confidence": 0.1825207769870758
+    }
+  },
+  {
+    "text": "i need help",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "inform_topic_type",
+      "confidence": 0.29767805337905884
+    }
+  },
+  {
+    "text": "what can you do?",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.26086074113845825
+    }
+  },
+  {
+    "text": "j'ai besoin d'aide",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.5889560580253601
+    }
+  },
+  {
+    "text": "Aidez-moi, s'il vous pla\u00eet",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "change_language",
+      "confidence": 0.3633587658405304
+    }
+  },
+  {
+    "text": "\u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a \u0627\u0644\u062e\u0627\u0635 \u0628\u064a \u0633\u064a\u0621 \u0644\u0644\u063a\u0627\u064a\u0629",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.41555917263031006
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u0623\u0633\u062a\u0637\u064a\u0639 \u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0625\u0646\u062a\u0631\u0646\u062a",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.43880096077919006
+    }
+  },
+  {
+    "text": "\u0535\u057d \u0579\u0565\u0574 \u056f\u0561\u0580\u0578\u0572 \u0585\u0563\u057f\u057e\u0565\u056c \u056b\u0576\u057f\u0565\u0580\u0576\u0565\u057f\u056b\u0581",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.2820311188697815
+    }
+  },
+  {
+    "text": "i need help signing in",
+    "intent": "forgot_credentials",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.24604001641273499
+    }
+  },
+  {
+    "text": "je veux me connecter",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.3953957259654999
+    }
+  },
+  {
+    "text": "connexion",
+    "intent": "log_in",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.30822134017944336
+    }
+  },
+  {
+    "text": "wats the eeathre",
+    "intent": "get_weather",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.24707059562206268
+    }
+  },
+  {
+    "text": "let's go",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.26431089639663696
+    }
+  },
+  {
+    "text": "\u0645\u0631\u062d\u0628\u0627 \u0645\u062c\u062f\u062f\u0627",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.642280638217926
+    }
+  },
+  {
+    "text": "\u0532\u0578\u0576\u057d\u0578\u0582\u0561\u0580",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.26231712102890015
+    }
+  },
+  {
+    "text": "have a nice day",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.43994808197021484
+    }
+  },
+  {
+    "text": "au revoir",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.25352004170417786
+    }
+  },
+  {
+    "text": "\u00c0 un de ces quatre",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.33326470851898193
+    }
+  },
+  {
+    "text": "\u0645\u0639 \u0627\u0644\u0633\u0644\u0627\u0645\u0629",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.15541237592697144
+    }
+  },
+  {
+    "text": "\u0623\u062a\u0645\u0646\u0649 \u0644\u0643 \u064a\u0648\u0645 \u0633\u0639\u064a\u062f",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.3800985813140869
+    }
+  },
+  {
+    "text": "\u0623\u0631\u0627\u0643 \u0628\u0627\u0644\u062c\u0648\u0627\u0631",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.23831017315387726
+    }
+  },
+  {
+    "text": "Comment allez-vous?",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.20777367055416107
+    }
+  },
+  {
+    "text": "bien et toi?",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.3614141047000885
+    }
+  },
+  {
+    "text": "\u0535\u057d \u056c\u0561\u057e \u0565\u0574, \u056b\u057d\u056f \u0564\u0578\u0582\u055e",
+    "intent": "how_are_you",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.28358325362205505
+    }
+  },
+  {
+    "text": "yes thank you!",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.20618882775306702
+    }
+  },
+  {
+    "text": "thats right",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.15028443932533264
+    }
+  },
+  {
+    "text": "bien sur",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.29175952076911926
+    }
+  },
+  {
+    "text": "\u0646\u0639\u0645 \u0634\u0643\u0631\u0627",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.35214725136756897
+    }
+  },
+  {
+    "text": "pas vraiment",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.21430853009223938
+    }
+  },
+  {
+    "text": "pas du tout",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.2508678138256073
+    }
+  },
+  {
+    "text": "je ne veux pas",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.29351842403411865
+    }
+  },
+  {
+    "text": "la2",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2619099020957947
+    }
+  },
+  {
+    "text": "\u0644\u064a\u0633 \u062c\u064a\u062f\u0627",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "mood_great",
+      "confidence": 0.36675965785980225
+    }
+  },
+  {
+    "text": "\u0543\u056b\u0577\u057f \u0579\u0567",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.5919973850250244
+    }
+  },
+  {
+    "text": "I am feeling very good",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "mood_unhappy",
+      "confidence": 0.21713902056217194
+    }
+  },
+  {
+    "text": "better",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.18108388781547546
+    }
+  },
+  {
+    "text": "formidable",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "confirm_exists",
+      "confidence": 0.1759861260652542
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u064a\u0635\u062f\u0642",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.5414206981658936
+    }
+  },
+  {
+    "text": "\u054d\u0561\u0580\u057d\u0561\u0583\u0565\u056c\u056b",
+    "intent": "mood_great",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.2105492204427719
+    }
+  },
+  {
+    "text": "my day was horrible",
+    "intent": "mood_unhappy",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.26143258810043335
+    }
+  },
+  {
+    "text": "ma3 min 3am be7ke",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.5228135585784912
+    }
+  },
+  {
+    "text": "khalas",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.37588661909103394
+    }
+  },
+  {
+    "text": "\u0627\u0646\u0647\u064a",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3194867670536041
+    }
+  },
+  {
+    "text": "merci",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.22164906561374664
+    }
+  },
+  {
+    "text": "merci bcp",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.29667696356773376
+    }
+  },
+  {
+    "text": "\u062d\u0633\u0646\u0627\u060c \u0634\u0643\u0631",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.25733423233032227
+    }
+  },
+  {
+    "text": "What's the size of Earth?",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.21155069768428802
+    }
+  },
+  {
+    "text": "Open YouTube",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.2840031683444977
+    }
+  },
+  {
+    "text": "Call my mom",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.19753584265708923
+    }
+  },
+  {
+    "text": "kiss me",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.15538522601127625
+    }
+  },
+  {
+    "text": "\u0627\u0646\u062f\u0631\u064a\u0627",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.3409857153892517
+    }
+  },
+  {
+    "text": "xx",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.20013701915740967
+    }
+  },
+  {
+    "text": "internet",
+    "intent": "inform_service_type",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.37903210520744324
+    }
+  },
+  {
+    "text": "i am not a business",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "inform_account_type",
+      "confidence": 0.22234685719013214
+    }
+  },
+  {
+    "text": "non pas consommateur",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.599578857421875
+    }
+  },
+  {
+    "text": "\u0623\u0646\u0627 \u0644\u0633\u062a \u0635\u0627\u062d\u0628 \u0639\u0645\u0644",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.3111453950405121
+    }
+  },
+  {
+    "text": "\u0644\u0627 \u0644\u064a\u0633 \u0628\u0646\u0643",
+    "intent": "ask_account_types",
+    "intent_prediction": {
+      "name": "ask_topic_types",
+      "confidence": 0.2819300889968872
+    }
+  },
+  {
+    "text": "what can we talk about",
+    "intent": "ask_topic_types",
+    "intent_prediction": {
+      "name": "need_help",
+      "confidence": 0.36277085542678833
+    }
+  },
+  {
+    "text": "Moving or Changing Service",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "ask_service_types",
+      "confidence": 0.2759561240673065
+    }
+  },
+  {
+    "text": "sign in help",
+    "intent": "inform_topic_type",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.251493364572525
+    }
+  },
+  {
+    "text": "help please",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.2536969780921936
+    }
+  },
+  {
+    "text": "3ande machekil",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "internet_problem",
+      "confidence": 0.2338321954011917
+    }
+  },
+  {
+    "text": "bade mouse3ade",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "log_in",
+      "confidence": 0.15216945111751556
+    }
+  },
+  {
+    "text": "\u0643\u064a\u0641 \u064a\u0645\u0643\u0646\u0643 \u0627\u0644\u0645\u0633\u0627\u0639\u062f\u0629",
+    "intent": "need_help",
+    "intent_prediction": {
+      "name": "forgot_credentials",
+      "confidence": 0.22675611078739166
+    }
+  },
+  {
+    "text": "\u0627\u0644\u0627\u0646\u062a\u0631\u0646\u062a \u0644\u062f\u064a \u0628\u0637\u064a\u0621",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "query_quota",
+      "confidence": 0.8404770493507385
+    }
+  },
+  {
+    "text": "\u0565\u0580\u0569\u0578\u0582\u0572\u056b\u0579\u0568 \u0579\u056b \u0561\u0577\u056d\u0561\u057f\u0578\u0582\u0574",
+    "intent": "internet_problem",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.39034438133239746
+    }
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "pokemon_name": {
+    "precision": 0.8571428571428571,
+    "recall": 0.5714285714285714,
+    "f1-score": 0.6857142857142857,
+    "support": 21,
+    "confused_with": {
+      "city_name": 1
+    }
+  },
+  "service_type": {
+    "precision": 0.875,
+    "recall": 0.7777777777777778,
+    "f1-score": 0.823529411764706,
+    "support": 9,
+    "confused_with": {}
+  },
+  "account_type": {
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1-score": 0.5,
+    "support": 9,
+    "confused_with": {
+      "topic_type": 1
+    }
+  },
+  "language": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 2,
+    "confused_with": {}
+  },
+  "city_name": {
+    "precision": 0.9285714285714286,
+    "recall": 0.582089552238806,
+    "f1-score": 0.7155963302752294,
+    "support": 67,
+    "confused_with": {
+      "pokemon_name": 1
+    }
+  },
+  "topic_type": {
+    "precision": 0.8461538461538461,
+    "recall": 0.6346153846153846,
+    "f1-score": 0.7252747252747251,
+    "support": 52,
+    "confused_with": {
+      "city_name": 1
+    }
+  },
+  "micro avg": {
+    "precision": 0.8867924528301887,
+    "recall": 0.5875,
+    "f1-score": 0.7067669172932332,
+    "support": 160
+  },
+  "macro avg": {
+    "precision": 0.7511446886446885,
+    "recall": 0.4832074365656455,
+    "f1-score": 0.5750191255048244,
+    "support": 160
+  },
+  "weighted avg": {
+    "precision": 0.8818080357142858,
+    "recall": 0.5875,
+    "f1-score": 0.6998187784288027,
+    "support": 160
+  }
+}
