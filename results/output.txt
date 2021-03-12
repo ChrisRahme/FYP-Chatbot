@@ -58,38 +58,38 @@ Confusion matrix, without normalization:
 
 CV evaluation (n=5)
 Intent evaluation results
-- train Accuracy: 0.928 (0.005)
-- train F1-score: 0.928 (0.005)
+- train Accuracy:  0.928 (0.005)
+- train F1-score:  0.928 (0.005)
 - train Precision: 0.930 (0.004)
-- test Accuracy: 0.719 (0.017)
-- test F1-score: 0.713 (0.017)
-- test Precision: 0.737 (0.024)
+- test Accuracy:   0.719 (0.017)
+- test F1-score:   0.713 (0.017)
+- test Precision:  0.737 (0.024)
 
 Entity evaluation results
 - Entity extractor: DIETClassifier
-- train Accuracy: 0.996 (0.001)
-- train F1-score: 0.945 (0.019)
+- train Accuracy:  0.996 (0.001)
+- train F1-score:  0.945 (0.019)
 - train Precision: 0.975 (0.015)
 
 Entity extractor: RegexEntityExtractor
-- train Accuracy: 0.953 (0.001)
-- train F1-score: 0.000 (0.000)
+- train Accuracy:  0.953 (0.001)
+- train F1-score:  0.000 (0.000)
 - train Precision: 0.000 (0.000)
 
 Entity extractor: DIETClassifier
-- test Accuracy: 0.978 (0.004)
-- test F1-score: 0.688 (0.057)
-- test Precision: 0.860 (0.099)
+- test Accuracy:   0.978 (0.004)
+- test F1-score:   0.688 (0.057)
+- test Precision:  0.860 (0.099)
 
 Entity extractor: RegexEntityExtractor
-- test Accuracy: 0.953 (0.002)
-- test F1-score: 0.000 (0.000)
-- test Precision: 0.000 (0.000)
+- test Accuracy:   0.953 (0.002)
+- test F1-score:   0.000 (0.000)
+- test Precision:  0.000 (0.000)
 
 Response Selection evaluation results
-- train Accuracy: 0.973 (0.036)
-- train F1-score: 0.973 (0.036)
+- train Accuracy:  0.973 (0.036)
+- train F1-score:  0.973 (0.036)
 - train Precision: 0.981 (0.025)
-- test Accuracy: 0.853 (0.129)
-- test F1-score: 0.818 (0.169)
-- test Precision: 0.820 (0.194)
+- test Accuracy:   0.853 (0.129)
+- test F1-score:   0.818 (0.169)
+- test Precision:  0.820 (0.194)
