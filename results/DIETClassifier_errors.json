@@ -14,18 +14,6 @@
     ]
   },
   {
-    "text": "is there a pokemon named satanael",
-    "entities": [
-      {
-        "start": 25,
-        "end": 33,
-        "value": "satanael",
-        "entity": "pokemon_name"
-      }
-    ],
-    "predicted_entities": []
-  },
-  {
     "text": "is addis ababa cold or hot",
     "entities": [
       {
