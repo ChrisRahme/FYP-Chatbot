@@ -12,7 +12,7 @@
 # https://rasa.com/docs/rasa/core/actions/#custom-actions/
 
 action_endpoint: # Communication via HTTP REST
- url: "http://localhost:5055/webhook"
+ url: "http://localhost:5055/webhook" 
 
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
