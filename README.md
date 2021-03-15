@@ -14,6 +14,7 @@
     * Language helper functions now take a list as argument instead of one parameter per language. This helps easily scale for any number of languages.
     * `get_lang()` and `get_lang_index()` are used in the `get_*_from_lang()` functions to avoid replication of code.
     * Added `reset_slots()` helper function.
+    * Prettified output of `announce()`.
   * Override `ActionSessionStart` default action. Now slots are forgotten after a session starts.
   * `ActionAskSlotName`s in `FormValidationAction`s now have a "stop" (🚫) button to stop the form.
 * Intents & training data:
