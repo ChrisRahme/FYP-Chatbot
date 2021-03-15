@@ -31,9 +31,15 @@ lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
 
 text_does_it_work = [
     'Does it work now?',
-    'Cela fonctionne-t-il maintenant?',
+    'Est-ce que ça marche maintenant?',
     'هل يعمل الآن؟',
     'Հիմա աշխատու՞մ է?']
+
+text_anything_else = [
+    'Anything else I can help with?',
+    'Est-ce que je peux vous aider avec autre chose?',
+    'أي شيء آخر يمكنني المساعدة به؟',
+    'Ուրիշ ինչ-որ բան կարող եմ օգնել:']
 
 buttons_yes_no_emoji = [
     {'title': '👍', 'payload': '/affirm'},
@@ -102,13 +108,32 @@ class DatabaseConnection:
 
 
 def announce(action, tracker = None):
-    output = '='*100 + '\n>>> Action: ' + action.name()
+    output = '>>> Action: ' + action.name()
+    output = '=' * min(100, len(output)) + '\n' + output
     if tracker:
-        output += '\n\n' + str(tracker.latest_message)
+        try:
+            msg = tracker.latest_message
+            slots = tracker.slots
+            filled_slots = {}
+            output += '\n- Text:       ' + str(msg['text'])
+            output += '\n- Intent:     ' + str(msg['intent']['name'])
+            output += '\n- Confidence: ' + str(msg['intent']['confidence'])
+            output += '\n- Entities:   ' + ', '.join(msg['entities'])
+            output += '\n- Slots:      '
+            for slot_key, slot_value in slots.items():
+                if slot_value != None:
+                    filled_slots[slot_key] = slot_value
+            if len(filled_slots) > 0:
+                for slot_key, slot_value in filled_slots.items():
+                    output += str(slot_key) + ': ' + str(slot_value) + ', '
+                output = output[:-2]
+        except Exception as e:
+            pass
     print(output)
 
 
-def reset_slots(tracker, slots, exceptions):
+
+def reset_slots(tracker, slots, exceptions = []):
     events = []
     none_slots = []
 
@@ -199,7 +224,7 @@ class ActionSessionStart(Action):
         return slots
 
     def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
+        announce(self)
         print(tracker.sender_id)
 
         events = [SessionStarted()]
@@ -267,6 +292,31 @@ class ActionAskTiaNoise(Action):
             'Y a-t-il du bruit sur la ligne où le numéro ADSL est connecté?',
             'هل توجد ضوضاء على الخط الموصل به رقم ADSL؟',
             'Արդյո՞ք աղմուկ կա այն գծի վրա, որտեղ միացված է ADSL համարը:'])
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
+        return []
+
+
+
+class ActionAskTiaaNoise(Action):
+    def name(self):
+        return 'action_ask_tiaa_noise'
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Please try to contact Ogero on 1515 to resolve the noise on the line.',
+            'Veuillez essayer de contacter Ogero au 1515 pour résoudre le bruit sur la ligne.',
+            'يرجى محاولة الاتصال بـ Ogero على 1515 لحل الضوضاء على الخط.',
+            'Խնդրում ենք փորձել կապվել Ogero- ի հետ 1515-ին `գծի աղմուկը լուծելու համար:'
+            ]) + '\n' + get_text_from_lang(
+            tracker,
+            ['After you resolved the noise issue with Ogero, restart the modem.',
+            'Y a-t-il du bruit sur la ligne où le numéro ADSL est connecté?',
+            'هل توجد ضوضاء على الخط الموصل به رقم ADSL؟',
+            'Արդյո՞ք աղմուկ կա այն գծի վրա, որտեղ միացված է ADSL համարը:'
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
         print('\nBOT:', text)
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
@@ -558,13 +608,6 @@ class ValidateFormLogIn(FormValidationAction):
             username = tracker.get_slot('username')
             password = tracker.get_slot('password')
             login_type = tracker.get_slot('login_type')
-            password_tries = tracker.get_slot('password_tries')
-
-            # if password_tries >= 3:
-            #     text = 'You entered a wrong password 3 times. Please try logging in again.'
-            #     print('\nBOT:', text)
-            #     dispatcher.utter_message(text)
-            #     return {'requested_slot': None, 'username': None, 'password': None, 'loggedin': False, 'password_tries': 0}
 
             db = DatabaseConnection()
             count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
@@ -572,7 +615,7 @@ class ValidateFormLogIn(FormValidationAction):
 
             if count == 1:
                 print('\n> validate_password:', username, password)
-                return {'password': 'secret', 'loggedin': True, 'password_tries': 0}
+                return {'password': 'secret', 'loggedin': True}
 
             else:
                 text = get_text_from_lang(
@@ -583,7 +626,7 @@ class ValidateFormLogIn(FormValidationAction):
                     'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)])
                 print('\nBOT:', text)
                 dispatcher.utter_message(text)
-                return {'password': None, 'loggedin': False, 'password_tries': password_tries+1}
+                return {'password': None, 'loggedin': False}
 
         else: # Already logged in
             username = tracker.get_slot('username')
@@ -595,7 +638,7 @@ class ValidateFormLogIn(FormValidationAction):
                     'Դուք մուտք եք գործել որպես {}:'.format(username)])
             print('\nBOT:', text)
             dispatcher.utter_message(text)
-            return {'username': username, 'password': 'secret', 'loggedin': True, 'password_tries': 0}
+            return {'username': username, 'password': 'secret', 'loggedin': True}
 
 
     # async def run(self, dispatcher, tracker, domain):
@@ -619,56 +662,61 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
 
     
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
-        text_contact_ogero = get_text_from_lang(
-            tracker,
-            ['Please try to contact Ogero on 1515 to resolve the noise on the line.',
-            'Veuillez essayer de contacter Ogero au 1515 pour résoudre le bruit sur la ligne.',
-            'يرجى محاولة الاتصال بـ Ogero على 1515 لحل الضوضاء على الخط.',
-            'Խնդրում ենք փորձել կապվել Ogero- ի հետ 1515-ին `գծի աղմուկը լուծելու համար:'])
+        announce(self, tracker)
+        
         text_if_works = get_text_from_lang(
-            tracker,
-            ['Great! I\'m glad that it works now. Anything else I can help with?',
-            'Génial! Est-ce que je peux vous aider avec autre chose?',
-            'رائعة! أي شيء آخر يمكنني المساعدة به؟',
-            'Հոյակապ Ուրիշ ինչ-որ բան կարող եմ օգնել:'])
+            tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:']
+            ) + '\n' + get_text_from_lang(tracker, text_anything_else)
+        checkpoint = False
 
         required_slots = ['tia_noise']
-        if tracker.get_slot('tia_noise') == True: # There is noise on the line, stop
-            print('\nBOT:', text_contact_ogero)
-            dispatcher.utter_message(text_contact_ogero)
+        if tracker.get_slot('tia_noise'): # There is noise on the line, ask to contact Ogero
+            required_slots.append('tiaa_noise')
+            if tracker.get_slot('tiaa_noise'): # The noise is gone and the problem is fixed, stop
+                print('\nBOT:', text_if_works)
+                dispatcher.utter_message(text_if_works)
+            else: # The noise is gone but the problem is not fixed, continue
+                checkpoint = True
         else: # There is no noise on the line, continue
+            checkpoint = True
+
+        if checkpoint: # There is no noise on the line, continue
             required_slots.append('tib_modem_on')
             if tracker.get_slot('tib_modem_on') == True: # The modem is on and it works, stop
                 print('\nBOT:', text_if_works)
                 dispatcher.utter_message(text_if_works)
             else: # The modem is on and it doesn't work, continue
                 required_slots.append('tic_modem_green')
-                if tracker.get_slot('tic_modem_green') == True: # The LED is green and it works, stop
+                if tracker.get_slot('tic_modem_green'): # The LED is green and it works, stop
                     print('\nBOT:', text_if_works)
                     dispatcher.utter_message(text_if_works)
                 else: # The LED is green and it doesn't work, continue
                     required_slots.extend(['tid_nb_phones', 'tie_nb_sockets', 'tif_splitter_installed'])
-                    if tracker.get_slot('tif_splitter_installed') == True: # The splitter is properly installed on all phones and modems and it works, stop
+                    if tracker.get_slot('tif_splitter_installed'): # The splitter is properly installed on all phones and modems and it works, stop
                         print('\nBOT:', text_if_works)
                         dispatcher.utter_message(text_if_works)
                     else: # The splitter is properly installed on all phones and modems and it doesn't work, continue
                         required_slots.append('tig_rj_plugged')
-                        if tracker.get_slot('tig_rj_plugged') == True: # The RJ11 is plugged in and it works, stop
+                        if tracker.get_slot('tig_rj_plugged'): # The RJ11 is plugged in and it works, stop
                             print('\nBOT:', text_if_works)
                             dispatcher.utter_message(text_if_works)
                         else: # The RJ11 is plugged in and it doesn't work, continue
                             required_slots.append('tih_other_plug')
-                            if tracker.get_slot('tih_other_plug') == True: # The modem was plugged somewhere else and it works, stop
+                            if tracker.get_slot('tih_other_plug'): # The modem was plugged somewhere else and it works, stop
                                 print('\nBOT:', text_if_works)
                                 dispatcher.utter_message(text_if_works)
                             else: # The modem was plugged somewhere else and it doesn't work, continue
                                 required_slots.append('tii_other_modem')
-                                if tracker.get_slot('tii_other_modem') == True: # Another modem is plugged in and it works, stop
+                                if tracker.get_slot('tii_other_modem'): # Another modem is plugged in and it works, stop
                                     print('\nBOT:', text_if_works)
                                     dispatcher.utter_message(text_if_works)
                                 else: # Another modem is plugged in and it doesn't work, continue
                                     required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])
         
+        #if required_slots == ['tia_noise', 'tiaa_noise'] and tracker.get_slot('tia_noise'): # To not repeat it multiple times
+        #    print('\nBOT:', text_contact_ogero)
+        #    dispatcher.utter_message(text_contact_ogero)
+
         return required_slots
 
 
@@ -711,6 +759,7 @@ class ActionSubmitFormTroubleshootInternet(Action):
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
 
+        text = ''
         slots_to_reset = list(domain['forms']['form_troubleshoot_internet'].keys())
         exceptions = ['username', 'ti_form_completed']
         events = reset_slots(tracker, slots_to_reset, exceptions)
@@ -718,16 +767,18 @@ class ActionSubmitFormTroubleshootInternet(Action):
 
         if (tracker.get_slot('tik_has_line') is not None) and (tracker.get_slot('username') is not None): # User has completed the form
             username   = tracker.get_slot('username').title()
-            #login_type = tracker.get_slot('login_type').replace('_', ' ')
 
             text = get_text_from_lang(
                 tracker,
                 ['A case was created for {}.'.format(username),
                 'Un dossier a été créé pour {}.'.format(username),
                 'تم إنشاء حالة لـ {}.'.format(username),
-                'Գործ ստեղծվեց {} - ի համար:'.format(username)])
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
+                'Գործ ստեղծվեց {} - ի համար:'.format(username)]) + '\n'
+
+        
+        text += get_text_from_lang(tracker, text_anything_else)
+        print('\nBOT:', text)
+        dispatcher.utter_message(text)
 
         return events
 
@@ -868,7 +919,7 @@ class ActionUtterAccountTypes(Action):
                 '/inform_account_type{"account_type": "bank"}'
             ]
         )
-        print('\nBOT:', text)
+        print('\nBOT:', text, buttons)
         dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
@@ -899,9 +950,8 @@ class ActionUtterTopicTypes(Action):
                 '/inform_topic_type{"topic_type": "changing"}',
                 '/inform_topic_type{"topic_type": "troubleshooting"}',
                 '/inform_topic_type{"topic_type": "account"}'
-            ]
-        )
-        print('\nBOT:', text)
+            ])
+        print('\nBOT:', text, buttons)
         dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
@@ -989,33 +1039,29 @@ class ActionUtterTopicSamples(Action):
             f'\n- Service type: {service_type}'
             f'\n- Account type: {account_type}'
             f'\n- Topic: {topic_type}'
-            f'\nYou can say things like:'
-            f'\n- {examples_en}'
-        )
+            f'\n\nYou can say things like:'
+            f'\n- {examples_en}')
         text_fr = (
             'Vous avez choisi:'
              f'\n- Type de service: {service_type}'
              f'\n- Type de compte: {account_type}'
              f'\n- Topic: {topic_type}'
-            f'\nVous pouvez demander:'
-            f'\n- {examples_fr}'
-        )
+            f'\n\nVous pouvez demander:'
+            f'\n- {examples_fr}')
         text_ar = (
             'اخترت:'
             f'\n- نوع الخدمة: {service_type}'
             f'\n- نوع الحساب: {account_type}'
             f'\n- الموضوع: {topic_type}'
-            f'\nتستطيع أن تسأل:'
-            f'\n- {examples_ar}'
-        )
+            f'\n\nتستطيع أن تسأل:'
+            f'\n- {examples_ar}')
         text_hy = (
             'Դուք ընտրեցիք:'
             f'\n- ծառայության տեսակը: {service_type}'
             f'\n- Հաշվի տեսակը: {account_type}'
             f'\n- Թեմա: {topic_type}'
-            f'\nԴու կարող ես հարցնել:'
-            f'\n- {examples_hy}'
-        )
+            f'\n\nԴու կարող ես հարցնել:'
+            f'\n- {examples_hy}')
 
         text = get_text_from_lang(tracker, [text_en, text_fr, text_ar, text_hy])            
         print('\nBOT:', text)
@@ -1068,7 +1114,7 @@ class ActionFetchQuota(Action):
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
 
-        if tracker.get_slot('loggedin'):
+        if tracker.get_slot('loggedin') or tracker.get_slot('password') == 'secret':
             results    = None
             username   = tracker.get_slot('username')
             login_type = tracker.get_slot('login_type')

@@ -158,6 +158,11 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: true
+  tiaa_noise:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
   tib_modem_on:
     type: rasa.shared.core.slots.BooleanSlot
     initial_value: null
@@ -390,6 +395,7 @@ actions:
 - action_ask_username
 - action_ask_password
 - action_ask_tia_noise
+- action_ask_tiaa_noise
 - action_ask_tib_modem_on
 - action_ask_tic_modem_green
 - action_ask_tid_nb_phones
@@ -415,6 +421,15 @@ forms:
       type: from_text
   form_troubleshoot_internet:
     tia_noise:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tiaa_noise:
     - intent: affirm
       not_intent: stop
       type: from_intent
