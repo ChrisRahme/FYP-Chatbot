@@ -22,6 +22,7 @@ stories:
   - active_loop: null
   - slot_was_set:
     - password: secret
+    - loggedin: True
   - action: action_submit_form_log_in
   - intent: query_quota
   - action: action_fetch_quota
@@ -42,6 +43,7 @@ stories:
   - active_loop: null
   - slot_was_set:
     - password: secret
+    - loggedin: True
   - action: action_submit_form_log_in
   - intent: query_quota
   - action: action_fetch_quota
@@ -178,3 +180,49 @@ stories:
   - slot_was_set:
     - tic_modem_green: true
   - action: action_submit_form_troubleshoot_internet
+
+- story: (Conversation) User fills topics, troubleshoots internet, resolves noise, restarts modem, and finds solution
+  steps:
+  - intent: greet
+  - action: action_utter_greet
+  - slot_was_set:
+    - service_type: internet
+  - intent: inform_service_type
+    entities:
+    - service_type: internet
+  - action: action_utter_account_types
+  - slot_was_set:
+    - account_type: consumer
+  - intent: inform_account_type
+    entities:
+    - account_type: consumer
+  - action: action_utter_topic_types
+  - slot_was_set:
+    - topic_type: troubleshooting
+  - intent: inform_topic_type
+    entities:
+    - topic_type: troubleshooting
+  - action: action_utter_topic_samples
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+  - slot_was_set:
+    - requested_slot: tia_noise
+  - intent: affirm
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tia_noise: true
+  - intent: deny
+  - action: form_troubleshoot_internet
+  - slot_was_set:
+    - tiaa_noise: false
+  - intent: affirm
+  - action: form_troubleshoot_internet
+  - active_loop: null
+  - slot_was_set:
+    - tib_modem_on: true
+  - action: action_submit_form_troubleshoot_internet
+  - slot_was_set:
+    - tia_noise: null
+    - tiaa_noise: null
+    - tib_modem_on: null

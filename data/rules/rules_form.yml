@@ -34,6 +34,4 @@ rules:
   - active_loop: null # Stop the form
   - slot_was_set:
     - requested_slot: null
-  # - slot_was_set:
-  #   - ti_form_completed: True
   - action: action_submit_form_troubleshoot_internet
