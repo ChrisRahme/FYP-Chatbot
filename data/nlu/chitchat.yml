@@ -178,6 +178,8 @@ nlu:
     - Այո լավ
     - okay!
     - /affirm
+    - i did
+    - Yes
 - intent: deny
   examples: |
     - no
@@ -236,6 +238,7 @@ nlu:
     - ոչ լավ
     - Չեմ ուզում
     - /deny
+    - the line has no noise
 - intent: mood_great
   examples: |
     - perfect

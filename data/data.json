@@ -92,6 +92,10 @@
       {
         "text": "Hi",
         "intent": "greet"
+      },
+      {
+        "text": "HI",
+        "intent": "greet"
       }
     ],
     "regex_features": [],
