@@ -1,8 +1,9 @@
 # Extend the official Rasa SDK image
-#ARG RASA_SDK_VERSION
-#FROM rasa/rasa-sdk:{RASA_SDK_VERSION}
+# https://hub.docker.com/r/rasa/rasa-sdk/tags
+# https://hub.docker.com/r/rasa/rasa/tags
+#FROM rasa/rasa-sdk:latest
+#FROM rasa/rasa:latest-full
 FROM rasa/rasa-sdk:2.3.1
-#FROM rasa/rasa:2.2.3-full
 
 # Use subdirectory as working directory
 WORKDIR /app
@@ -23,7 +24,7 @@ RUN pip install -r requirements-helpers.txt
 COPY ./actions /app/actions
 COPY data/lookups/* data/lookups/
 
-# Download spacy language data - We don't need that for the action server(?) - Yes we do(?) - No we don't unless we use rasa-full
+# Download spacy language data - Only if we use rasa-full and a model other than en_core_web_md
 #RUN python -m pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.0.0/en_core_web_md-3.0.0.tar.gz
 #RUN python -m spacy download en_core_web_lg
 
