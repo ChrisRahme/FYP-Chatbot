@@ -4,7 +4,7 @@
 .tensorboard.old/
 __pycache__/
 domain/
-#results/
+results/
 
 
 # Files in folders
