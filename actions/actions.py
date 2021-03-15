@@ -968,7 +968,7 @@ class ActionUtterTopicSamples(Action):
             '[IT WILL PROVIDE QUESTIONS]',
             '[GIVEN THE CHOICES YOU MADE.]',
             '[TRY THE FOLLOWING TOPICS:]',
-            '[Billing, Payment, Account, Internet]'
+            '[Billing, Payments, Account, Troubleshooting]'
         ]
         examples_fr = examples_en
         examples_ar = examples_en
