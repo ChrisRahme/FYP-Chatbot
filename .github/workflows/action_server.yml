@@ -1,0 +1,67 @@
+on:
+  push:
+    branches:
+      - chris-test ### TODO Change this to 'main' once it's working
+    paths:
+      - 'actions/**'
+
+
+
+jobs:
+  # training-testing: # https://github.com/marketplace/actions/rasa-train-test-model-github-action
+  #   name: Training and Testing
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+      
+  #     - name: Rasa Train and Test GitHub Action
+  #       uses: RasaHQ/rasa-train-test-gha@main
+  #       with:
+  #         requirements_file: 'actions/requirements-actions.txt'
+  #         data_validate: true
+  #         rasa_train: true
+  #         cross_validation: true
+  #         rasa_test: true
+  #         test_type: all
+  #         publish_summary: true
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  #     - name: Upload model
+  #       if: github.ref == 'refs/heads/main'
+  #       uses: actions/upload-artifact@main
+  #       with:
+  #         name: model
+  #         path: models
+
+  build_and_deploy: # https://github.com/marketplace/actions/build-action-server-image
+    name: Build Action Server image and upgrade Rasa X deployment
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - id: action_server
+      name: Build an action server with custom actions
+      uses: RasaHQ/action-server-gha@main
+      # Full list of parameters: https://github.com/RasaHQ/action-server-gha/tree/master#input-arguments
+      with:
+        actions_directory: 'actions'
+        requirements_file: 'actions/requirements-actions.txt'
+        docker_image_name: 'chrisrahme/fyp-chatbot'
+        # More details on how to use GitHub secrets: https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets
+        docker_registry_login: ${{ secrets.DOCKER_HUB_LOGIN }}
+        docker_registry_password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        # More details about github context: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
+        docker_image_tag: ${{ github.sha }}
+
+    # This step shows only the example of output parameter usage and it's not focused on deployment itself.
+    # More information: https://rasa.com/docs/rasa-x/installation-and-setup/install/helm-chart/
+    # For this to work, server needs to be on the Internet.
+    #- name: "Upgrade a Rasa X deployment"
+    #  run: |
+    #    helm upgrade --install --reuse-values \
+    #      --set app.name=${{ steps.action_server.outputs.docker_image_name }} \
+    #      --set app.tag=${{ steps.action_server.outputs.docker_image_tag }} rasa rasa-x/rasa-x
+    # helm upgrade --install --reuse-values --set app.name=docker.io/chrisrahme/fyp-chatbot --set app.tag=82f485fabcfbdb8c5cd7d68996e05ff72329d0eb rasa rasa-x/rasa-x
