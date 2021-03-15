@@ -23,7 +23,7 @@ action_endpoint: # Communication via HTTP REST
 #     dialect: "mysql"       # the dialect used to interact with the db, compatible: postgresql, oracle > 11.0, sqlite
 #     url: "194.126.17.114"  # (optional) host of the sql db
 #     db: "rasa_db"          # path to your db
-#     username:  "rasa"      # username used for authentication
+#     username:  "rasaq"     # username used for authentication
 #     password:  "rasa"      # password used for authentication
 
 #tracker_store:
