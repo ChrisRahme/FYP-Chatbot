@@ -7,8 +7,6 @@ session_config:
 intents:
 - get_weather:
     use_entities: true
-- confirm_exists:
-    use_entities: true
 - greet:
     use_entities: []
 - goodbye:
