@@ -89,3 +89,31 @@ stories:
       are you a bot?
     intent: bot_challenge
   - action: utter_iamabot
+
+- story: Story from Conversation ID dc7ee4e0a54141c1b871c7b179504c61
+  steps:
+  - intent: log_in
+    user: |-
+      log in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+    user: |-
+      chris
+  - action: form_log_in
+  - slot_was_set:
+    - username: Chris
+  - intent: out_of_scope
+    user: |-
+      chris
+  - action: form_log_in
+  - active_loop: null
+  - slot_was_set:
+    - password: secret
+  - action: action_submit_form_log_in
+  - intent: query_quota
+    user: |-
+      what my comsomption
+  - action: action_fetch_quota
