@@ -964,9 +964,11 @@ class ActionUtterTopicSamples(Action):
 
     def get_sample_questions(self, topic_type, account_type, service_type):
         examples_en = [
-            'sample question 1',
-            'sample question 2',
-            'sample question 3'
+            '[THIS IS JUST AN EXAMPLE.]',
+            '[IT WILL PROVIDE QUESTIONS]',
+            '[GIVEN THE CHOICES YOU MADE.]',
+            '[TRY THE FOLLOWING TOPICS:]',
+            '[Billing, Payment, Account, Internet]'
         ]
         examples_fr = examples_en
         examples_ar = examples_en
