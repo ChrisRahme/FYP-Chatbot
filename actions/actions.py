@@ -62,11 +62,10 @@ class DatabaseConnection:
 
     def connect(self):
         self.connection = mysql.connector.connect(
-            host='194.126.17.114',
-            database='rasa_db',
-            user='rasaq', # granted all privileges on rasa_db.* to rasaq@%
-            password='rasa'
-        )
+            host     = '194.126.17.114',
+            database = 'rasa_db',
+            user     = 'rasaq', # granted all privileges on rasa_db.* to rasaq@%
+            password = 'rasa')
 
     def disconnect(self):
         self.cursor.close()
