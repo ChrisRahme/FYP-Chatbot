@@ -57,7 +57,7 @@ class DatabaseConnection:
     query = None
 
     def __init__(self):
-        if self.connection == None:
+        if self.connection is None:
             self.connect()
 
     def connect(self):
@@ -121,14 +121,14 @@ def announce(action, tracker = None):
             output += '\n- Entities:   ' + ', '.join(msg['entities'])
             output += '\n- Slots:      '
             for slot_key, slot_value in slots.items():
-                if slot_value != None:
+                if slot_value is not None:
                     filled_slots[slot_key] = slot_value
             if len(filled_slots) > 0:
                 for slot_key, slot_value in filled_slots.items():
                     output += str(slot_key) + ': ' + str(slot_value) + ', '
                 output = output[:-2]
         except Exception as e:
-            pass
+            print(f'\n> announce: [ERROR] {e}')
     print(output)
 
 
@@ -682,7 +682,7 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
 
         if checkpoint: # There is no noise on the line, continue
             required_slots.append('tib_modem_on')
-            if tracker.get_slot('tib_modem_on') == True: # The modem is on and it works, stop
+            if tracker.get_slot('tib_modem_on'): # The modem is on and it works, stop
                 print('\nBOT:', text_if_works)
                 dispatcher.utter_message(text_if_works)
             else: # The modem is on and it doesn't work, continue
@@ -1097,8 +1097,7 @@ class ActionSetLanguage(Action):
             utterance = 'اللغة الآن هي العربية.'
         elif current_language == 'Armenian':
             utterance = 'Լեզուն այժմ հայերենն է:'
-        else: 
-            current_language == 'English'
+        else:
             utterance = 'I only understand English, French, Arabic, and Armenian. The language is now English.'
         
         dispatcher.utter_message(utterance)
@@ -1188,7 +1187,8 @@ class ActionCheckWeather(Action):
         try:
             name = pycountry.countries.get(alpha_2=alpha2).name
             return name
-        except:
+        except Exception as e:
+            print(f'\n> ActionCheckWeather.alpha2_to_name: [ERROR] {e}')
             return alpha2
 
 
@@ -1207,7 +1207,8 @@ class ActionCheckWeather(Action):
 
             return result
 
-        except:
+        except Exception as e:
+            print(f'\n> ActionCheckWeather.call_api: [ERROR] {e}')
             return {'response': False}        
 
 
@@ -1271,7 +1272,7 @@ class ActionOutOfScope(Action):
             dispatcher.utter_message(text)
             return [SlotSet('out_of_scope', latest['text'])]
 
-        elif intent == 'affirm' and query != None:
+        elif intent == 'affirm' and query is not None:
             try:
                 text = 'Here are the top results:'
                 urls = [url for url in googlesearch.search(
