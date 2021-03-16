@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/chrisrahme/fyp-chatbot/badge?s=1b03c9b6a6d6173575258376b2664506a5564f0c)](https://www.codefactor.io/repository/github/chrisrahme/fyp-chatbot)
+
 # Releases
 
 ## Current
