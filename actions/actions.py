@@ -641,14 +641,6 @@ class ValidateFormLogIn(FormValidationAction):
             return {'username': username, 'password': 'secret', 'loggedin': True}
 
 
-    # async def run(self, dispatcher, tracker, domain):
-    #     announce(self, tracker)
-
-    #     if tracker.get_slot('password_tries') >= 3:
-    #         return [SlotSet('requested_slot', None), SlotSet('username', None), SlotSet('password', None), SlotSet('login_type', None), SlotSet('password_tries', 0)]
-    #     await super().run(dispatcher, tracker, domain)
-
-
 
 class ValidateFormTroubleshootInternet(FormValidationAction):
     def name(self):
@@ -1127,9 +1119,8 @@ class ActionFetchQuota(Action):
                     "ON `user_info`.`ID` = `consumption`.`UserID` "
                     f"WHERE {login_type} = '{username}'")
                 db.disconnect()
-
             except Exception as e:
-                print(f'\n> ActionFetchQuota: [ERROR1] {e}')
+                print(f'\n> ActionFetchQuota: [ERROR] {e}')
                 dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
                 return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
 
@@ -1160,12 +1151,9 @@ class ActionFetchQuota(Action):
                         'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)])
                     print('\nBOT:', utterance)
                     dispatcher.utter_message(utterance)
-
             except Exception as e:
-                print(f'\n> ActionFetchQuota: [ERROR2] {e}')
+                print(f'\n> ActionFetchQuota: [ERROR] {e}')
                 dispatcher.utter_message('Sorry, there was an error.')
-
-            return []
         
         else: # Not logged in
             utterance = get_text_from_lang(
@@ -1176,6 +1164,8 @@ class ActionFetchQuota(Action):
                 'Դուք մուտք չեք գործել: Մուտք գործելու համար խնդրում ենք ասել «մուտք գործել»:'])
             print('\nBOT:', utterance)
             dispatcher.utter_message(utterance)
+        
+        return []
 
 
 
@@ -1218,12 +1208,10 @@ class ActionCheckWeather(Action):
         if result['response']:
             if result['code'] == '200':
                 return 'Temperature is currently {} °C in {}{}.'.format(result['temperature'], result['city'], result['country'])
-            elif result['code'] == '404':
+            if result['code'] == '404':
                 return 'Sorry, I could not find a city or country named {}.'.format(city_name.title())
-            else:
-                return 'Sorry, there was an error looking for the weather in {} (Error {}).'.format(city_name.title(), result['code'])
-        else:
-            return f'Sorry, the weather server is not responding.'
+            return 'Sorry, there was an error looking for the weather in {} (Error {}).'.format(city_name.title(), result['code'])
+        return f'Sorry, the weather server is not responding.'
 
     
     def run(self, dispatcher, tracker, domain):
@@ -1272,31 +1260,28 @@ class ActionOutOfScope(Action):
             dispatcher.utter_message(text)
             return [SlotSet('out_of_scope', latest['text'])]
 
-        elif intent == 'affirm' and query is not None:
+        if intent == 'affirm' and query is not None:
             try:
                 text = 'Here are the top results:'
                 urls = [url for url in googlesearch.search(
-                    query=query,
-                    tld='com.lb',
-                    lang='en',
-                    num=5,
-                    stop=5,
-                    pause=1,
-                    extra_params={'filter': '0'})
-                ]
+                    query = query,
+                    tld = 'com.lb',
+                    lang = 'en',
+                    num = 5,
+                    stop = 5,
+                    pause = 1,
+                    extra_params = {'filter': '0'})]
                 print('\nBOT:', text)
                 dispatcher.utter_message(text)
 
                 for url in urls:
                     dispatcher.utter_message(str(url))
-
             except Exception as e:
                 dispatcher.utter_message('Sorry, I could not comlete the search.\n' + str(e))
-                print('[ERROR] ' + str(e))
-
+                print('> ActionOutOfScope [ERROR] ' + str(e))
             return [SlotSet('out_of_scope', None)]
             
-        elif (intent == 'deny' or intent == 'stop') and query != None:
+        if (intent == 'deny' or intent == 'stop') and query is not None:
             dispatcher.utter_message('Okay.')
             return [SlotSet('out_of_scope', None)]
 
