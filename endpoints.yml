@@ -1,8 +1,8 @@
 # This file contains the different endpoints your bot can use.
 
 # Server where the models are pulled from.
-# https://rasa.com/docs/rasa/user-guide/configuring-http-api/#fetching-models-from-a-server/
-# https://rasa.com/docs/rasa/model-storage#load-model-from-server/ 
+# https://rasa.com/docs/rasa/user-guide/configuring-http-api/#fetching-models-from-a-server
+# https://rasa.com/docs/rasa/model-storage#load-model-from-server
 
 #models:
 #  url: http://my-server.com/models/default_core@latest
