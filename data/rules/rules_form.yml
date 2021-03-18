@@ -28,7 +28,7 @@ rules:
 
 - rule: Submit form_troubleshoot_internet
   condition: # Condition that form is active
-  - active_loop: form_log_in
+  - active_loop: form_troubleshoot_internet
   steps:
   - action: form_troubleshoot_internet
   - active_loop: null # Stop the form
