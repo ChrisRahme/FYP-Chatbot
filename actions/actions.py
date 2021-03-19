@@ -798,8 +798,7 @@ class ActionUtterGreet(Action):
                 '/inform_service_type{"service_type": "internet"}',
                 '/inform_service_type{"service_type": "dsl"}',
                 '/inform_service_type{"service_type": "cablevision"}'
-            ]
-        )
+            ])
         print('\nBOT: {utter_greet}', buttons)
         dispatcher.utter_message(template = template, buttons = buttons)
         return []
@@ -841,6 +840,13 @@ class ActionUtterChangeLanguage(Action):
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
+        
+        text = get_text_from_lang(
+            tracker,
+            ['Choose a language:',
+            'Choisissez une langue:',
+            ':اختر لغة',
+            'Ընտրեք լեզու ՝'])
 
         buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
             {'title': 'English',  'payload': '/set_language{"language": "English"}'},
@@ -848,14 +854,7 @@ class ActionUtterChangeLanguage(Action):
             {'title': 'عربي',     'payload': '/set_language{"language": "Arabic"}'},
             {'title': 'հայերեն',  'payload': '/set_language{"language": "Armenian"}'}
         ]
-        
-        text = get_text_from_lang(
-            tracker,
-            ['Choose a language:',
-            'Choisissez une langue:',
-            ':اختر لغة',
-            'Ընտրեք լեզու ՝'])            
-        
+       
         print('\nBOT:', text, buttons)
         dispatcher.utter_message(text = text, buttons = buttons)
 
