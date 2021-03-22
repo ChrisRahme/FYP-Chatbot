@@ -18,8 +18,8 @@ pipeline:
   model_confidence: linear_norm
   loss_type: cross_entropy
   constrain_similarities: true
-  number_of_transformer_layers: 4  #2 4 4 8 4  4
-  number_of_attention_heads:    16 #4 4 8 8 8 16
+  number_of_transformer_layers: 2
+  number_of_attention_heads: 4
   batch_size: [64, 128]
   evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
