@@ -4,8 +4,9 @@
 
 ## Current
 
-* Upgraded for [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0):
+* Ready for [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0):
   * Now use `response` instead of `template` in the tracker.
+  * Problem: `‘charmap’ codec can’t decode` bytes in Arabic and Armenian.
 
 ## 2021.03.22
 
