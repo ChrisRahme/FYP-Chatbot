@@ -4,6 +4,11 @@
 
 ## Current
 
+* Upgraded for [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0):
+  * Now use `response` instead of `template` in the tracker.
+
+## 2021.03.22
+
 * Upgraded for [Rasa 2.3.4](https://github.com/RasaHQ/rasa/releases/tag/2.3.4):
   * DIET,  ResponseSelector, and TED's `model_confidence` went back from `cosine` to `linear_norm` ([rasa issue #8014](https://github.com/rasahq/rasa/issues/8014)).
   * Studying [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0).
