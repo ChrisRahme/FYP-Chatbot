@@ -39,6 +39,7 @@ pipeline:
   constrain_similarities: true
   regularization_constant: 0.002
   random_seed: 1
+  batch_size: [64, 128]
   evaluate_on_number_of_examples: 5
   evaluate_every_number_of_epochs: 1
   tensorboard_log_directory: ./.tensorboard
@@ -59,6 +60,7 @@ policies:
   constrain_similarities: true
   regularization_constant: 0.002
   random_seed: 1
+  batch_size: [64, 128]
   evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
   tensorboard_log_directory: ./.tensorboard
