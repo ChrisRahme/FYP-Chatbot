@@ -181,8 +181,8 @@ def get_text_from_lang(tracker, utter_list = []):
 
 
 
-def get_template_from_lang(tracker, template):
-    return template + '_' + get_lang(tracker)
+def get_response_from_lang(tracker, response):
+    return response + '_' + get_lang(tracker)
 
 
 
@@ -776,7 +776,7 @@ class ActionSubmitFormTroubleshootInternet(Action):
 
 
 ####################################################################################################
-# TEMPLATE UTTERANCES                                                                              #
+# RESPONSE UTTERANCES                                                                              #
 ####################################################################################################
 
 
@@ -786,7 +786,7 @@ class ActionUtterGreet(Action):
         return 'action_utter_greet'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        template = get_template_from_lang(tracker, 'utter_greet')
+        response = get_response_from_lang(tracker, 'utter_greet')
         buttons  = get_buttons_from_lang(
             tracker,
             [['Wireless', 'Internet', 'DSL Internet', 'CableVision TV'],
@@ -800,7 +800,7 @@ class ActionUtterGreet(Action):
                 '/inform_service_type{"service_type": "cablevision"}'
             ])
         print('\nBOT: {utter_greet}', buttons)
-        dispatcher.utter_message(template = template, buttons = buttons)
+        dispatcher.utter_message(response = response, buttons = buttons)
         return []
 
 
@@ -810,7 +810,7 @@ class ActionUtterGoodbye(Action):
         return 'action_utter_goodbye'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        dispatcher.utter_message(template = get_template_from_lang(tracker, 'utter_goodbye'))
+        dispatcher.utter_message(response = get_response_from_lang(tracker, 'utter_goodbye'))
         return []
             
 
@@ -820,9 +820,9 @@ class ActionUtterYoureWelcome(Action):
         return 'action_utter_youre_welcome'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        template = get_template_from_lang(tracker, 'utter_youre_welcome')
-        print('\nBOT:', template)
-        dispatcher.utter_message(template = template)
+        response = get_response_from_lang(tracker, 'utter_youre_welcome')
+        print('\nBOT:', response)
+        dispatcher.utter_message(response = response)
         return []
 
 
