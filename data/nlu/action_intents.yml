@@ -1,6 +1,5 @@
 version: "2.0"
 nlu:
-
 - intent: get_weather
   examples: |
     - whats the weather in [beirut](city_name)
@@ -60,3 +59,5 @@ nlu:
     - what about the weather today ?
     - wats the eeathre
     - whats the weather
+    - what's the weather?
+    - [beirut](city_name)
