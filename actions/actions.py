@@ -179,10 +179,13 @@ def get_text_from_lang(tracker, utter_list = []):
     if lang_index >= len(utter_list): # No text defined for current language
         lang_index = 0
 
-    text = []
-    text.extend(utter_list[lang_index])
-
-    return str(text[random.randint(0,len(text)-1)])
+    text = utter_list[lang_index]
+    if isinstance(text, list):
+        text = str(text[random.randint(0,len(text)-1)])
+    else:
+        text = str(text)
+    
+    return text 
 
 
 
