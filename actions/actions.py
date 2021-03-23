@@ -4,6 +4,7 @@ import mysql.connector
 import pycountry
 
 import json
+import random
 import time
 import os
 
@@ -168,6 +169,7 @@ def get_lang_index(tracker):
 
 
 
+''' utter_list is a list of outputs in multiple lanaguages, each output can be a string or a list of strings '''
 def get_text_from_lang(tracker, utter_list = []):
     lang_index = get_lang_index(tracker)
 
@@ -177,7 +179,10 @@ def get_text_from_lang(tracker, utter_list = []):
     if lang_index >= len(utter_list): # No text defined for current language
         lang_index = 0
 
-    return utter_list[lang_index]
+    text = []
+    text.extend(utter_list[lang_index])
+
+    return str(text[random.randint(0,len(text)-1)])
 
 
 
@@ -786,6 +791,13 @@ class ActionUtterGreet(Action):
         return 'action_utter_greet'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            [['Hi, I’m GDS automated virtual assistant. How can I help you today?', 'So I can get you to the right place, tell me what service you’d like help with.', 'Hello, how can I help?'],
+            ['Bonjour, je suis l\'assistant virtuel automatisé de GDS. Comment puis-je vous aider?', 'Pour que je puisse vous guider, dites-moi pour quel service vous aimeriez obtenir de l’aide.', 'Salut! Comment puis-je aider?'],
+            ['مرحبًا ، أنا مساعد افتراضي تلقائي لنظام GDS. كيف استطيع مساعدتك اليوم؟', 'حتى أتمكن من توصيلك إلى المكان الصحيح ، أخبرني بما تريد المساعدة فيه.', 'مرحبًا ، كيف يمكنني المساعدة؟'],
+            ['Ողջույն, ես GDS ավտոմատացված վիրտուալ օգնական եմ. Ինչպե՞ս կարող եմ օգնել ձեզ այսօր?', 'ես կարող եմ ձեզ ճիշտ տեղ հասցնել, ասա ինձ, թե ինչի հետ կցանկանայիր օգնել.', 'Ողջույն, ինչպե՞ս կարող եմ օգնել?']]
+        )
         response = get_response_from_lang(tracker, 'utter_greet')
         buttons  = get_buttons_from_lang(
             tracker,
@@ -800,7 +812,8 @@ class ActionUtterGreet(Action):
                 '/inform_service_type{"service_type": "cablevision"}'
             ])
         print('\nBOT: {utter_greet}', buttons)
-        dispatcher.utter_message(response = response, buttons = buttons)
+        #dispatcher.utter_message(response = response, buttons = buttons)
+        dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
 
