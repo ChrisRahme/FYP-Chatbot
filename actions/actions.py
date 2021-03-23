@@ -528,7 +528,7 @@ class ActionAskTikHasLine(Action):
 
 async def global_validate_username(value, dispatcher, tracker, domain):
     if not tracker.get_slot('loggedin'):
-        username   = value.lower()
+        username   = value.title()
         login_type = 'Username'
         count      = 0
         
@@ -551,16 +551,16 @@ async def global_validate_username(value, dispatcher, tracker, domain):
         db.disconnect()
 
         if count == 1:
-            print('\n> validate_username:', username, login_type)
+            print('\n> validate_username:', login_type, username)
             return {'username': username.title(), 'loggedin': False, 'login_type': login_type}
 
         elif count == 0:
             text = get_text_from_lang(
                 tracker,
-                ['Sorry, {} is not a registered Username, L Number, of Phone Number. Please try again or press "🚫" to stop.'.format(username),
-                'Désolé, {} n\'est pas un Utilisateur, L Number, ou Numéro de Téléphone enregistré. Veuillez réessayer ou appuyez sur "🚫" pour arrêter.'.format(username),
+                ['Sorry, {} is not recognized.'.format(username),
+                'Désolé, {} n\'est pas enregistré.'.format(username),
                 'عذرًا ، {} ليس اسم مستخدم مسجلاً ، رقم L ، لرقم هاتف. يرجى المحاولة مرة أخرى أو الضغط على "🚫" للتوقف.'.format(username),
-                'Ներողություն, {} գրանցված Մականուն, L համար, հեռախոսահամար չէ: Խնդրում ենք կրկին փորձել կամ սեղմել «🚫» ՝ դադարեցնելու համար:'.format(username)])
+                'Ներողություն, {} գրանցված Մականուն, L համար, հեռախոսահամար չէ:'.format(username)])
             print('\nBOT:', text)
             dispatcher.utter_message(text)
             return {'username': None, 'loggedin': False, 'login_type': None}
@@ -613,8 +613,8 @@ class ValidateFormLogIn(FormValidationAction):
             db.disconnect()
 
             if count == 1:
-                print('\n> validate_password:', username, password)
-                return {'password': 'secret', 'loggedin': True}
+                print('\n> validate_password: Login with', username)
+                return {'password': password, 'loggedin': True}
 
             else:
                 text = get_text_from_lang(
@@ -628,13 +628,13 @@ class ValidateFormLogIn(FormValidationAction):
                 return {'password': None, 'loggedin': False}
 
         else: # Already logged in
-            username = tracker.get_slot('username')
+            username = tracker.get_slot('username').title()
             text = get_text_from_lang(
-                    tracker,
-                    ['You are logged in as {}.'.format(username),
-                    'Vous êtes connecté en tant que {}'.format(username),
-                    'أنت مسجل دخولك باسم {}.'.format(username),
-                    'Դուք մուտք եք գործել որպես {}:'.format(username)])
+                tracker,
+                ['You are logged in as {}.'.format(username),
+                'Vous êtes connecté en tant que {}'.format(username),
+                'أنت مسجل دخولك باسم {}.'.format(username),
+                'Դուք մուտք եք գործել որպես {}:'.format(username)])
             print('\nBOT:', text)
             dispatcher.utter_message(text)
             return {'username': username, 'password': 'secret', 'loggedin': True}
@@ -928,7 +928,7 @@ class ActionUtterTopicTypes(Action):
             'Ընտրեք քննարկման թեմա:'])
         buttons  = get_buttons_from_lang(
             tracker,
-            [['Billing, Plans & Equipment Setup', 'Payments', 'Shopping', 'Order Status', 'Moving or Changing Service', 'Troubleshooting & Repairs', 'Online Account & Sign-in Help'],
+            [['Billing, Plans & Setup', 'Payments', 'Shopping', 'Order Status', 'Moving or Changing Service', 'Troubleshooting & Repairs', 'Online Account & Sign-in Help'],
             ['Facturation, Plans et Configuration de l\'Équipement', 'Paiements', 'Achats', 'Statut de Commande', 'Déménagement ou Changement de Service', 'Dépannage et Réparations', 'Compte en Ligne et Aide à la Connexion'],
             ['إعداد الفواتير والخطط والمعدات', 'المدفوعات', 'التسوق', 'حالة الطلب', 'نقل أو تغيير الخدمة', 'استكشاف الأخطاء وإصلاحها والإصلاحات', 'حساب عبر الإنترنت وتعليمات تسجيل الدخول'],
             ['Վճարների, պլանների և սարքավորումների տեղադրում', 'Վճարներ', 'Գնումներ', 'Պատվերի կարգավիճակ', 'Շարժվող կամ փոխելու ծառայություն', 'Խնդիրների լուծում և վերանորոգում', 'Առցանց հաշվի և մուտքի օգնություն']],
