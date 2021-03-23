@@ -594,6 +594,45 @@ async def global_validate_username(value, dispatcher, tracker, domain):
 
 
 
+async def global_validate_password(value, dispatcher, tracker, domain):
+    if not tracker.get_slot('loggedin'):
+        username = tracker.get_slot('username')
+        password = value
+        login_type = tracker.get_slot('login_type')
+
+        db = DatabaseConnection()
+        count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
+        db.disconnect()
+
+        if count == 1:
+            print('\n> validate_password: Login with', username)
+            return {'password': 'secret', 'loggedin': True}
+
+        else:
+            text = get_text_from_lang(
+                tracker,
+                ['Sorry, you entered an incorrect password for {}.'.format(username),
+                'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
+                'عذرًا ، لقد أدخلت كلمة مرور غير صحيحة لـ {}'.format(username),
+                'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)])
+            print('\nBOT:', text)
+            dispatcher.utter_message(text)
+            return {'password': None, 'loggedin': False}
+
+    else: # Already logged in
+        username = tracker.get_slot('username').title()
+        text = get_text_from_lang(
+            tracker,
+            ['You are logged in as {}.'.format(username),
+            'Vous êtes connecté en tant que {}'.format(username),
+            'أنت مسجل دخولك باسم {}.'.format(username),
+            'Դուք մուտք եք գործել որպես {}:'.format(username)])
+        print('\nBOT:', text)
+        dispatcher.utter_message(text)
+        return {'username': username, 'password': 'secret', 'loggedin': True}
+
+
+
 class ValidateFormLogIn(FormValidationAction):
     def name(self):
         return 'validate_form_log_in'
@@ -612,41 +651,7 @@ class ValidateFormLogIn(FormValidationAction):
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_password(self, value, dispatcher, tracker, domain):
-        if not tracker.get_slot('loggedin'):
-            username = tracker.get_slot('username')
-            password = tracker.get_slot('password')
-            login_type = tracker.get_slot('login_type')
-
-            db = DatabaseConnection()
-            count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
-            db.disconnect()
-
-            if count == 1:
-                print('\n> validate_password: Login with', username)
-                return {'password': password, 'loggedin': True}
-
-            else:
-                text = get_text_from_lang(
-                    tracker,
-                    ['Sorry, you entered an incorrect password for {}.'.format(username),
-                    'Désolé, vous avez entré un mot de passe incorrect pour {}.'.format(username),
-                    'عذرًا ، لقد أدخلت كلمة مرور غير صحيحة لـ {}'.format(username),
-                    'Ներողություն, դուք սխալ գաղտնաբառ եք մուտքագրել {} - ի համար:'.format(username)])
-                print('\nBOT:', text)
-                dispatcher.utter_message(text)
-                return {'password': None, 'loggedin': False}
-
-        else: # Already logged in
-            username = tracker.get_slot('username').title()
-            text = get_text_from_lang(
-                tracker,
-                ['You are logged in as {}.'.format(username),
-                'Vous êtes connecté en tant que {}'.format(username),
-                'أنت مسجل دخولك باسم {}.'.format(username),
-                'Դուք մուտք եք գործել որպես {}:'.format(username)])
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-            return {'username': username, 'password': 'secret', 'loggedin': True}
+        return await global_validate_password(value, dispatcher, tracker, domain)
 
 
 
@@ -1077,6 +1082,24 @@ class ActionUtterTopicSamples(Action):
         dispatcher.utter_message(text)
 
         return []
+
+
+
+class ActionUtterLogOut(Action):
+    def name(self):
+        return 'action_utter_log_out'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Choose a topic to chat about:',
+            'Choisissez un sujet de discussion:',
+            'اختر موضوعًا للمناقشة:',
+            'Ընտրեք քննարկման թեմա:'])
+        
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text)
+        return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
 
 
 

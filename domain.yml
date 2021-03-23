@@ -373,6 +373,8 @@ responses:
   - text: Խնդրեմ! Ինչ կարող եմ անել քեզ համար?
   - text: Ոչ մի խնդիր. Կարո՞ղ եմ ուրիշ բանի հարցում օգնել?
   - text: Ոչ մի խնդիր! Ուրիշի՞ն օգնության կարիք ունեք?
+  utter_ask_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
 actions:
 - action_session_start
 - action_utter_greet
