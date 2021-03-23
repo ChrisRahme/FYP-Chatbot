@@ -1,4 +1,5 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/chrisrahme/fyp-chatbot/badge?s=1b03c9b6a6d6173575258376b2664506a5564f0c)](https://www.codefactor.io/repository/github/chrisrahme/fyp-chatbot)
+![Size](https://img.shields.io/github/languages/code-size/chrisrahme/fyp-chatbot)
 
 [Chatbot](https://github.com/ChrisRahme/fyp-chatbot) | [Web Widget](https://github.com/ChrisRahme/fyp-webapp) | [Mobile App](https://github.com/ChrisRahme/fyp-mobapp)
 
