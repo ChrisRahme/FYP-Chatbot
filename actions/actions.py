@@ -174,13 +174,14 @@ def get_text_from_lang(tracker, utter_list = []):
     lang_index = get_lang_index(tracker)
 
     if not utter_list: # No text was given for any language
-        utter_list.append('[NO TEXT DEFINED]')
+        return '[NO TEXT DEFINED]'
 
     if lang_index >= len(utter_list): # No text defined for current language
         lang_index = 0
 
     text = utter_list[lang_index]
-    if isinstance(text, list):
+
+    if isinstance(text, list): # If a list is given for the language, choose a random item
         text = str(text[random.randint(0,len(text)-1)])
     else:
         text = str(text)
