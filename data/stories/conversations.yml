@@ -226,3 +226,47 @@ stories:
     - tia_noise: null
     - tiaa_noise: null
     - tib_modem_on: null
+
+- story: (Conversation) f456a784dd56490bac2dfffc6297a0a2
+  steps:
+  - intent: greet
+  - action: action_utter_greet
+  - intent: how_are_you
+  - action: utter_iam_fine
+  - intent: get_weather
+  - action: action_check_weather
+
+- story: (Conversation) 19fd5a7d65ff443fa18c558461f5ee38
+  steps:
+  - intent: greet
+  - action: action_utter_greet
+  - intent: inform_service_type
+    entities:
+    - service_type: dsl
+  - slot_was_set:
+    - service_type: dsl
+  - action: action_utter_account_types
+  - intent: inform_account_type
+    entities:
+    - account_type: consumer
+  - slot_was_set:
+    - account_type: consumer
+  - action: action_utter_topic_types
+  - intent: inform_topic_type
+    entities:
+    - topic_type: payments
+  - slot_was_set:
+    - topic_type: payments
+  - action: action_utter_topic_samples
+  - intent: out_of_scope
+  - action: action_out_of_scope
+  - slot_was_set:
+    - out_of_scope: '2'
+  - intent: out_of_scope
+  - action: action_out_of_scope
+  - slot_was_set:
+    - out_of_scope: sample question 1
+  - intent: affirm
+  - action: action_out_of_scope
+  - slot_was_set:
+    - out_of_scope: null

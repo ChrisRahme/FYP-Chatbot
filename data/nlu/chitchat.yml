@@ -98,6 +98,7 @@ nlu:
   examples: |
     - How are you?
     - how are u doing
+    - how are you doing today
     - are u ok
     - r u good
     - im ok and you?

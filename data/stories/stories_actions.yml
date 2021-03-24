@@ -16,6 +16,11 @@ stories:
   - intent: deny
   - action: action_out_of_scope
 
+- story: Weather check
+  steps:
+  - intent: get_weather
+  - action: action_check_weather
+
 - story: User asks for quota
   steps:
   - intent: query_quota
