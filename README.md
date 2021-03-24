@@ -11,7 +11,7 @@
     * `get_text_from_lang` can now take a list of lists instead of list of strings to choose a random answer.
 * Problems:
   * Can't upgrade to [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0) because or error `‘charmap’ codec can’t decode` bytes in Arabic and Armenian.
-    * [rasa issue #8215](https://github.com/RasaHQ/rasa/issues/8215) and [rasa pull #8286](https://github.com/RasaHQ/rasa/pull/8286)
+    * Check [rasa topic #41569](https://forum.rasa.com/t/charmap-codec-cant-decode-byte-0x81-after-2-4-0-update/41569), [rasa issue #8215](https://github.com/RasaHQ/rasa/issues/8215), [rasa pull #8286](https://github.com/RasaHQ/rasa/pull/8286).
 
 ## 2021.03.22
 
