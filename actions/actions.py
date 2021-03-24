@@ -63,10 +63,10 @@ class DatabaseConnection:
 
     def connect(self):
         self.connection = mysql.connector.connect(
-            host     = '194.126.17.114',
-            database = 'rasa_db',
-            user     = 'rasaq', # granted all privileges on rasa_db.* to rasaq@%
-            password = 'rasa')
+            host     = 'localhost', #'194.126.17.114',
+            database = 'esib_fyp_database',#'rasa_db',
+            user     = 'rasa',#'rasaq', # granted all privileges on rasa_db.* to rasaq@%
+            password = 'rasa')#'rasa')
 
     def disconnect(self):
         self.cursor.close()
@@ -670,7 +670,7 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
         
         text_if_works = get_text_from_lang(
             tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:']
-            ) + '\n' + get_text_from_lang(tracker, text_anything_else)
+            )# + '\n' + get_text_from_lang(tracker, text_anything_else)
         checkpoint = False
 
         required_slots = ['tia_noise']
