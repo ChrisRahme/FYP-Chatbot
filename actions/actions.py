@@ -159,7 +159,6 @@ def get_lang(tracker):
         lang = tracker.slots['language'].title()
         return lang
     except Exception as e:
-        print(f'\n> get_lang: [ERROR] {e}')
         return 'English'
 
 
@@ -822,6 +821,7 @@ class ActionUtterGreet(Action):
             ])
         print('\nBOT: {utter_greet}', buttons)
         #dispatcher.utter_message(response = response, buttons = buttons)
+        #dispatcher.utter_message(template = response, buttons = buttons)
         dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
@@ -832,7 +832,7 @@ class ActionUtterGoodbye(Action):
         return 'action_utter_goodbye'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        dispatcher.utter_message(response = get_response_from_lang(tracker, 'utter_goodbye'))
+        dispatcher.utter_message(template = get_response_from_lang(tracker, 'utter_goodbye'))
         return []
             
 
@@ -844,7 +844,7 @@ class ActionUtterYoureWelcome(Action):
         announce(self, tracker)
         response = get_response_from_lang(tracker, 'utter_youre_welcome')
         print('\nBOT:', response)
-        dispatcher.utter_message(response = response)
+        dispatcher.utter_message(template = response)
         return []
 
 

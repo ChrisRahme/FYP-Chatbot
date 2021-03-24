@@ -6,12 +6,11 @@
 
 ## Current
 
-* Ready for [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0):
-  * Now use `response` instead of `template` in the tracker.
-  * Problem: `‘charmap’ codec can’t decode` bytes in Arabic and Armenian.
 * Actions:
   * Refactored and added helper functions:
     * `get_text_from_lang` can now take a list of lists instead of list of strings to choose a random answer.
+* Problems:
+  * Can't upgrade to [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0) because or error `‘charmap’ codec can’t decode` bytes in Arabic and Armenian.
 
 ## 2021.03.22
 
