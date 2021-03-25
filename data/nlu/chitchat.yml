@@ -182,6 +182,7 @@ nlu:
     - /affirm
     - i did
     - Yes
+    - yeah yeah
 - intent: deny
   examples: |
     - no
@@ -241,6 +242,7 @@ nlu:
     - Չեմ ուզում
     - /deny
     - the line has no noise
+    - still no
 - intent: mood_great
   examples: |
     - perfect
