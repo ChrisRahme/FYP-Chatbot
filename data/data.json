@@ -124,6 +124,9 @@
           "francais",
           "français",
           "française",
+          "frensewe",
+          "fransawi",
+          "faransi",
           "فرنسي",
           "فرنسية",
           "الفرنسية",
@@ -133,7 +136,6 @@
       {
         "value": "Armenian",
         "synonyms": [
-          "frensewe",
           "hy",
           "hay",
           "hayastan",
