@@ -51,14 +51,13 @@ stories:
 - story: (Conversation) User change languages, fills topics, and asks about FAQ
   steps:
   - intent: change_language
-  - action: action_utter_change_language
+  - action: action_utter_ask_language
   - intent: set_language
     entities:
     - language: french
   - slot_was_set:
     - language: french
-  - action: action_set_language
-  - action: action_utter_greet
+  - action: action_utter_set_language
   - intent: inform_service_type
     entities:
     - service_type: internet

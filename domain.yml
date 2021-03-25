@@ -76,7 +76,7 @@ slots:
     influence_conversation: true
   language:
     type: rasa.shared.core.slots.CategoricalSlot
-    initial_value: English
+    initial_value: null
     auto_fill: true
     influence_conversation: true
     values:
@@ -380,15 +380,16 @@ actions:
 - action_utter_greet
 - action_utter_goodbye
 - action_utter_youre_welcome
+- action_utter_service_types
 - action_utter_account_types
 - action_utter_topic_types
 - action_utter_topic_samples
-- action_utter_change_language
+- action_utter_ask_language
 - action_submit_form_log_in
 - action_submit_form_troubleshoot_internet
 - action_reset_ti_slots
 - action_out_of_scope
-- action_set_language
+- action_utter_set_language
 - action_check_existence
 - action_check_weather
 - action_fetch_quota

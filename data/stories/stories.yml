@@ -5,16 +5,16 @@ stories:
 - story: Change language
   steps:
   - intent: change_language
-  - action: action_utter_change_language
+  - action: action_utter_ask_language
   - intent: set_language
-  - action: action_set_language
+  - action: action_utter_set_language
 
 - story: Conversation starts - Choose language
   steps:
   - action: action_session_start
-  - action: action_utter_change_language
+  - action: action_utter_ask_language
   - intent: set_language
-  - action: action_set_language
+  - action: action_utter_set_language
 
 - story: Change topics
   steps:
