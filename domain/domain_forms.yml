@@ -1,0 +1,115 @@
+version: '2.0'
+
+forms:
+  form_log_in:
+    password:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    username:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+  form_troubleshoot_internet:
+    tia_noise:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tiaa_noise:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tib_modem_on:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tic_modem_green:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tid_nb_phones:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    tie_nb_sockets:
+    - intent_name: None
+      not_intent: stop
+      type: from_text
+    tif_splitter_installed:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tig_rj_plugged:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tih_other_plug:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tii_other_modem:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tij_has_pbx:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    tik_has_line:
+    - intent: affirm
+      not_intent: stop
+      type: from_intent
+      value: true
+    - intent: deny
+      not_intent: stop
+      type: from_intent
+      value: false
+    username:
+    - intent_name: None
+      not_intent: stop
+      type: from_text

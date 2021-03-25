@@ -1,0 +1,9 @@
+version: '2.0'
+
+entities:
+- city_name
+- person_name
+- language
+- service_type
+- topic_type
+- account_type

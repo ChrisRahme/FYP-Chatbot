@@ -3,7 +3,7 @@
 .tensorboard/
 .tensorboard.old/
 __pycache__/
-domain/
+#domain/
 results/
 
 
