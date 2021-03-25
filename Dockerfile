@@ -3,7 +3,7 @@
 # https://hub.docker.com/r/rasa/rasa/tags
 #FROM rasa/rasa-sdk:latest
 #FROM rasa/rasa:latest-full
-FROM rasa/rasa-sdk:2.3.1
+FROM rasa/rasa-sdk:2.4.1
 
 # Use subdirectory as working directory
 WORKDIR /app
