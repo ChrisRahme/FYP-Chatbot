@@ -27,7 +27,7 @@ pipeline:
   random_seed: 1
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  checkpoint_model: True
+  #checkpoint_model: True
 - name: RegexEntityExtractor
   case_sensitive: False
   use_lookup_tables: True
@@ -44,7 +44,7 @@ pipeline:
   evaluate_every_number_of_epochs: 1
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  checkpoint_model: True
+  #checkpoint_model: True
 - name: FallbackClassifier
   threshold: 0.2
   ambiguity_threshold: 0.05
@@ -65,7 +65,7 @@ policies:
   evaluate_every_number_of_epochs: 5
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  checkpoint_model: True
+  #checkpoint_model: True
 - name: RulePolicy
   core_fallback_threshold: 0.2
   core_fallback_action_name: action_default_fallback
