@@ -322,7 +322,7 @@ class ActionSessionStart(Action):
         return slots
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self)
+        announce(self)
         print(tracker.sender_id)
 
         events = [SessionStarted()]
@@ -330,7 +330,7 @@ class ActionSessionStart(Action):
         #events.append(ActionExecuted('action_utter_ask_language'))
         events.append(ActionExecuted('action_listen'))
 
-        _common.conversation_data[tracker.sender_id] = {'password_tries': 0}
+        conversation_data[tracker.sender_id] = {'password_tries': 0}
         
         return events
 
@@ -348,9 +348,9 @@ class ActionUtterAskLanguage(Action):
     
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
         
-        text = _common.get_text_from_lang(
+        text = get_text_from_lang(
             tracker,
             ['Choose a language:',
             'Choisissez une langue:',
@@ -377,7 +377,7 @@ class ActionUtterSetLanguage(Action):
     
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
 
         current_language = tracker.slots['language'].title()
         text = 'I only understand English, French, Arabic, and Armenian. The language is now English.'
@@ -405,11 +405,11 @@ class ActionUtterRecoverCredentials(Action):
 
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
         url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
         url = '\n\n' + url
 
-        text = _common.get_text_from_lang(
+        text = get_text_from_lang(
             tracker,
             ['If you need help recovering your IDM ID or your password, click on the link below:',
             'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
@@ -428,11 +428,11 @@ class ActionUtterGreet(Action):
     def name(self):
         return 'action_utter_greet'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
 
         followup_action = 'action_utter_service_types'
 
-        text = _common.get_text_from_lang(
+        text = get_text_from_lang(
             tracker,
             ['Hi, I’m GDS automated virtual assistant.',
             'Bonjour, je suis l\'assistant virtuel automatisé de GDS.',
@@ -453,8 +453,8 @@ class ActionUtterServiceTypes(Action):
     def name(self):
         return 'action_utter_service_types'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             [['How can I help you today?', 'So I can get you to the right place, tell me what service you’d like help with.', 'How can I help?'],
             ['Comment puis-je vous aider?', 'Pour que je puisse vous guider, dites-moi pour quel service vous aimeriez obtenir de l’aide.', 'Comment puis-je aider?'],
@@ -462,7 +462,7 @@ class ActionUtterServiceTypes(Action):
             ['Այսպիսով, ես կարող եմ ձեզ ճիշտ տեղ հասցնել, ասեք ինձ, թե որ ծառայության հետ կցանկանայիք օգնել', 'Ինչպե՞ս կարող եմ օգնել:']]
         )
         
-        buttons  = _common.get_buttons_from_lang(
+        buttons  = get_buttons_from_lang(
             tracker,
             [['Wireless', 'Internet', 'DSL Internet', 'CableVision TV'],
             ['Sans Fil', 'Internet', 'Internet DSL', 'CableVision TV'],
@@ -486,14 +486,14 @@ class ActionUtterAccountTypes(Action):
     def name(self):
         return 'action_utter_account_types'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Which account type are you asking about?',
             'Quel type de compte avez-vous?',
             'ما نوع الحساب الذي تسأل عنه؟',
             'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
-        buttons  = _common.get_buttons_from_lang(
+        buttons  = get_buttons_from_lang(
             tracker,
             [['Consumer / Residential', 'Small Business', 'Bank'],
             ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
@@ -515,14 +515,14 @@ class ActionUtterTopicTypes(Action):
     def name(self):
         return 'action_utter_topic_types'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Choose a topic to chat about:',
             'Choisissez un sujet de discussion:',
             'اختر موضوعًا للمناقشة:',
             'Ընտրեք քննարկման թեմա:'])
-        buttons  = _common.get_buttons_from_lang(
+        buttons  = get_buttons_from_lang(
             tracker,
             [['Billing, Plans & Setup', 'Payments', 'Shopping', 'Order Status', 'Moving or Changing Service', 'Troubleshooting & Repairs', 'Online Account & Sign-in Help'],
             ['Facturation, Plans et Configuration de l\'Équipement', 'Paiements', 'Achats', 'Statut de Commande', 'Déménagement ou Changement de Service', 'Dépannage et Réparations', 'Compte en Ligne et Aide à la Connexion'],
@@ -610,7 +610,7 @@ class ActionUtterTopicSamples(Action):
 
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
         service_type = tracker.get_slot('service_type') # wireless - internet - dsl - cablevision
         account_type = tracker.get_slot('account_type') # consumer - business - bank
         topic_type   = tracker.get_slot('topic_type')   # billing - payments - shopping - order - changing - troubleshooting - account
@@ -651,7 +651,7 @@ class ActionUtterTopicSamples(Action):
             f'\n\nԴու կարող ես հարցնել:'
             f'\n- {examples_hy}')
 
-        text = _common.get_text_from_lang(tracker, [text_en, text_fr, text_ar, text_hy])            
+        text = get_text_from_lang(tracker, [text_en, text_fr, text_ar, text_hy])            
         print('\nBOT:', text)
         dispatcher.utter_message(text)
 
@@ -663,8 +663,8 @@ class ActionUtterLogOut(Action):
     def name(self):
         return 'action_utter_log_out'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Okay, loggin you out.'])
         
@@ -678,8 +678,8 @@ class ActionUtterGoodbye(Action):
     def name(self):
         return 'action_utter_goodbye'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        dispatcher.utter_message(template = _common.get_response_from_lang(tracker, 'utter_goodbye'))
+        announce(self, tracker)
+        dispatcher.utter_message(template = get_response_from_lang(tracker, 'utter_goodbye'))
         return []
             
 
@@ -688,8 +688,8 @@ class ActionUtterYoureWelcome(Action):
     def name(self):
         return 'action_utter_youre_welcome'
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        response = _common.get_response_from_lang(tracker, 'utter_youre_welcome')
+        announce(self, tracker)
+        response = get_response_from_lang(tracker, 'utter_youre_welcome')
         print('\nBOT:', response)
         dispatcher.utter_message(template = response)
         return []
@@ -707,15 +707,15 @@ class ActionAskUsername(Action):
         return 'action_ask_username'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please enter your Username, L Number, or Phone Number, or press "🚫" to stop.',
             'Veuillez entrer votre nom d\'utilisateur, L Number, ou Numéro de Téléphone, ou appuyez sur "🚫" pour arrêter.',
             'الرجاء إدخال اسم المستخدم أو رقم L أو رقم الهاتف ، أو اضغط على "🚫" للإيقاف.',
             'Կանգնեցնելու համար խնդրում ենք մուտքագրել ձեր օգտանունը, L համարը կամ հեռախոսահամարը կամ սեղմել «🚫»:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.button_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
 
 
@@ -725,15 +725,15 @@ class ActionAskPassword(Action):
         return 'action_ask_password'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please enter your password.',
             'S\'il vous plaît entrez votre mot de passe.',
             '.(password) من فضلك أدخل رقمك السري',
             'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.button_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
 
 
@@ -743,15 +743,15 @@ class ActionAskTiaNoise(Action):
         return 'action_ask_tia_noise'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Is there noise on the line where the ADSL number is connected?',
             'Y a-t-il du bruit sur la ligne où le numéro ADSL est connecté?',
             'هل توجد ضوضاء على الخط الموصل به رقم ADSL؟',
             'Արդյո՞ք աղմուկ կա այն գծի վրա, որտեղ միացված է ADSL համարը:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -761,22 +761,22 @@ class ActionAskTiaaNoise(Action):
         return 'action_ask_tiaa_noise'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please try to contact Ogero on 1515 to resolve the noise on the line.',
             'Veuillez essayer de contacter Ogero au 1515 pour résoudre le bruit sur la ligne.',
             'يرجى محاولة الاتصال بـ Ogero على 1515 لحل الضوضاء على الخط.',
             'Խնդրում ենք փորձել կապվել Ogero- ի հետ 1515-ին `գծի աղմուկը լուծելու համար:'
-            ]) + '\n' + _common.get_text_from_lang(
+            ]) + '\n' + get_text_from_lang(
             tracker,
             ['After you resolved the noise issue with Ogero, restart the modem.',
             'Y a-t-il du bruit sur la ligne où le numéro ADSL est connecté?',
             'هل توجد ضوضاء على الخط الموصل به رقم ADSL؟',
             'Արդյո՞ք աղմուկ կա այն գծի վրա, որտեղ միացված է ADSL համարը:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work)
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -786,16 +786,16 @@ class ActionAskTibModemOn(Action):
         return 'action_ask_tib_modem_on'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please make sure your modem is turned on.',
             'Veuillez vous assurer que votre modem est allumé.',
             'يرجى التأكد من تشغيل المودم الخاص بك.',
             'Համոզվեք, որ ձեր մոդեմը միացված է:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work)
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -805,16 +805,16 @@ class ActionAskTicModemGreen(Action):
         return 'action_ask_tic_modem_green'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please reboot your modem, wait 30 seconds, and make sure the power LED on your modem is green.',
             'Veuillez redémarrer votre modem, attendez 30 secondes et assurez-vous que la DEL (LED) de votre modem est verte.',
             'يُرجى إعادة تشغيل المودم الخاص بك ، وانتظر 30 ثانية ، وتأكد من أن مصباح الطاقة (LED) الموجود في المودم الخاص بك أخضر.',
             'Վերաբեռնեք ձեր մոդեմը, սպասեք 30 վայրկյան և համոզվեք, որ ձեր մոդեմի էլեկտրական LED- ը կանաչ է:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work)
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -824,15 +824,15 @@ class ActionAskTidNbPhones(Action):
         return 'action_ask_tid_nb_phones'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['How many faxes and phones do you have?',
             'Combien de fax et de téléphones fixes avez-vous?',
             'كم عدد الفاكسات والهواتف التي لديك؟',
             'Քանի՞ ֆաքս և հեռախոս ունեք:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.button_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
 
 
@@ -842,15 +842,15 @@ class ActionAskTieNbSockets(Action):
         return 'action_ask_tie_nb_sockets'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['How many phone wall sockets do you have?',
             'Combien de prises téléphoniques murales avez-vous?',
             'كم عدد مآخذ توصيل الحائط بالهاتف لديك؟',
             'Քանի՞ հեռախոսի պատի վարդակ ունեք:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.button_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
 
 
@@ -860,16 +860,16 @@ class ActionAskTifSplitterInstalled(Action):
         return 'action_ask_tif_splitter_installed'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please use the following picture to check if your splitter is correctly installed on all your fixed phones and modems.',
             'Veuillez utiliser l\'image suivante pour vérifier si votre répartiteur est correctement installé sur tous vos téléphones fixes et modems.',
             'الرجاء استخدام الصورة التالية للتحقق مما إذا كان جهاز التقسيم مثبتًا بشكل صحيح على جميع الهواتف الثابتة وأجهزة المودم.',
             'Խնդրում ենք օգտագործել հետևյալ նկարը ՝ ստուգելու համար, թե արդյոք ձեր բաժանարարը ճիշտ է տեղադրված ձեր բոլոր ֆիքսված հեռախոսների և մոդեմների վրա:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work)
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/aV0uxGx.png')
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/aV0uxGx.png')
         return []
 
 
@@ -879,16 +879,16 @@ class ActionAskTigRjPlugged(Action):
         return 'action_ask_tig_rj_plugged'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Please make sure the phone cable plugged in the modem is RJ11 and not the Ethernet port.',
             'Veuillez vous assurer que le câble téléphonique branché sur le modem est RJ11 et non le port Ethernet.',
             'يرجى التأكد من أن كبل الهاتف المتصل بالمودم هو RJ11 وليس منفذ Ethernet.',
             'Խնդրում ենք համոզվեք, որ մոդեմի մեջ միացված հեռախոսի մալուխը RJ11 է և ոչ թե Ethernet պորտ:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work)
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work)
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/9aUcYs5.png')
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/9aUcYs5.png')
         return []
 
 
@@ -898,14 +898,14 @@ class ActionAskTihOtherPlug(Action):
         return 'action_ask_tih_other_plug'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Try to plug the modem into another socket.',
             'Essayez de brancher le modem sur une autre prise.',
             'حاول توصيل المودم بمقبس آخر.',
             'Փորձեք մոդեմը միացնել մեկ այլ վարդակի:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work) + ' (' + _common.get_text_from_lang(
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work) + ' (' + get_text_from_lang(
                 tracker,
                 ['Press "no" if you can\'t use another socket.',
                 'Appuyez sur "non" si vous ne pouvez pas utiliser une autre prise.',
@@ -913,7 +913,7 @@ class ActionAskTihOtherPlug(Action):
                 'Սեղմեք «ոչ» -ը, եթե այլ վարդակից չեք կարող օգտվել:'
             ]) + ')'
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -923,14 +923,14 @@ class ActionAskTiiOtherModem(Action):
         return 'action_ask_tii_other_modem'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Try to use another modem.',
             'Essayez d\'utiliser un autre modem.',
             'حاول استخدام مودم آخر.',
             'Փորձեք օգտագործել մեկ այլ մոդեմ:'
-            ]) + '\n' + _common.get_text_from_lang(tracker, _common.text_does_it_work) + ' (' + _common.get_text_from_lang(
+            ]) + '\n' + get_text_from_lang(tracker, text_does_it_work) + ' (' + get_text_from_lang(
                 tracker,
                 ['Press "no" if you can\'t use another modem.',
                 'Appuyez sur "non" si vous ne pouvez pas utiliser un autre modem.',
@@ -938,7 +938,7 @@ class ActionAskTiiOtherModem(Action):
                 'Սեղմեք «ոչ» -ը, եթե այլ մոդեմ չեք կարող օգտագործել:'
             ]) + ')'
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -948,15 +948,15 @@ class ActionAskTijHasPbx(Action):
         return 'action_ask_tij_has_pbx'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Do you have a PBX?',
             'Avez-vous un PBX?',
             'هل لديك مقسم؟',
             'Ունե՞ք PBX:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji, image = 'https://techextension.com/images/cloud_pbx_connections.png')
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://techextension.com/images/cloud_pbx_connections.png')
         return []
 
 
@@ -966,15 +966,15 @@ class ActionAskTikHasLine(Action):
         return 'action_ask_tik_has_line'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
-        text = _common.get_text_from_lang(
+        announce(self, tracker)
+        text = get_text_from_lang(
             tracker,
             ['Do you have an Internet line?',
             'Avez-vous une ligne Internet?',
             'هل لديك خط انترنت؟',
             'Ինտերնետային գիծ ունե՞ք:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = _common.buttons_yes_no_stop_emoji)
+        dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
 
@@ -998,12 +998,12 @@ class ValidateFormLogIn(FormValidationAction):
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_username(self, value, dispatcher, tracker, domain):
-        return await _common.global_validate_username(value, dispatcher, tracker, domain)
+        return await global_validate_username(value, dispatcher, tracker, domain)
 
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_password(self, value, dispatcher, tracker, domain):
-        return await _common.global_validate_password(value, dispatcher, tracker, domain)
+        return await global_validate_password(value, dispatcher, tracker, domain)
 
 
 
@@ -1013,17 +1013,17 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
 
 
     async def validate_username(self, value, dispatcher, tracker, domain):
-        slots = await _common.global_validate_username(value, dispatcher, tracker, domain)
+        slots = await global_validate_username(value, dispatcher, tracker, domain)
         slots['ti_form_completed'] = True
         return 
 
     
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
         
-        text_if_works = _common.get_text_from_lang(
+        text_if_works = get_text_from_lang(
             tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:']
-            )# + '\n' + _common.get_text_from_lang(tracker, text_anything_else)
+            )# + '\n' + get_text_from_lang(tracker, text_anything_else)
         checkpoint = False
 
         required_slots = ['tia_noise']
@@ -1090,12 +1090,12 @@ class ActionSubmitFormLogIn(Action):
 
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
         if tracker.get_slot('loggedin'):
             username = tracker.get_slot('username')
             login_type = tracker.get_slot('login_type').replace('_', ' ')
 
-            text = _common.get_text_from_lang(
+            text = get_text_from_lang(
                 tracker,
                 ['You are logged in with {} being {}'.format(login_type, username),
                 'Vous êtes connecté avec {} étant {}'.format(login_type, username),
@@ -1114,18 +1114,18 @@ class ActionSubmitFormTroubleshootInternet(Action):
 
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
 
         text = ''
         slots_to_reset = list(domain['forms']['form_troubleshoot_internet'].keys())
         exceptions = ['username', 'ti_form_completed']
-        events = _common.reset_slots(tracker, slots_to_reset, exceptions)
+        events = reset_slots(tracker, slots_to_reset, exceptions)
         events.append(SlotSet('ti_form_completed', False))
 
         if (tracker.get_slot('tik_has_line') is not None) and (tracker.get_slot('username') is not None): # User has completed the form
             username   = tracker.get_slot('username').title()
 
-            text = _common.get_text_from_lang(
+            text = get_text_from_lang(
                 tracker,
                 ['A case was created for {}.'.format(username),
                 'Un dossier a été créé pour {}.'.format(username),
@@ -1133,7 +1133,7 @@ class ActionSubmitFormTroubleshootInternet(Action):
                 'Գործ ստեղծվեց {} - ի համար:'.format(username)]) + '\n'
 
         
-        text += _common.get_text_from_lang(tracker, _common.text_anything_else)
+        text += get_text_from_lang(tracker, text_anything_else)
         print('\nBOT:', text)
         dispatcher.utter_message(text)
 
@@ -1152,7 +1152,7 @@ class ActionFetchQuota(Action):
         return 'action_fetch_quota'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
 
         if tracker.get_slot('loggedin') or tracker.get_slot('password') == 'secret':
             results    = None
@@ -1160,7 +1160,7 @@ class ActionFetchQuota(Action):
             login_type = tracker.get_slot('login_type')
 
             try:
-                db = _common.DatabaseConnection()
+                db = DatabaseConnection()
                 results = db.query("SELECT Quota, Consumption, Speed "
                     "FROM `user_info` INNER JOIN `consumption` "
                     "ON `user_info`.`ID` = `consumption`.`UserID` "
@@ -1180,7 +1180,7 @@ class ActionFetchQuota(Action):
             try:
                 quota, consumption, speed = results[0]
                 if int(quota) == -1:
-                    utterance = _common.get_text_from_lang(
+                    utterance = get_text_from_lang(
                         tracker,
                         ['You spent {} GB of your unlimited quota this month.'.format(consumption),
                         'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
@@ -1190,7 +1190,7 @@ class ActionFetchQuota(Action):
                     dispatcher.utter_message(utterance)
                 else:
                     ratio = consumption*100/quota
-                    utterance = _common.get_text_from_lang(
+                    utterance = get_text_from_lang(
                         tracker,
                         ['You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
                         'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
@@ -1203,7 +1203,7 @@ class ActionFetchQuota(Action):
                 dispatcher.utter_message('Sorry, there was an error.')
         
         else: # Not logged in
-            utterance = _common.get_text_from_lang(
+            utterance = get_text_from_lang(
                 tracker,
                 ['You are not logged in. Please type "log in" to log in.',
                 'Vous n\'êtes pas connecté. Veuillez ecrire «connexion» ou «log in» pour vous connecter.',
@@ -1262,7 +1262,7 @@ class ActionCheckWeather(Action):
 
     
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
 
         latest = tracker.latest_message
         
@@ -1295,7 +1295,7 @@ class ActionOutOfScope(Action):
         return 'action_out_of_scope'
 
     def run(self, dispatcher, tracker, domain):
-        _common.announce(self, tracker)
+        announce(self, tracker)
 
         latest = tracker.latest_message
         intent = latest['intent']['name']
