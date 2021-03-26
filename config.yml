@@ -1,4 +1,4 @@
-language: en_core_web_md
+language: en
 pipeline:
 - name: SpacyNLP
 - name: SpacyTokenizer
@@ -20,17 +20,18 @@ pipeline:
   constrain_similarities: true
   number_of_transformer_layers: 2
   number_of_attention_heads: 4
-  batch_size: [64, 128]
+  batch_size:
+  - 64
+  - 128
   evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
   regularization_constant: 0.002
   random_seed: 1
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  #checkpoint_model: True
 - name: RegexEntityExtractor
-  case_sensitive: False
-  use_lookup_tables: True
+  case_sensitive: false
+  use_lookup_tables: true
 - name: EntitySynonymMapper
 - name: ResponseSelector
   epochs: 26
@@ -39,16 +40,16 @@ pipeline:
   constrain_similarities: true
   regularization_constant: 0.002
   random_seed: 1
-  batch_size: [64, 128]
+  batch_size:
+  - 64
+  - 128
   evaluate_on_number_of_examples: 5
   evaluate_every_number_of_epochs: 1
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  #checkpoint_model: True
 - name: FallbackClassifier
   threshold: 0.2
   ambiguity_threshold: 0.05
-
 policies:
 - name: AugmentedMemoizationPolicy
   max_history: 8
@@ -60,12 +61,13 @@ policies:
   constrain_similarities: true
   regularization_constant: 0.002
   random_seed: 1
-  batch_size: [64, 128]
+  batch_size:
+  - 64
+  - 128
   evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
   tensorboard_log_directory: ./.tensorboard
   tensorboard_log_level: epoch
-  #checkpoint_model: True
 - name: RulePolicy
   core_fallback_threshold: 0.2
   core_fallback_action_name: action_default_fallback
