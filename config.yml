@@ -1,4 +1,4 @@
-language: en_core_web_md
+language: en
 pipeline:
 - name: SpacyNLP
 - name: SpacyTokenizer
