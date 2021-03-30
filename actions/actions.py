@@ -58,9 +58,9 @@ class DatabaseConnection:
     def connect(self):
         self.connection = mysql.connector.connect(
             host     = 'localhost', #'194.126.17.114',
-            database = 'esib_fyp_database',#'rasa_db',
-            user     = 'rasa',#'rasaq', # granted all privileges on rasa_db.* to rasaq@%
-            password = 'rasa')#'rasa')
+            database = 'esib_fyp_database',
+            user     = 'rasa',# granted all privileges on rasa.* to rasaq@%
+            password = 'rasa')
 
     def disconnect(self):
         self.cursor.close()
@@ -305,6 +305,7 @@ async def global_validate_password(value, dispatcher, tracker, domain):
 ####################################################################################################
 
 
+
 class ActionSessionStart(Action):
     def name(self):
         return 'action_session_start'
@@ -420,7 +421,6 @@ class ActionUtterRecoverCredentials(Action):
         dispatcher.utter_message(text)
 
         return []
-
 
 
 

@@ -1,9 +1,8 @@
-language: en
+language: en_core_web_md
 pipeline:
 - name: SpacyNLP
 - name: SpacyTokenizer
 - name: SpacyFeaturizer
-- name: RegexFeaturizer
 - name: LexicalSyntacticFeaturizer
 - name: RegexFeaturizer
   case_sensitive: false
@@ -50,6 +49,7 @@ pipeline:
 - name: FallbackClassifier
   threshold: 0.2
   ambiguity_threshold: 0.05
+
 policies:
 - name: AugmentedMemoizationPolicy
   max_history: 8
