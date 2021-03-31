@@ -96,6 +96,10 @@
       {
         "text": "HI",
         "intent": "greet"
+      },
+      {
+        "text": "how do i get a prepaid card",
+        "intent": "faq/buy_prepaid_card"
       }
     ],
     "regex_features": [],
