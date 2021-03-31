@@ -2,7 +2,7 @@ version: '2.0'
 config:
   store_entities_as_slots: true
 session_config:
-  session_expiration_time: 600
+  session_expiration_time: 10
   carry_over_slots_to_new_session: true
 
 intents:
