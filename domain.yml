@@ -4,7 +4,6 @@ config:
 session_config:
   session_expiration_time: 10
   carry_over_slots_to_new_session: true
-
 intents:
 - get_weather:
     use_entities: true
@@ -60,7 +59,6 @@ intents:
     use_entities: true
 - internet_problem:
     use_entities: true
-
 entities:
 - city_name
 - person_name
@@ -309,7 +307,7 @@ responses:
   - text: |-
       The ADSL/Fiber/4G prepaid cards are available at our shops in Holcom Building and Hamra (https://www.idm.net.lb/contact-us.html).
 
-       List of neighboring dealers is available on www.idm.net.lb/points-of-sale.aspx.
+       List of neighboring dealers is available on https://www.idm.net.lb/points-of-sale.aspx.
   utter_faq/get_bill:
   - text: The monthly regular fees can be sent by email on a monthly basis, please provide us with your email address by sending an email to ccu@idm.net.lb in order to add your email address, and you will start receiving the invoices on a monthly basis.
   utter_faq/check_bill:

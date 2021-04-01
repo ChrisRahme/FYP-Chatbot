@@ -20,8 +20,6 @@ from rasa_sdk.types import DomainDict
 
 
 
-conversation_data = {} # {sender_id: {'password_tries': 0}, ...}
-
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
 
 text_does_it_work = [
@@ -328,10 +326,8 @@ class ActionSessionStart(Action):
 
         events = [SessionStarted()]
         events.extend(self.fetch_slots(tracker))
-        #events.append(ActionExecuted('action_utter_ask_language'))
+        #events.append(FollowupAction('action_utter_greet'))
         events.append(ActionExecuted('action_listen'))
-
-        conversation_data[tracker.sender_id] = {'password_tries': 0}
         
         return events
 
@@ -392,10 +388,11 @@ class ActionUtterSetLanguage(Action):
         elif current_language == 'Armenian':
             text = 'Լեզուն այժմ հայերենն է:'
         
+        print('\nBOT:', text)
         dispatcher.utter_message(text = text)
         
         if not tracker.get_slot('service_type'):
-            return [FollowupAction('action_utter_greet')]
+            return [FollowupAction('action_utter_service_types')]
         return []
 
 
@@ -616,12 +613,12 @@ class ActionUtterTopicSamples(Action):
         topic_type   = tracker.get_slot('topic_type')   # billing - payments - shopping - order - changing - troubleshooting - account
 
         examples_en, examples_fr, examples_ar, examples_hy = self.get_sample_questions(topic_type, account_type, service_type)
-
+        
         examples_en = '\n- '.join(examples_en)
         examples_fr = '\n- '.join(examples_fr)
         examples_ar = '\n- '.join(examples_ar)
         examples_hy = '\n- '.join(examples_hy)
-
+        
         text_en = (
             'You chose:'
             f'\n- Service type: {service_type}'
@@ -650,7 +647,7 @@ class ActionUtterTopicSamples(Action):
             f'\n- Թեմա: {topic_type}'
             f'\n\nԴու կարող ես հարցնել:'
             f'\n- {examples_hy}')
-
+        
         text = get_text_from_lang(tracker, [text_en, text_fr, text_ar, text_hy])            
         print('\nBOT:', text)
         dispatcher.utter_message(text)

@@ -22,60 +22,6 @@ stories:
   - active_loop: null
   - action: utter_okay
 
-- story: (Conversation) User fills form_log_in using Phone Number
-  steps:
-  - intent: log_in
-  - action: form_log_in
-  - active_loop: form_log_in
-  - slot_was_set:
-    - requested_slot: username
-  - intent: out_of_scope
-  - action: form_log_in
-  - slot_was_set:
-    - username: '71283701'
-  - intent: out_of_scope
-  - action: form_log_in
-  - active_loop: null
-  - slot_was_set:
-    - password: secret
-  - action: action_submit_form_log_in
-
-- story: (Conversation) User fills form_log_in using Username
-  steps:
-  - intent: log_in
-  - action: form_log_in
-  - active_loop: form_log_in
-  - slot_was_set:
-    - requested_slot: username
-  - intent: out_of_scope
-  - action: form_log_in
-  - slot_was_set:
-    - username: Chris
-  - intent: out_of_scope
-  - action: form_log_in
-  - active_loop: null
-  - slot_was_set:
-    - password: secret
-  - action: action_submit_form_log_in
-
-
-
-- story: User fills form_troubleshoot_internet
-  steps:
-  - intent: internet_problem
-  - action: form_troubleshoot_internet
-  - active_loop: form_troubleshoot_internet
-
-- story: User fills form_troubleshoot_internet and stops
-  steps:
-  - intent: internet_problem
-  - action: form_troubleshoot_internet
-  - active_loop: form_troubleshoot_internet
-  - intent: stop
-  - action: action_deactivate_loop
-  - active_loop: null
-  - action: utter_okay
-
 - story: (Conversation) User fills login form and stops when asked for username
   steps:
   - intent: log_in
@@ -117,6 +63,84 @@ stories:
   - active_loop: null
   - slot_was_set:
     - requested_slot: null
+  - action: utter_okay
+
+- story: (Conversation) User fills form_log_in using Phone Number
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+  - action: form_log_in
+  - slot_was_set:
+    - username: '71283701'
+  - intent: out_of_scope
+  - action: form_log_in
+  - active_loop: null
+  - slot_was_set:
+    - password: secret
+  - action: action_submit_form_log_in
+
+- story: (Conversation) User fills form_log_in using Username
+  steps:
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+  - action: form_log_in
+  - slot_was_set:
+    - username: Chris
+  - intent: out_of_scope
+  - action: form_log_in
+  - active_loop: null
+  - slot_was_set:
+    - password: secret
+  - action: action_submit_form_log_in
+
+- story: (Conversation) User fills form_log_in but makes mistake
+  steps:
+  - intent: query_quota
+  - action: action_fetch_quota
+  - intent: log_in
+  - action: form_log_in
+  - active_loop: form_log_in
+  - slot_was_set:
+    - requested_slot: username
+  - intent: out_of_scope
+  - action: form_log_in
+  - slot_was_set:
+    - username: Chris
+  - intent: out_of_scope
+  - action: form_log_in
+  - slot_was_set:
+    - password: null
+  - intent: out_of_scope
+  - action: form_log_in
+  - active_loop: null
+  - slot_was_set:
+    - password: secret
+  - action: action_submit_form_log_in
+
+
+
+- story: User fills form_troubleshoot_internet
+  steps:
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+
+- story: User fills form_troubleshoot_internet and stops
+  steps:
+  - intent: internet_problem
+  - action: form_troubleshoot_internet
+  - active_loop: form_troubleshoot_internet
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
   - action: utter_okay
 
 - story: (Conversation) User fills form_troubleshoot_internet
