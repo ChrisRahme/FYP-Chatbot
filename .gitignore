@@ -6,10 +6,8 @@ __pycache__/
 domain/
 results/
 
-
 # Files in folders
 models/*.tar.gz
-
 
 # Files
 .db
@@ -23,3 +21,6 @@ rasa.db
 rasa.db-shm
 rasa.db-wal
 story_graph.dot
+
+# Rasa files
+endpoints.yml
