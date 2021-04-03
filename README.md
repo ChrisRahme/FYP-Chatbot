@@ -9,7 +9,7 @@
 * Actions:
   * Refactored and added helper functions:
     * `get_text_from_lang` can now take a list of lists instead of list of strings to choose a random answer.
-* Upgraded for [Rasa 2.4.2](https://github.com/RasaHQ/rasa/releases/tag/2.4.0):
+* Upgraded for [Rasa 2.4.3](https://github.com/RasaHQ/rasa/releases/tag/2.4.3):
   * Problems:
     * [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0): `‘charmap’ codec can’t decode` bytes in Arabic and Armenian. Check [rasa topic #41569](https://forum.rasa.com/t/charmap-codec-cant-decode-byte-0x81-after-2-4-0-update/41569?u=chrisrahme), [rasa issue #8215](https://github.com/RasaHQ/rasa/issues/8215), [rasa pull #8286](https://github.com/RasaHQ/rasa/pull/8286).
     * [Rasa 2.4.2](https://github.com/RasaHQ/rasa/releases/tag/2.4.0) fixed above problem but training with `checkpoint_model: True` in the pipeline fails. Check [rasa topic #41706](https://forum.rasa.com/t/checkpoint-model-true-leads-to-keyerror-val-i-acc-after-2-4-2-update/41706?u=chrisrahme) and [rasa issue #8296](https://github.com/RasaHQ/rasa/issues/8296).
