@@ -688,7 +688,7 @@ class ActionUtterYoureWelcome(Action):
         
         text = get_response_from_lang(
             tracker,
-            [['My pleasure!', 'You\'re welcome!'],
+            [['My pleasure!', 'You\'re welcome!', 'Glad to be of service.'],
             ['Avec plaisir!', 'Aucun problème!', 'De rien!'],
             'على الرحب و السعة!',
             'Խնդրեմ!']
