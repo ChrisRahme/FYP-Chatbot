@@ -405,7 +405,6 @@ class ActionUtterRecoverCredentials(Action):
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
-        url = '\n\n' + url
 
         text = get_text_from_lang(
             tracker,
@@ -413,7 +412,7 @@ class ActionUtterRecoverCredentials(Action):
             'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
             'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
             'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'])
-        text = text + '\n' + url
+        text = text + ' \n' + url
         print('\nBOT:', text)
         dispatcher.utter_message(text)
 
@@ -686,9 +685,17 @@ class ActionUtterYoureWelcome(Action):
         return 'action_utter_youre_welcome'
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        response = get_response_from_lang(tracker, 'utter_youre_welcome')
-        print('\nBOT:', response)
-        dispatcher.utter_message(template = response)
+        
+        text = get_response_from_lang(
+            tracker,
+            [['My pleasure!', 'You\'re welcome!'],
+            ['Avec plaisir!', 'Aucun problème!', 'De rien!'],
+            'على الرحب و السعة!',
+            'Խնդրեմ!']
+            ) + ' ' + get_response_from_lang(tracker, text_anything_else)
+
+        print('\nBOT:', text)
+        dispatcher.utter_message(template = text)
         return []
 
 
