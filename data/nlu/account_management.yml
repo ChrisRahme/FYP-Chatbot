@@ -59,6 +59,7 @@ nlu:
     - i dont knowww my pass what is it
     - i forgot my password
     - pass
+    - jai oublie mon username
 - intent: log_in
   examples: |
     - i want to log in
