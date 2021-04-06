@@ -1306,14 +1306,26 @@ class ActionOutOfScope(Action):
         query  = tracker.slots['out_of_scope']
 
         if intent == 'out_of_scope':
-            text = 'Sorry, I don\'t understand. Do you want me to search that on Google?'
+            text = get_text_from_lang(
+                tracker,
+                ['Sorry, I don\'t understand. Do you want me to search that on Google?',
+                'Désolé, je ne comprends pas. Voulez-vous que je recherche cela sur Google?',
+                'آسف ، أنا لا أفهم. هل تريد مني البحث عن ذلك على Google؟',
+                'Կներեք, ես չեմ հասկանում: Ուզու՞մ եք, որ ես դա որոնեմ Google- ում:'])
+
             print('\nBOT:', text)
             dispatcher.utter_message(text)
             return [SlotSet('out_of_scope', latest['text'])]
 
         if intent == 'affirm' and query is not None:
             try:
-                text = 'Here are the top results:'
+                text = get_text_from_lang(
+                    tracker,
+                    ['Here are the top results:',
+                    'Voici les résultats:'
+                    'فيما يلي أهم النتائج:',
+                    'Ահա լավագույն արդյունքները.'])
+                
                 urls = [url for url in googlesearch.search(
                     query = query,
                     tld = 'com.lb',
@@ -1322,11 +1334,13 @@ class ActionOutOfScope(Action):
                     stop = 5,
                     pause = 1,
                     extra_params = {'filter': '0'})]
+
                 print('\nBOT:', text)
                 dispatcher.utter_message(text)
 
                 for url in urls:
                     dispatcher.utter_message(str(url))
+                    
             except Exception as e:
                 dispatcher.utter_message('Sorry, I could not comlete the search.\n' + str(e))
                 print('> ActionOutOfScope [ERROR] ' + str(e))
