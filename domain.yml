@@ -59,6 +59,9 @@ intents:
     use_entities: true
 - internet_problem:
     use_entities: true
+- test:
+    use_entities: []
+
 entities:
 - city_name
 - person_name
