@@ -8,6 +8,7 @@
 
 * Actions:
   * Refactored and added helper functions:
+    * `DatabaseConnection` constructor can now take optional parameters (hostname, database, username, password).
     * `get_text_from_lang` can now take a list of lists instead of list of strings to choose a random answer.
 * Upgraded for [Rasa 2.4.3](https://github.com/RasaHQ/rasa/releases/tag/2.4.3):
   * Problems:

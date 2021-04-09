@@ -18,8 +18,21 @@ from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.types import DomainDict
 
+<<<<<<< HEAD
+=======
+
+
+# Default parameters for DatabseConnection class. Can be overriden in constructor.
+db_hostname = 'localhost'
+db_database = 'esib_fyp_database'
+db_username = 'rasa' # granted all privileges on rasa.* to rasaq@%
+db_password = 'rasa'
+
+# Define this list as the values for the `language` slot. Arguments of the `get_..._lang` functions should respect this order.
+>>>>>>> 4a1de272ef9f5ed17403c6a590f7784850c58f93
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
 
+# Constants that will be used many times in the code.
 text_does_it_work = [
     'Does it work now?',
     'Est-ce que ça marche maintenant?',
@@ -44,10 +57,15 @@ db1 = ["localhost","test1","root","P@0l02021"]
 #                       Database
 ###########################################
 class DatabaseConnection:
+    hostname = None
+    database = None
+    username = None
+    password = None
     connection = None
     cursor = None
     query = None
 
+<<<<<<< HEAD
     def __init__(self,db_info):
         if self.connection is None:
             self.connect(db_info)
@@ -58,10 +76,23 @@ class DatabaseConnection:
             database = db_info[1],
             user = db_info[2],
             password = db_info[3])
+=======
+    def __init__(self, hostname = db_hostname, database = db_database, username = db_username, password = db_password):
+        if self.connection is None:
+            self.hostname = hostname
+            self.database = database
+            self.username = username
+            self.password = password
+            self.connect()
+
+    def connect(self):
+        self.connection = mysql.connector.connect(self.hostname, self.database, self.username, self.password)
+>>>>>>> 4a1de272ef9f5ed17403c6a590f7784850c58f93
 
     def disconnect(self):
         self.cursor.close()
         self.connection.close()
+<<<<<<< HEAD
     
     def get_results(self, query):
         result=""
@@ -70,6 +101,8 @@ class DatabaseConnection:
         result = self.cursor.fetchall()
         self.disconnect()
         return result    
+=======
+>>>>>>> 4a1de272ef9f5ed17403c6a590f7784850c58f93
     
     def query(self, sql):
         result = []
