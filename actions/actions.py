@@ -20,8 +20,16 @@ from rasa_sdk.types import DomainDict
 
 
 
+# Default parameters for DatabseConnection class. Can be overriden in constructor.
+db_hostname = 'localhost'
+db_database = 'esib_fyp_database'
+db_username = 'rasa' # granted all privileges on rasa.* to rasaq@%
+db_password = 'rasa'
+
+# Define this list as the values for the `language` slot. Arguments of the `get_..._lang` functions should respect this order.
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
 
+# Constants that will be used many times in the code.
 text_does_it_work = [
     'Does it work now?',
     'Est-ce que ça marche maintenant?',
@@ -45,25 +53,28 @@ buttons_yes_no_stop_emoji = buttons_yes_no_emoji + button_stop_emoji
 
 
 class DatabaseConnection:
+    hostname = None
+    database = None
+    username = None
+    password = None
     connection = None
     cursor = None
     query = None
 
-    def __init__(self):
+    def __init__(self, hostname = db_hostname, database = db_database, username = db_username, password = db_password):
         if self.connection is None:
+            self.hostname = hostname
+            self.database = database
+            self.username = username
+            self.password = password
             self.connect()
 
     def connect(self):
-        self.connection = mysql.connector.connect(
-            host     = 'localhost', #'194.126.17.114',
-            database = 'esib_fyp_database',
-            user     = 'rasa',# granted all privileges on rasa.* to rasaq@%
-            password = 'rasa')
+        self.connection = mysql.connector.connect(self.hostname, self.database, self.username, self.password)
 
     def disconnect(self):
         self.cursor.close()
         self.connection.close()
-
     
     def query(self, sql):
         result = []
