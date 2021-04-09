@@ -54,6 +54,8 @@ nlu:
     - Կրկին ողջույն
     - ողջույն
     - Բոնսուար
+    - Salam
+    - Hala
 - intent: goodbye
   examples: |
     - cu

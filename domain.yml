@@ -59,7 +59,6 @@ intents:
     use_entities: true
 - internet_problem:
     use_entities: true
-
 entities:
 - city_name
 - person_name

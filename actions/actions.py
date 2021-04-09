@@ -18,8 +18,6 @@ from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.types import DomainDict
 
-
-
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
 
 text_does_it_work = [
@@ -39,66 +37,63 @@ buttons_yes_no_emoji = [
     {'title': '👎', 'payload': '/deny'}]
 
 button_stop_emoji = [{'title': '🚫', 'payload': '/stop'}]
-
 buttons_yes_no_stop_emoji = buttons_yes_no_emoji + button_stop_emoji
+db1 = ["localhost","test1","root","P@0l02021"]
 
-
-
+###########################################
+#                       Database
+###########################################
 class DatabaseConnection:
     connection = None
     cursor = None
     query = None
 
-    def __init__(self):
+    def __init__(self,db_info):
         if self.connection is None:
-            self.connect()
+            self.connect(db_info)
 
-    def connect(self):
+    def connect(self,db_info):
         self.connection = mysql.connector.connect(
-            host     = 'localhost', #'194.126.17.114',
-            database = 'esib_fyp_database',
-            user     = 'rasa',# granted all privileges on rasa.* to rasaq@%
-            password = 'rasa')
+            host = db_info[0], 
+            database = db_info[1],
+            user = db_info[2],
+            password = db_info[3])
 
     def disconnect(self):
         self.cursor.close()
         self.connection.close()
-
+    
+    def get_results(self, query):
+        result=""
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(query)
+        result = self.cursor.fetchall()
+        self.disconnect()
+        return result    
     
     def query(self, sql):
         result = []
-
         print(f'\n> DatabaseConnection: {sql}')
-
         self.cursor = self.connection.cursor()
         self.cursor.execute(sql)
-
         for row in self.cursor:
             result.append(row)
             print(row)
-
         return result
 
-    '''
-    table:    Argument of FROM   - String
-    columns:  Argument of SELECT - String
-    condtion: Argument of WHERE  - String
-    '''
     def simple_query(self, table, columns = '*', condition = None):
         result = []
-
         sql = f"SELECT {columns} FROM {table}"
-
         if condition:
             sql += f" WHERE {condition}"
-
         return self.query(sql)
 
     def count(self, table, condition = None):
         return len(self.simple_query(table, '*', condition))
 
-
-
+###########################################
+#                       Announce
+###########################################
 def announce(action, tracker = None):
     output = '>>> Action: ' + action.name()
     output = '=' * min(100, len(output)) + '\n' + output
@@ -123,8 +118,9 @@ def announce(action, tracker = None):
             print(f'\n> announce: [ERROR] {e}')
     print(output)
 
-
-
+####################################################################################################
+#                       Slots 
+####################################################################################################
 def reset_slots(tracker, slots, exceptions = []):
     events = []
     none_slots = []
@@ -141,11 +137,11 @@ def reset_slots(tracker, slots, exceptions = []):
         events.append(SlotSet(slot, None))
 
     print('\n> reset_slots:', ', '.join(none_slots))
-
     return events
 
-
-
+###########################################
+#                       Languages
+###########################################
 def get_lang(tracker):
     try:
         lang = tracker.slots['language'].title()
@@ -153,12 +149,8 @@ def get_lang(tracker):
     except Exception as e:
         return 'English'
 
-
-
 def get_lang_index(tracker):
     return lang_list.index(get_lang(tracker))
-
-
 
 ''' utter_list is a list of outputs in multiple lanaguages, each output can be a string or a list of strings '''
 def get_text_from_lang(tracker, utter_list = []):
@@ -178,13 +170,9 @@ def get_text_from_lang(tracker, utter_list = []):
         text = str(text)
     
     return text 
-
-
-
+    
 def get_response_from_lang(tracker, response):
     return response + '_' + get_lang(tracker)
-
-
 
 def get_buttons_from_lang(tracker, titles = [], payloads = []):
     lang_index = get_lang_index(tracker)
@@ -198,15 +186,67 @@ def get_buttons_from_lang(tracker, titles = [], payloads = []):
 
     return buttons
 
+class ActionUtterAskLanguage(Action):
+    def name(self):
+        return 'action_utter_ask_language'
+    
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        
+        text = get_text_from_lang(
+            tracker,
+            ['Choose a language:',
+            'Choisissez une langue:',
+            ':اختر لغة',
+            'Ընտրեք լեզու ՝'])
 
+        buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
+            {'title': 'English',  'payload': '/set_language{"language": "English"}'},
+            {'title': 'Français', 'payload': '/set_language{"language": "French"}'},
+            {'title': 'عربي',     'payload': '/set_language{"language": "Arabic"}'},
+            {'title': 'հայերեն',  'payload': '/set_language{"language": "Armenian"}'}
+        ]
+       
+        print('\nBOT:', text, buttons)
+        dispatcher.utter_message(text = text, buttons = buttons)
+        return []
 
+class ActionUtterSetLanguage(Action):
+    def name(self) -> Text:
+        return 'action_utter_set_language'
+    
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+
+        current_language = tracker.slots['language'].title()
+        text = 'I only understand English, French, Arabic, and Armenian. The language is now English.'
+        
+        if current_language == 'English':
+            text = 'The language is now English.'
+        elif current_language == 'French':
+            text = 'La langue est maintenant le Français.'
+        elif current_language == 'Arabic':
+            text = 'اللغة الآن هي العربية.'
+        elif current_language == 'Armenian':
+            text = 'Լեզուն այժմ հայերենն է:'
+        
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text)
+        
+        if not tracker.get_slot('service_type'):
+            return [FollowupAction('action_utter_service_types')]
+        return []
+        
+###########################################
+#                      Accounts
+###########################################
 async def global_validate_username(value, dispatcher, tracker, domain):
     if not tracker.get_slot('loggedin'):
         username   = value.title()
         login_type = 'Username'
         count      = 0
         
-        db = DatabaseConnection()
+        db = DatabaseConnection(db1)
 
         count = db.count('user_info', f"Username = '{username}'")
         if count == 1:
@@ -257,15 +297,13 @@ async def global_validate_username(value, dispatcher, tracker, domain):
         dispatcher.utter_message(text)
         return {'password': 'secret', 'loggedin': True}
 
-
-
 async def global_validate_password(value, dispatcher, tracker, domain):
     if not tracker.get_slot('loggedin'):
         username = tracker.get_slot('username')
         password = value
         login_type = tracker.get_slot('login_type')
 
-        db = DatabaseConnection()
+        db = DatabaseConnection(db1)
         count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
         db.disconnect()
 
@@ -296,14 +334,68 @@ async def global_validate_password(value, dispatcher, tracker, domain):
         dispatcher.utter_message(text)
         return {'username': username, 'password': 'secret', 'loggedin': True}
 
+class ActionUtterRecoverCredentials(Action):
+    def name(self):
+        return 'action_utter_recover_credentials'
 
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
 
-####################################################################################################
-# DEFAULT ACTIONS                                                                                  #
-####################################################################################################
+        text = get_text_from_lang(
+            tracker,
+            ['If you need help recovering your IDM ID or your password, click on the link below:',
+            'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
+            'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
+            'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'])
+        text = text + ' \n' + url
+        print('\nBOT:', text)
+        dispatcher.utter_message(text)
+        return []
 
+class ActionUtterAccountTypes(Action):
+    def name(self):
+        return 'action_utter_account_types'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Which account type are you asking about?',
+            'Quel type de compte avez-vous?',
+            'ما نوع الحساب الذي تسأل عنه؟',
+            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
+        buttons  = get_buttons_from_lang(
+            tracker,
+            [['Consumer / Residential', 'Small Business', 'Bank'],
+            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
+            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
+            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
+            [
+                '/inform_account_type{"account_type": "consumer"}',
+                '/inform_account_type{"account_type": "business"}',
+                '/inform_account_type{"account_type": "bank"}'
+            ]
+        )
+        print('\nBOT:', text, buttons)
+        dispatcher.utter_message(text = text, buttons = buttons)
+        return []
+        
+class ActionUtterLogOut(Action):
+    def name(self):
+        return 'action_utter_log_out'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Okay, loggin you out.'])
+        
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text)
+        return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
 
-
+###########################################
+#                       Sessions
+###########################################
 class ActionSessionStart(Action):
     def name(self):
         return 'action_session_start'
@@ -331,103 +423,48 @@ class ActionSessionStart(Action):
         
         return events
 
-
-
-####################################################################################################
-# UTTERANCES                                                                                       #
-####################################################################################################
-
-
-
-class ActionUtterAskLanguage(Action):
+class ActionAskUsername(Action):
     def name(self):
-        return 'action_utter_ask_language'
-    
+        return 'action_ask_username'
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        
         text = get_text_from_lang(
             tracker,
-            ['Choose a language:',
-            'Choisissez une langue:',
-            ':اختر لغة',
-            'Ընտրեք լեզու ՝'])
-
-        buttons = [ # https://forum.rasa.com/t/slots-set-by-clicking-buttons/27629
-            {'title': 'English',  'payload': '/set_language{"language": "English"}'},
-            {'title': 'Français', 'payload': '/set_language{"language": "French"}'},
-            {'title': 'عربي',     'payload': '/set_language{"language": "Arabic"}'},
-            {'title': 'հայերեն',  'payload': '/set_language{"language": "Armenian"}'}
-        ]
-       
-        print('\nBOT:', text, buttons)
-        dispatcher.utter_message(text = text, buttons = buttons)
-
-        return []
-
-
-
-class ActionUtterSetLanguage(Action):
-    def name(self) -> Text:
-        return 'action_utter_set_language'
-    
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-
-        current_language = tracker.slots['language'].title()
-        text = 'I only understand English, French, Arabic, and Armenian. The language is now English.'
-        
-        if current_language == 'English':
-            text = 'The language is now English.'
-        elif current_language == 'French':
-            text = 'La langue est maintenant le Français.'
-        elif current_language == 'Arabic':
-            text = 'اللغة الآن هي العربية.'
-        elif current_language == 'Armenian':
-            text = 'Լեզուն այժմ հայերենն է:'
-        
+            ['Please enter your Username, L Number, or Phone Number, or press "🚫" to stop.',
+            'Veuillez entrer votre nom d\'utilisateur, L Number, ou Numéro de Téléphone, ou appuyez sur "🚫" pour arrêter.',
+            'الرجاء إدخال اسم المستخدم أو رقم L أو رقم الهاتف ، أو اضغط على "🚫" للإيقاف.',
+            'Կանգնեցնելու համար խնդրում ենք մուտքագրել ձեր օգտանունը, L համարը կամ հեռախոսահամարը կամ սեղմել «🚫»:'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text = text)
-        
-        if not tracker.get_slot('service_type'):
-            return [FollowupAction('action_utter_service_types')]
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
 
-
-
-class ActionUtterRecoverCredentials(Action):
+class ActionAskPassword(Action):
     def name(self):
-        return 'action_utter_recover_credentials'
-
+        return 'action_ask_password'
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-        url = 'https://myaccount.idm.net.lb/_layouts/15/IDMPortal/ManageUsers/ResetPassword.aspx'
-
         text = get_text_from_lang(
             tracker,
-            ['If you need help recovering your IDM ID or your password, click on the link below:',
-            'Si vous avez besoin d\'aide pour récupérer votre ID IDM ou votre mot de passe, cliquez sur le lien ci-dessous:',
-            'لا مشكلة. إذا كنت بحاجة إلى مساعدة في استعادة معرّف IDM أو كلمة مرورك ، فانقر على الرابط أدناه:',
-            'Ոչ մի խնդիր. Եթե ձեր IDM ID- ն կամ գաղտնաբառն վերականգնելու համար օգնության կարիք ունեք, կտտացրեք ստորև նշված հղմանը.'])
-        text = text + ' \n' + url
+            ['Please enter your password.',
+            'S\'il vous plaît entrez votre mot de passe.',
+            '.(password) من فضلك أدخل رقمك السري',
+            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'])
         print('\nBOT:', text)
-        dispatcher.utter_message(text)
-
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
-
-
-
+        
+####################################################################################################
+#                     Greetings                  
+####################################################################################################
 class ActionUtterGreet(Action):
     def name(self):
         return 'action_utter_greet'
+    
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-
         followup_action = 'action_utter_service_types'
-
         text = get_text_from_lang(
             tracker,
             ['Hi, I’m GDS automated virtual assistant.',
@@ -440,11 +477,47 @@ class ActionUtterGreet(Action):
         
         print('\nBOT:', text)
         dispatcher.utter_message(text = text)
-
+        
+        try:
+                db = DatabaseConnection(db1)
+                results = db.get_results("select name from users where id=2")
+                if(len(results)>0):
+                    for x in results:
+                        dispatcher.utter_message("Welcome back "+str(x))
+        except Exception as e:
+                dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
+                
         return [FollowupAction(followup_action)]
 
+class ActionUtterGoodbye(Action):
+    def name(self):
+        return 'action_utter_goodbye'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        dispatcher.utter_message(template = get_response_from_lang(tracker, 'utter_goodbye'))
+        return []
+            
+class ActionUtterYoureWelcome(Action):
+    def name(self):
+        return 'action_utter_youre_welcome'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        
+        text = get_response_from_lang(
+            tracker,
+            [['My pleasure!', 'You\'re welcome!', 'Glad to be of service.'],
+            ['Avec plaisir!', 'Aucun problème!', 'De rien!'],
+            'على الرحب و السعة!',
+            'Խնդրեմ!']
+            ) + ' ' + get_response_from_lang(tracker, text_anything_else)
 
+        print('\nBOT:', text)
+        dispatcher.utter_message(template = text)
+        return []
 
+###########################################
+#                       Services
+###########################################
 class ActionUtterServiceTypes(Action):
     def name(self):
         return 'action_utter_service_types'
@@ -473,40 +546,11 @@ class ActionUtterServiceTypes(Action):
         
         print('\nBOT:', text, buttons)
         dispatcher.utter_message(text = text, buttons = buttons)
-
         return []
 
-
-
-class ActionUtterAccountTypes(Action):
-    def name(self):
-        return 'action_utter_account_types'
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Which account type are you asking about?',
-            'Quel type de compte avez-vous?',
-            'ما نوع الحساب الذي تسأل عنه؟',
-            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
-        buttons  = get_buttons_from_lang(
-            tracker,
-            [['Consumer / Residential', 'Small Business', 'Bank'],
-            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
-            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
-            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
-            [
-                '/inform_account_type{"account_type": "consumer"}',
-                '/inform_account_type{"account_type": "business"}',
-                '/inform_account_type{"account_type": "bank"}'
-            ]
-        )
-        print('\nBOT:', text, buttons)
-        dispatcher.utter_message(text = text, buttons = buttons)
-        return []
-
-
-
+###########################################
+#                       Topics
+###########################################
 class ActionUtterTopicTypes(Action):
     def name(self):
         return 'action_utter_topic_types'
@@ -537,12 +581,9 @@ class ActionUtterTopicTypes(Action):
         dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
-
-
 class ActionUtterTopicSamples(Action):
     def name(self):
         return 'action_utter_topic_samples'
-
 
     def get_sample_questions(self, topic_type, account_type, service_type):
         examples_en = [
@@ -604,7 +645,6 @@ class ActionUtterTopicSamples(Action):
 
         return examples_en, examples_fr, examples_ar, examples_hy
 
-
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         service_type = tracker.get_slot('service_type') # wireless - internet - dsl - cablevision
@@ -650,98 +690,11 @@ class ActionUtterTopicSamples(Action):
         text = get_text_from_lang(tracker, [text_en, text_fr, text_ar, text_hy])            
         print('\nBOT:', text)
         dispatcher.utter_message(text)
-
         return []
-
-
-
-class ActionUtterLogOut(Action):
-    def name(self):
-        return 'action_utter_log_out'
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Okay, loggin you out.'])
-        
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text)
-        return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
-
-
-
-class ActionUtterGoodbye(Action):
-    def name(self):
-        return 'action_utter_goodbye'
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        dispatcher.utter_message(template = get_response_from_lang(tracker, 'utter_goodbye'))
-        return []
-            
-
-
-class ActionUtterYoureWelcome(Action):
-    def name(self):
-        return 'action_utter_youre_welcome'
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        
-        text = get_response_from_lang(
-            tracker,
-            [['My pleasure!', 'You\'re welcome!', 'Glad to be of service.'],
-            ['Avec plaisir!', 'Aucun problème!', 'De rien!'],
-            'على الرحب و السعة!',
-            'Խնդրեմ!']
-            ) + ' ' + get_response_from_lang(tracker, text_anything_else)
-
-        print('\nBOT:', text)
-        dispatcher.utter_message(template = text)
-        return []
-
-
 
 ####################################################################################################
-# SLOT QUESTIONS                                                                                   #
+#                   Troubleshooting
 ####################################################################################################
-
-
-
-class ActionAskUsername(Action):
-    def name(self):
-        return 'action_ask_username'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please enter your Username, L Number, or Phone Number, or press "🚫" to stop.',
-            'Veuillez entrer votre nom d\'utilisateur, L Number, ou Numéro de Téléphone, ou appuyez sur "🚫" pour arrêter.',
-            'الرجاء إدخال اسم المستخدم أو رقم L أو رقم الهاتف ، أو اضغط على "🚫" للإيقاف.',
-            'Կանգնեցնելու համար խնդրում ենք մուտքագրել ձեր օգտանունը, L համարը կամ հեռախոսահամարը կամ սեղմել «🚫»:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-
-
-
-class ActionAskPassword(Action):
-    def name(self):
-        return 'action_ask_password'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please enter your password.',
-            'S\'il vous plaît entrez votre mot de passe.',
-            '.(password) من فضلك أدخل رقمك السري',
-            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-
-
-
 class ActionAskTiaNoise(Action):
     def name(self):
         return 'action_ask_tia_noise'
@@ -757,8 +710,6 @@ class ActionAskTiaNoise(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
-
-
 
 class ActionAskTiaaNoise(Action):
     def name(self):
@@ -783,8 +734,6 @@ class ActionAskTiaaNoise(Action):
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
-
-
 class ActionAskTibModemOn(Action):
     def name(self):
         return 'action_ask_tib_modem_on'
@@ -801,8 +750,6 @@ class ActionAskTibModemOn(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
-
-
 
 class ActionAskTicModemGreen(Action):
     def name(self):
@@ -821,8 +768,6 @@ class ActionAskTicModemGreen(Action):
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
-
-
 class ActionAskTidNbPhones(Action):
     def name(self):
         return 'action_ask_tid_nb_phones'
@@ -839,8 +784,6 @@ class ActionAskTidNbPhones(Action):
         dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
 
-
-
 class ActionAskTieNbSockets(Action):
     def name(self):
         return 'action_ask_tie_nb_sockets'
@@ -856,8 +799,6 @@ class ActionAskTieNbSockets(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text = text, buttons = button_stop_emoji)
         return []
-
-
 
 class ActionAskTifSplitterInstalled(Action):
     def name(self):
@@ -876,8 +817,6 @@ class ActionAskTifSplitterInstalled(Action):
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/aV0uxGx.png')
         return []
 
-
-
 class ActionAskTigRjPlugged(Action):
     def name(self):
         return 'action_ask_tig_rj_plugged'
@@ -894,8 +833,6 @@ class ActionAskTigRjPlugged(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://i.imgur.com/9aUcYs5.png')
         return []
-
-
 
 class ActionAskTihOtherPlug(Action):
     def name(self):
@@ -920,8 +857,6 @@ class ActionAskTihOtherPlug(Action):
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
-
-
 class ActionAskTiiOtherModem(Action):
     def name(self):
         return 'action_ask_tii_other_modem'
@@ -945,8 +880,6 @@ class ActionAskTiiOtherModem(Action):
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
-
-
 class ActionAskTijHasPbx(Action):
     def name(self):
         return 'action_ask_tij_has_pbx'
@@ -962,8 +895,6 @@ class ActionAskTijHasPbx(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji, image = 'https://techextension.com/images/cloud_pbx_connections.png')
         return []
-
-
 
 class ActionAskTikHasLine(Action):
     def name(self):
@@ -981,14 +912,9 @@ class ActionAskTikHasLine(Action):
         dispatcher.utter_message(text = text, buttons = buttons_yes_no_stop_emoji)
         return []
 
-
-
 ####################################################################################################
 # FORM VALIDATION                                                                                  #
 ####################################################################################################
-
-
-
 class ValidateFormLogIn(FormValidationAction):
     def name(self):
         return 'validate_form_log_in'
@@ -999,28 +925,22 @@ class ValidateFormLogIn(FormValidationAction):
         required_slots = ['username', 'password']
         return required_slots
 
-
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_username(self, value, dispatcher, tracker, domain):
         return await global_validate_username(value, dispatcher, tracker, domain)
-
 
     # Validating Form Input: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def validate_password(self, value, dispatcher, tracker, domain):
         return await global_validate_password(value, dispatcher, tracker, domain)
 
-
-
 class ValidateFormTroubleshootInternet(FormValidationAction):
     def name(self):
         return 'validate_form_troubleshoot_internet'
-
 
     async def validate_username(self, value, dispatcher, tracker, domain):
         slots = await global_validate_username(value, dispatcher, tracker, domain)
         slots['ti_form_completed'] = True
         return 
-
     
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
         announce(self, tracker)
@@ -1080,18 +1000,12 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
 
         return required_slots
 
-
-
 ####################################################################################################
 # FORM SUBMIT                                                                                      #
 ####################################################################################################
-
-
-
 class ActionSubmitFormLogIn(Action):
     def name(self):
         return 'action_submit_form_log_in'
-
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
@@ -1110,16 +1024,12 @@ class ActionSubmitFormLogIn(Action):
 
         return []
 
-
-
 class ActionSubmitFormTroubleshootInternet(Action):
     def name(self):
         return 'action_submit_form_troubleshoot_internet'
 
-
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
-
         text = ''
         slots_to_reset = list(domain['forms']['form_troubleshoot_internet'].keys())
         exceptions = ['username', 'ti_form_completed']
@@ -1136,21 +1046,15 @@ class ActionSubmitFormTroubleshootInternet(Action):
                 'تم إنشاء حالة لـ {}.'.format(username),
                 'Գործ ստեղծվեց {} - ի համար:'.format(username)]) + '\n'
 
-        
         text += get_text_from_lang(tracker, text_anything_else)
         print('\nBOT:', text)
         dispatcher.utter_message(text)
 
         return events
 
-
-
 ####################################################################################################
 # API ACTIONS                                                                                      #
 ####################################################################################################
-
-
-
 class ActionFetchQuota(Action):
     def name(self) -> Text:
         return 'action_fetch_quota'
@@ -1164,7 +1068,7 @@ class ActionFetchQuota(Action):
             login_type = tracker.get_slot('login_type')
 
             try:
-                db = DatabaseConnection()
+                db = DatabaseConnection(db1)
                 results = db.query("SELECT Quota, Consumption, Speed "
                     "FROM `user_info` INNER JOIN `consumption` "
                     "ON `user_info`.`ID` = `consumption`.`UserID` "
@@ -1218,8 +1122,6 @@ class ActionFetchQuota(Action):
         
         return []
 
-
-
 class ActionCheckWeather(Action):
     def name(self):
         return 'action_check_weather'
@@ -1231,7 +1133,6 @@ class ActionCheckWeather(Action):
         except Exception as e:
             print(f'\n> ActionCheckWeather.alpha2_to_name: [ERROR] {e}')
             return alpha2
-
 
     def call_api(self, city_name):
         api_key = 'd24a63d18af95420958d7bb8b5839016'
@@ -1292,8 +1193,9 @@ class ActionCheckWeather(Action):
         
         return []
 
-
-
+##################################
+#                   Out of scope
+##################################
 class ActionOutOfScope(Action):
     def name(self):
         return 'action_out_of_scope'
@@ -1349,9 +1251,6 @@ class ActionOutOfScope(Action):
         if (intent == 'deny' or intent == 'stop') and query is not None:
             dispatcher.utter_message('Okay.')
             return [SlotSet('out_of_scope', None)]
-
-
-
 ####################################################################################################
 # END                                                                                              #
 ####################################################################################################
