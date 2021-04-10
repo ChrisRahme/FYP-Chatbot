@@ -18,18 +18,14 @@ from rasa_sdk.knowledge_base.actions import ActionQueryKnowledgeBase
 from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.types import DomainDict
 
-<<<<<<< HEAD
-=======
 
 
 # Default parameters for DatabseConnection class. Can be overriden in constructor.
-db_hostname = 'localhost'
-db_database = 'esib_fyp_database'
-db_username = 'rasa' # granted all privileges on rasa.* to rasaq@%
-db_password = 'rasa'
+db0 = ['localhost', 'esib_fyp_database', 'rasa', 'rasa']
+db1 = ['localhost', 'test1', 'root', 'P@0l02021']
+def_db = db1
 
 # Define this list as the values for the `language` slot. Arguments of the `get_..._lang` functions should respect this order.
->>>>>>> 4a1de272ef9f5ed17403c6a590f7784850c58f93
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
 
 # Constants that will be used many times in the code.
@@ -51,11 +47,9 @@ buttons_yes_no_emoji = [
 
 button_stop_emoji = [{'title': '🚫', 'payload': '/stop'}]
 buttons_yes_no_stop_emoji = buttons_yes_no_emoji + button_stop_emoji
-db1 = ["localhost","test1","root","P@0l02021"]
 
-###########################################
-#                       Database
-###########################################
+
+# Connect to a database
 class DatabaseConnection:
     hostname = None
     database = None
@@ -65,34 +59,27 @@ class DatabaseConnection:
     cursor = None
     query = None
 
-<<<<<<< HEAD
-    def __init__(self,db_info):
-        if self.connection is None:
-            self.connect(db_info)
-
-    def connect(self,db_info):
-        self.connection = mysql.connector.connect(
-            host = db_info[0], 
-            database = db_info[1],
-            user = db_info[2],
-            password = db_info[3])
-=======
-    def __init__(self, hostname = db_hostname, database = db_database, username = db_username, password = db_password):
-        if self.connection is None:
-            self.hostname = hostname
-            self.database = database
-            self.username = username
-            self.password = password
-            self.connect()
+    def __init__(self, db_info = None, hostname = None, database = None, username = None, password = None):
+        if not self.connection:
+            if db_info:
+                self.hostname = db_info[0]
+                self.database = db_info[1]
+                self.username = db_info[2]
+                self.password = db_info[3]
+                self.connect()
+            elif hostname and database and username and password:
+                self.hostname = hostname
+                self.database = database
+                self.username = username
+                self.password = password
+                self.connect()
 
     def connect(self):
         self.connection = mysql.connector.connect(self.hostname, self.database, self.username, self.password)
->>>>>>> 4a1de272ef9f5ed17403c6a590f7784850c58f93
 
     def disconnect(self):
         self.cursor.close()
         self.connection.close()
-<<<<<<< HEAD
     
     def get_results(self, query):
         result=""
@@ -101,8 +88,6 @@ class DatabaseConnection:
         result = self.cursor.fetchall()
         self.disconnect()
         return result    
-=======
->>>>>>> 4a1de272ef9f5ed17403c6a590f7784850c58f93
     
     def query(self, sql):
         result = []
@@ -124,9 +109,7 @@ class DatabaseConnection:
     def count(self, table, condition = None):
         return len(self.simple_query(table, '*', condition))
 
-###########################################
-#                       Announce
-###########################################
+# Announce what action is currently running for debug purposes
 def announce(action, tracker = None):
     output = '>>> Action: ' + action.name()
     output = '=' * min(100, len(output)) + '\n' + output
@@ -152,7 +135,7 @@ def announce(action, tracker = None):
     print(output)
 
 ####################################################################################################
-#                       Slots 
+# Slots helper function                                                                            #
 ####################################################################################################
 def reset_slots(tracker, slots, exceptions = []):
     events = []
@@ -172,9 +155,9 @@ def reset_slots(tracker, slots, exceptions = []):
     print('\n> reset_slots:', ', '.join(none_slots))
     return events
 
-###########################################
-#                       Languages
-###########################################
+####################################################################################################
+# Languages helper functions and actions                                                           #                      
+####################################################################################################
 def get_lang(tracker):
     try:
         lang = tracker.slots['language'].title()
@@ -270,16 +253,16 @@ class ActionUtterSetLanguage(Action):
             return [FollowupAction('action_utter_service_types')]
         return []
         
-###########################################
-#                      Accounts
-###########################################
+####################################################################################################
+# Accounts
+####################################################################################################
 async def global_validate_username(value, dispatcher, tracker, domain):
     if not tracker.get_slot('loggedin'):
         username   = value.title()
         login_type = 'Username'
         count      = 0
         
-        db = DatabaseConnection(db1)
+        db = DatabaseConnection(db_info = def_db)
 
         count = db.count('user_info', f"Username = '{username}'")
         if count == 1:
@@ -336,7 +319,7 @@ async def global_validate_password(value, dispatcher, tracker, domain):
         password = value
         login_type = tracker.get_slot('login_type')
 
-        db = DatabaseConnection(db1)
+        db = DatabaseConnection(db_info = def_db)
         count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
         db.disconnect()
 
@@ -385,34 +368,7 @@ class ActionUtterRecoverCredentials(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text)
         return []
-
-class ActionUtterAccountTypes(Action):
-    def name(self):
-        return 'action_utter_account_types'
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Which account type are you asking about?',
-            'Quel type de compte avez-vous?',
-            'ما نوع الحساب الذي تسأل عنه؟',
-            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
-        buttons  = get_buttons_from_lang(
-            tracker,
-            [['Consumer / Residential', 'Small Business', 'Bank'],
-            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
-            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
-            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
-            [
-                '/inform_account_type{"account_type": "consumer"}',
-                '/inform_account_type{"account_type": "business"}',
-                '/inform_account_type{"account_type": "bank"}'
-            ]
-        )
-        print('\nBOT:', text, buttons)
-        dispatcher.utter_message(text = text, buttons = buttons)
-        return []
-        
+       
 class ActionUtterLogOut(Action):
     def name(self):
         return 'action_utter_log_out'
@@ -426,9 +382,9 @@ class ActionUtterLogOut(Action):
         dispatcher.utter_message(text = text)
         return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
 
-###########################################
-#                       Sessions
-###########################################
+####################################################################################################
+# Sessions
+####################################################################################################
 class ActionSessionStart(Action):
     def name(self):
         return 'action_session_start'
@@ -489,7 +445,7 @@ class ActionAskPassword(Action):
         return []
         
 ####################################################################################################
-#                     Greetings                  
+# Greetings                  
 ####################################################################################################
 class ActionUtterGreet(Action):
     def name(self):
@@ -512,7 +468,7 @@ class ActionUtterGreet(Action):
         dispatcher.utter_message(text = text)
         
         try:
-                db = DatabaseConnection(db1)
+                db = DatabaseConnection(db_info = def_db)
                 results = db.get_results("select name from users where id=2")
                 if(len(results)>0):
                     for x in results:
@@ -548,9 +504,9 @@ class ActionUtterYoureWelcome(Action):
         dispatcher.utter_message(template = text)
         return []
 
-###########################################
-#                       Services
-###########################################
+####################################################################################################
+# Intitial information (after greeting)
+####################################################################################################
 class ActionUtterServiceTypes(Action):
     def name(self):
         return 'action_utter_service_types'
@@ -581,9 +537,33 @@ class ActionUtterServiceTypes(Action):
         dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
-###########################################
-#                       Topics
-###########################################
+class ActionUtterAccountTypes(Action):
+    def name(self):
+        return 'action_utter_account_types'
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Which account type are you asking about?',
+            'Quel type de compte avez-vous?',
+            'ما نوع الحساب الذي تسأل عنه؟',
+            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
+        buttons  = get_buttons_from_lang(
+            tracker,
+            [['Consumer / Residential', 'Small Business', 'Bank'],
+            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
+            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
+            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
+            [
+                '/inform_account_type{"account_type": "consumer"}',
+                '/inform_account_type{"account_type": "business"}',
+                '/inform_account_type{"account_type": "bank"}'
+            ]
+        )
+        print('\nBOT:', text, buttons)
+        dispatcher.utter_message(text = text, buttons = buttons)
+        return []
+
 class ActionUtterTopicTypes(Action):
     def name(self):
         return 'action_utter_topic_types'
@@ -726,7 +706,7 @@ class ActionUtterTopicSamples(Action):
         return []
 
 ####################################################################################################
-#                   Troubleshooting
+# Troubleshooting
 ####################################################################################################
 class ActionAskTiaNoise(Action):
     def name(self):
@@ -1101,7 +1081,7 @@ class ActionFetchQuota(Action):
             login_type = tracker.get_slot('login_type')
 
             try:
-                db = DatabaseConnection(db1)
+                db = DatabaseConnection(db_info = def_db)
                 results = db.query("SELECT Quota, Consumption, Speed "
                     "FROM `user_info` INNER JOIN `consumption` "
                     "ON `user_info`.`ID` = `consumption`.`UserID` "
@@ -1226,9 +1206,9 @@ class ActionCheckWeather(Action):
         
         return []
 
-##################################
-#                   Out of scope
-##################################
+####################################################################################################
+# Out of Scope
+####################################################################################################
 class ActionOutOfScope(Action):
     def name(self):
         return 'action_out_of_scope'
@@ -1284,6 +1264,7 @@ class ActionOutOfScope(Action):
         if (intent == 'deny' or intent == 'stop') and query is not None:
             dispatcher.utter_message('Okay.')
             return [SlotSet('out_of_scope', None)]
+
 ####################################################################################################
 # END                                                                                              #
 ####################################################################################################
