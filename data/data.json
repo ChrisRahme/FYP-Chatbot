@@ -104,6 +104,26 @@
       {
         "text": "hello from postman",
         "intent": "greet"
+      },
+      {
+        "text": "salam",
+        "intent": "greet"
+      },
+      {
+        "text": "good morning rasa",
+        "intent": "greet"
+      },
+      {
+        "text": "bonjour robot comment ca va?",
+        "intent": "greet"
+      },
+      {
+        "text": "hi again",
+        "intent": "greet"
+      },
+      {
+        "text": "salut comment ca va?",
+        "intent": "greet"
       }
     ],
     "regex_features": [],

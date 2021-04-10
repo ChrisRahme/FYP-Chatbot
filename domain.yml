@@ -235,7 +235,7 @@ responses:
   utter_greet_French:
   - text: Bonjour, je suis l'assistant virtuel automatisé de GDS. Comment puis-je vous aider aujourd'hui?
   - text: Pour que je puisse vous guider, dites-moi si vous aimeriez obtenir de l’aide.
-  - text: Salut! Comment puis-je aider?
+  - text: Salut! Comment puis-je vous aider?
   utter_greet_Arabic:
   - text: مرحبًا ، أنا مساعد افتراضي تلقائي لنظام GDS. كيف استطيع مساعدتك اليوم؟
   - text: حتى أتمكن من توصيلك إلى المكان الصحيح ، أخبرني بما تريد المساعدة فيه.

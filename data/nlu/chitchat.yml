@@ -21,6 +21,8 @@ nlu:
     - hello again
     - bonjour
     - salut
+    - He
+    - Allo
     - bonsoir
     - bonjouren
     - bjr
@@ -31,6 +33,8 @@ nlu:
     - mara7ib
     - Hé
     - salut mec
+    - slt
+    - cc
     - coucou
     - bon après-midi
     - Rebonjour
@@ -124,6 +128,7 @@ nlu:
     - Լավ ես
     - Ես լավ եմ, իսկ դու՞
     - im fine and u?
+    - mar7aba kifak?
 - intent: affirm
   examples: |
     - yes
