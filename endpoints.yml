@@ -26,14 +26,6 @@ action_endpoint: # Communication via HTTP REST
 #    username:  "rasa"      # username used for authentication
 #    password:  "rasa"      # password used for authentication
 
-# tracker_store:
-#     type: SQL
-#     dialect: "mysql"       # the dialect used to interact with the db, compatible: postgresql, oracle > 11.0, sqlite
-#     url: "localhost"       # host of the sql db
-#     db: "rasa"             # path to your db
-#     username:  "rasa"      # username used for authentication
-#     password:  "rasa"      # password used for authentication
-
 #tracker_store:
 #    type: redis
 #    url: <host of the redis instance, e.g. localhost>

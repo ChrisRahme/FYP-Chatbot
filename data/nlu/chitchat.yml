@@ -60,6 +60,21 @@ nlu:
     - Բոնսուար
     - Salam
     - Hala
+    - Sabaho
+    - Saba7o
+    - Sabahoo
+    - sr. hello
+    - Masa kheir
+    - Gd morning
+    - Rayis masa kheir
+    - Maraheb
+    - Mara7eb
+    - Marhaba
+    - hii
+    - Hi again
+    - Morning
+    - Hobb hi
+    - Hiod morning
 - intent: goodbye
   examples: |
     - cu
@@ -129,6 +144,7 @@ nlu:
     - Ես լավ եմ, իսկ դու՞
     - im fine and u?
     - mar7aba kifak?
+    - Kifakk
 - intent: affirm
   examples: |
     - yes
@@ -395,6 +411,7 @@ nlu:
     - انهي
     - կանգ առեք
     - չեղարկել
+    - /stop
 - intent: thanks
   examples: |
     - thanks
@@ -430,3 +447,16 @@ nlu:
     - thx
     - deal thx
     - okeee mercii
+    - 7abibe thx
+    - Thx a lot
+    - Oki thx
+    - Plz thx
+    - mamnounak
+    - tekram
+    - tekram wlw
+    - machkour
+    - thxx
+    - Thx man
+    - chokran
+    - Thx hobbi
+    - Thx hob

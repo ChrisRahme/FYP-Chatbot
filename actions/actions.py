@@ -19,10 +19,9 @@ from rasa_sdk.knowledge_base.storage import InMemoryKnowledgeBase
 from rasa_sdk.types import DomainDict
 
 # Default parameters for DatabseConnection class. Can be overriden in constructor.
-#db_hostname = 'localhost'
-#db_database = 'esib_fyp_database'
-#db_username = 'rasa' # granted all privileges on rasa.* to rasaq@%
-#db_password = 'rasa'
+db0 = ['localhost', 'esib_fyp_database', 'rasa', 'rasa']
+db1 = ['localhost', 'chatbot', 'root', 'P@0l02021']
+def_db = db1
 
 # Define this list as the values for the `language` slot. Arguments of the `get_..._lang` functions should respect this order.
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
@@ -46,15 +45,14 @@ buttons_yes_no_emoji = [
 
 button_stop_emoji = [{'title': '🚫', 'payload': '/stop'}]
 buttons_yes_no_stop_emoji = buttons_yes_no_emoji + button_stop_emoji
-db1 = ["localhost","test1","root","P@0l02021"]
 
-###########################################
-#                       Database
-###########################################
+####################################################################################################
+#                       Database 
+####################################################################################################
 class DatabaseConnection:
     connection = None
     cursor = None
-    query = None
+    #query = None
 
     def __init__(self,db_info):
         if self.connection is None:
@@ -71,7 +69,7 @@ class DatabaseConnection:
         self.cursor.close()
         self.connection.close()
 
-    def get_results(self, query):
+    def Select(self, query):
         result=""
         self.cursor = self.connection.cursor()
         self.cursor.execute(query)
@@ -79,29 +77,21 @@ class DatabaseConnection:
         self.disconnect()
         return result    
     
-    def query(self, sql):
-        result = []
-        print(f'\n> DatabaseConnection: {sql}')
+    def Edit(self, query):#insert,update,delete
+        affected_rows=0
         self.cursor = self.connection.cursor()
-        self.cursor.execute(sql)
-        for row in self.cursor:
-            result.append(row)
-            print(row)
-        return result
+        self.cursor.execute(query)
+        self.connection.commit()
+        affected_rows=self.cursor.lastrowid
+        self.disconnect()
+        return affected_rows
+    
+    def count(self, query):
+        return len(self.Select(query))
 
-    def simple_query(self, table, columns = '*', condition = None):
-        result = []
-        sql = f"SELECT {columns} FROM {table}"
-        if condition:
-            sql += f" WHERE {condition}"
-        return self.query(sql)
-
-    def count(self, table, condition = None):
-        return len(self.simple_query(table, '*', condition))
-
-###########################################
-#                       Announce
-###########################################
+####################################################################################################
+#                       Debugging
+####################################################################################################
 def announce(action, tracker = None):
     output = '>>> Action: ' + action.name()
     output = '=' * min(100, len(output)) + '\n' + output
@@ -127,7 +117,7 @@ def announce(action, tracker = None):
     print(output)
 
 ####################################################################################################
-#                       Slots 
+#                       Slots                                                                            #
 ####################################################################################################
 def reset_slots(tracker, slots, exceptions = []):
     events = []
@@ -147,9 +137,9 @@ def reset_slots(tracker, slots, exceptions = []):
     print('\n> reset_slots:', ', '.join(none_slots))
     return events
 
-###########################################
-#                       Languages
-###########################################
+####################################################################################################
+#                       Languages            #                      
+####################################################################################################
 def get_lang(tracker):
     try:
         lang = tracker.slots['language'].title()
@@ -191,7 +181,6 @@ def get_buttons_from_lang(tracker, titles = [], payloads = []):
     
     for i in range(min(len(titles[lang_index]), len(payloads))):
         buttons.append({'title': titles[lang_index][i], 'payload': payloads[i]})
-
     return buttons
 
 class ActionUtterAskLanguage(Action):
@@ -245,17 +234,16 @@ class ActionUtterSetLanguage(Action):
             return [FollowupAction('action_utter_service_types')]
         return []
         
-###########################################
-#                      Accounts
-###########################################
+####################################################################################################
+#                       Accounts
+####################################################################################################
 async def global_validate_username(value, dispatcher, tracker, domain):
     if not tracker.get_slot('loggedin'):
         username   = value.title()
         login_type = 'Username'
         count      = 0
         
-        db = DatabaseConnection(db1)
-
+        db = DatabaseConnection(db_info = def_db)
         count = db.count('user_info', f"Username = '{username}'")
         if count == 1:
             login_type = 'Username'
@@ -311,7 +299,7 @@ async def global_validate_password(value, dispatcher, tracker, domain):
         password = value
         login_type = tracker.get_slot('login_type')
 
-        db = DatabaseConnection(db1)
+        db = DatabaseConnection(db_info = def_db)
         count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
         db.disconnect()
 
@@ -360,34 +348,7 @@ class ActionUtterRecoverCredentials(Action):
         print('\nBOT:', text)
         dispatcher.utter_message(text)
         return []
-
-class ActionUtterAccountTypes(Action):
-    def name(self):
-        return 'action_utter_account_types'
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Which account type are you asking about?',
-            'Quel type de compte avez-vous?',
-            'ما نوع الحساب الذي تسأل عنه؟',
-            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
-        buttons  = get_buttons_from_lang(
-            tracker,
-            [['Consumer / Residential', 'Small Business', 'Bank'],
-            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
-            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
-            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
-            [
-                '/inform_account_type{"account_type": "consumer"}',
-                '/inform_account_type{"account_type": "business"}',
-                '/inform_account_type{"account_type": "bank"}'
-            ]
-        )
-        print('\nBOT:', text, buttons)
-        dispatcher.utter_message(text = text, buttons = buttons)
-        return []
-        
+       
 class ActionUtterLogOut(Action):
     def name(self):
         return 'action_utter_log_out'
@@ -401,9 +362,76 @@ class ActionUtterLogOut(Action):
         dispatcher.utter_message(text = text)
         return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
 
-###########################################
-#                       Sessions
-###########################################
+class ActionFetchQuota(Action):
+    def name(self) -> Text:
+        return 'action_fetch_quota'
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+
+        if tracker.get_slot('loggedin') or tracker.get_slot('password') == 'secret':
+            results    = None
+            username   = tracker.get_slot('username')
+            login_type = tracker.get_slot('login_type')
+
+            try:
+                db = DatabaseConnection(db_info = def_db)
+                results = db.query("SELECT Quota, Consumption, Speed "
+                    "FROM `user_info` INNER JOIN `consumption` "
+                    "ON `user_info`.`ID` = `consumption`.`UserID` "
+                    f"WHERE {login_type} = '{username}'")
+                db.disconnect()
+            except Exception as e:
+                print(f'\n> ActionFetchQuota: [ERROR] {e}')
+                dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
+                return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
+
+            if len(results) != 1:
+                utterance = f'Sorry, {username} is not a registered username.'
+                print('\nBOT:', utterance)
+                dispatcher.utter_message(utterance)
+                return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
+
+            try:
+                quota, consumption, speed = results[0]
+                if int(quota) == -1:
+                    utterance = get_text_from_lang(
+                        tracker,
+                        ['You spent {} GB of your unlimited quota this month.'.format(consumption),
+                        'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
+                        '.لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر'.format(consumption),
+                        'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)])
+                    print('\nBOT:', utterance)
+                    dispatcher.utter_message(utterance)
+                else:
+                    ratio = consumption*100/quota
+                    utterance = get_text_from_lang(
+                        tracker,
+                        ['You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
+                        'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
+                        '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
+                        'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)])
+                    print('\nBOT:', utterance)
+                    dispatcher.utter_message(utterance)
+            except Exception as e:
+                print(f'\n> ActionFetchQuota: [ERROR] {e}')
+                dispatcher.utter_message('Sorry, there was an error.')
+        
+        else: # Not logged in
+            utterance = get_text_from_lang(
+                tracker,
+                ['You are not logged in. Please type "log in" to log in.',
+                'Vous n\'êtes pas connecté. Veuillez ecrire «connexion» ou «log in» pour vous connecter.',
+                'أنت لم تسجل الدخول. من فضلك قل "تسجيل الدخول" لتسجيل الدخول.',
+                'Դուք մուտք չեք գործել: Մուտք գործելու համար խնդրում ենք ասել «մուտք գործել»:'])
+            print('\nBOT:', utterance)
+            dispatcher.utter_message(utterance)
+        
+        return []
+
+####################################################################################################
+#                           Sessions
+####################################################################################################
 class ActionSessionStart(Action):
     def name(self):
         return 'action_session_start'
@@ -464,7 +492,7 @@ class ActionAskPassword(Action):
         return []
         
 ####################################################################################################
-#                     Greetings                  
+#                        Greetings       
 ####################################################################################################
 class ActionUtterGreet(Action):
     def name(self):
@@ -485,16 +513,6 @@ class ActionUtterGreet(Action):
         
         print('\nBOT:', text)
         dispatcher.utter_message(text = text)
-        
-        try:
-                db = DatabaseConnection(db1)
-                results = db.get_results("select name from users where id=2")
-                if(len(results)>0):
-                    for x in results:
-                        dispatcher.utter_message("Welcome back "+str(x))
-        except Exception as e:
-                dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
-                
         return [FollowupAction(followup_action)]
 
 class ActionUtterGoodbye(Action):
@@ -508,6 +526,7 @@ class ActionUtterGoodbye(Action):
 class ActionUtterYoureWelcome(Action):
     def name(self):
         return 'action_utter_youre_welcome'
+    
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         
@@ -523,12 +542,13 @@ class ActionUtterYoureWelcome(Action):
         dispatcher.utter_message(template = text)
         return []
 
-###########################################
-#                       Services
-###########################################
+####################################################################################################
+# Intitial information (after greeting)
+####################################################################################################
 class ActionUtterServiceTypes(Action):
     def name(self):
         return 'action_utter_service_types'
+    
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         text = get_text_from_lang(
@@ -556,12 +576,38 @@ class ActionUtterServiceTypes(Action):
         dispatcher.utter_message(text = text, buttons = buttons)
         return []
 
-###########################################
-#                       Topics
-###########################################
+class ActionUtterAccountTypes(Action):
+    def name(self):
+        return 'action_utter_account_types'
+    
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Which account type are you asking about?',
+            'Quel type de compte avez-vous?',
+            'ما نوع الحساب الذي تسأل عنه؟',
+            'Հաշվի ո՞ր տեսակի մասին եք հարցնում:'])
+        buttons  = get_buttons_from_lang(
+            tracker,
+            [['Consumer / Residential', 'Small Business', 'Bank'],
+            ['Consommateur / Résidentiel', 'Petite Entreprise', 'Banque'],
+            ['استهلاكي / سكني', 'أعمال صغيرة', 'مصرف'],
+            ['Սպառող / բնակելի', 'Փոքր բիզնես', 'Բանկ']],
+            [
+                '/inform_account_type{"account_type": "consumer"}',
+                '/inform_account_type{"account_type": "business"}',
+                '/inform_account_type{"account_type": "bank"}'
+            ]
+        )
+        print('\nBOT:', text, buttons)
+        dispatcher.utter_message(text = text, buttons = buttons)
+        return []
+
 class ActionUtterTopicTypes(Action):
     def name(self):
         return 'action_utter_topic_types'
+    
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
         text = get_text_from_lang(
@@ -921,12 +967,11 @@ class ActionAskTikHasLine(Action):
         return []
 
 ####################################################################################################
-# FORM VALIDATION                                                                                  #
+#               FORM VALIDATION                                                                                  #
 ####################################################################################################
 class ValidateFormLogIn(FormValidationAction):
     def name(self):
         return 'validate_form_log_in'
-
     
     # Custom Slot Mappings: https://rasa.com/docs/rasa/forms/#custom-slot-mappings
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
@@ -952,64 +997,39 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
     
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
         announce(self, tracker)
+        text_if_works = get_text_from_lang(tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:'])
         
-        text_if_works = get_text_from_lang(
-            tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:']
-            )# + '\n' + get_text_from_lang(tracker, text_anything_else)
-        checkpoint = False
-
-        required_slots = ['tia_noise']
-        if tracker.get_slot('tia_noise'): # There is noise on the line, ask to contact Ogero
-            required_slots.append('tiaa_noise')
-            if tracker.get_slot('tiaa_noise'): # The noise is gone and the problem is fixed, stop
-                print('\nBOT:', text_if_works)
+        db = DatabaseConnection(db_info = db1)
+        steps = db.Select("select category_step.slot_name,category_step.solved_on,category_step.slot_operation,category_step.operation_value from category_step,category where category_step.category_id=category.category_id and category.category='DSL Troubleshooting' order by category_step.order_nb asc")
+        if(len(steps)>0):
+            i=0
+            problem_solved=0
+            for step in steps:
+                if i==0:
+                    required_slots = [step[0]]
+            
+                if tracker.get_slot(step[0]) and step[1]:
+                    problem_solved=1
+                    break
+                else:
+                    problem_solved=0
+                    if step[2]=="append":
+                        required_slots.append(step[0])
+                    elif step[2]=="extend":
+                        if step[0]=="tic_modem_green":
+                            required_slots.extend(['tid_nb_phones', 'tie_nb_sockets', 'tif_splitter_installed']) 
+                        else:
+                            required_slots.extend(step[3])
+                i+=1
+                
+            if problem_solved==1:
                 dispatcher.utter_message(text_if_works)
-            else: # The noise is gone but the problem is not fixed, continue
-                checkpoint = True
-        else: # There is no noise on the line, continue
-            checkpoint = True
-
-        if checkpoint: # There is no noise on the line, continue
-            required_slots.append('tib_modem_on')
-            if tracker.get_slot('tib_modem_on'): # The modem is on and it works, stop
-                print('\nBOT:', text_if_works)
-                dispatcher.utter_message(text_if_works)
-            else: # The modem is on and it doesn't work, continue
-                required_slots.append('tic_modem_green')
-                if tracker.get_slot('tic_modem_green'): # The LED is green and it works, stop
-                    print('\nBOT:', text_if_works)
-                    dispatcher.utter_message(text_if_works)
-                else: # The LED is green and it doesn't work, continue
-                    required_slots.extend(['tid_nb_phones', 'tie_nb_sockets', 'tif_splitter_installed'])
-                    if tracker.get_slot('tif_splitter_installed'): # The splitter is properly installed on all phones and modems and it works, stop
-                        print('\nBOT:', text_if_works)
-                        dispatcher.utter_message(text_if_works)
-                    else: # The splitter is properly installed on all phones and modems and it doesn't work, continue
-                        required_slots.append('tig_rj_plugged')
-                        if tracker.get_slot('tig_rj_plugged'): # The RJ11 is plugged in and it works, stop
-                            print('\nBOT:', text_if_works)
-                            dispatcher.utter_message(text_if_works)
-                        else: # The RJ11 is plugged in and it doesn't work, continue
-                            required_slots.append('tih_other_plug')
-                            if tracker.get_slot('tih_other_plug'): # The modem was plugged somewhere else and it works, stop
-                                print('\nBOT:', text_if_works)
-                                dispatcher.utter_message(text_if_works)
-                            else: # The modem was plugged somewhere else and it doesn't work, continue
-                                required_slots.append('tii_other_modem')
-                                if tracker.get_slot('tii_other_modem'): # Another modem is plugged in and it works, stop
-                                    print('\nBOT:', text_if_works)
-                                    dispatcher.utter_message(text_if_works)
-                                else: # Another modem is plugged in and it doesn't work, continue
-                                    required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])
-        
-        #if required_slots == ['tia_noise', 'tiaa_noise'] and tracker.get_slot('tia_noise'): # To not repeat it multiple times
-        #    print('\nBOT:', text_contact_ogero)
-        #    dispatcher.utter_message(text_contact_ogero)
-
+            else:
+                required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])            
         return required_slots
 
 ####################################################################################################
-# FORM SUBMIT                                                                                      #
+#                   FORM SUBMIT                                                                                      #
 ####################################################################################################
 class ActionSubmitFormLogIn(Action):
     def name(self):
@@ -1061,75 +1081,64 @@ class ActionSubmitFormTroubleshootInternet(Action):
         return events
 
 ####################################################################################################
-# API ACTIONS                                                                                      #
+#                   Out of Scope
 ####################################################################################################
-class ActionFetchQuota(Action):
-    def name(self) -> Text:
-        return 'action_fetch_quota'
+class ActionOutOfScope(Action):
+    def name(self):
+        return 'action_out_of_scope'
 
     def run(self, dispatcher, tracker, domain):
         announce(self, tracker)
 
-        if tracker.get_slot('loggedin') or tracker.get_slot('password') == 'secret':
-            results    = None
-            username   = tracker.get_slot('username')
-            login_type = tracker.get_slot('login_type')
+        latest = tracker.latest_message
+        intent = latest['intent']['name']
+        query  = tracker.slots['out_of_scope']
 
-            try:
-                db = DatabaseConnection(db1)
-                results = db.query("SELECT Quota, Consumption, Speed "
-                    "FROM `user_info` INNER JOIN `consumption` "
-                    "ON `user_info`.`ID` = `consumption`.`UserID` "
-                    f"WHERE {login_type} = '{username}'")
-                db.disconnect()
-            except Exception as e:
-                print(f'\n> ActionFetchQuota: [ERROR] {e}')
-                dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
-                return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
-
-            if len(results) != 1:
-                utterance = f'Sorry, {username} is not a registered username.'
-                print('\nBOT:', utterance)
-                dispatcher.utter_message(utterance)
-                return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
-
-            try:
-                quota, consumption, speed = results[0]
-                if int(quota) == -1:
-                    utterance = get_text_from_lang(
-                        tracker,
-                        ['You spent {} GB of your unlimited quota this month.'.format(consumption),
-                        'Vous avez dépensé {} Go de votre quota illimité pour ce mois.'.format(consumption),
-                        '.لقد أنفقت {} غيغابايت من حصتك غير المحدودة هذا الشهر'.format(consumption),
-                        'Դուք անցկացրել {} ԳԲ ձեր անսահման քվոտայի այս ամսվա.'.format(consumption)])
-                    print('\nBOT:', utterance)
-                    dispatcher.utter_message(utterance)
-                else:
-                    ratio = consumption*100/quota
-                    utterance = get_text_from_lang(
-                        tracker,
-                        ['You spent {} GB ({}%) of your {} GB quota for this month.'.format(consumption, ratio, quota),
-                        'Vous avez dépensé {} Go ({}%) de votre quota de {} Go pour ce mois.'.format(consumption, ratio, quota),
-                        '.لقد أنفقت {} غيغابايت ({}٪) من حصتك البالغة {} غيغابايت لهذا الشهر'.format(consumption, ratio, quota),
-                        'Այս ամսվա համար ծախսեցիք ձեր {} ԳԲ քվոտայի {} ԳԲ ({}%).'.format(consumption, ratio, quota)])
-                    print('\nBOT:', utterance)
-                    dispatcher.utter_message(utterance)
-            except Exception as e:
-                print(f'\n> ActionFetchQuota: [ERROR] {e}')
-                dispatcher.utter_message('Sorry, there was an error.')
-        
-        else: # Not logged in
-            utterance = get_text_from_lang(
+        if intent == 'out_of_scope':
+            text = get_text_from_lang(
                 tracker,
-                ['You are not logged in. Please type "log in" to log in.',
-                'Vous n\'êtes pas connecté. Veuillez ecrire «connexion» ou «log in» pour vous connecter.',
-                'أنت لم تسجل الدخول. من فضلك قل "تسجيل الدخول" لتسجيل الدخول.',
-                'Դուք մուտք չեք գործել: Մուտք գործելու համար խնդրում ենք ասել «մուտք գործել»:'])
-            print('\nBOT:', utterance)
-            dispatcher.utter_message(utterance)
-        
-        return []
+                ['Sorry, I don\'t understand. Do you want me to search that on Google?',
+                'Désolé, je ne comprends pas. Voulez-vous que je recherche cela sur Google?',
+                'آسف ، أنا لا أفهم. هل تريد مني البحث عن ذلك على Google؟',
+                'Կներեք, ես չեմ հասկանում: Ուզու՞մ եք, որ ես դա որոնեմ Google- ում:'])
 
+            print('\nBOT:', text)
+            dispatcher.utter_message(text)
+            return [SlotSet('out_of_scope', latest['text'])]
+
+        if intent == 'affirm' and query is not None:
+            try:
+                text = get_text_from_lang(
+                    tracker,
+                    ['Here are the top results:',
+                    'Voici les résultats:'
+                    'فيما يلي أهم النتائج:',
+                    'Ահա լավագույն արդյունքները.'])
+                
+                urls = [url for url in googlesearch.search(
+                    query = query,
+                    tld = 'com.lb',
+                    lang = 'en',
+                    num = 5,
+                    stop = 5,
+                    pause = 1,
+                    extra_params = {'filter': '0'})]
+
+                print('\nBOT:', text)
+                dispatcher.utter_message(text)
+
+                for url in urls:
+                    dispatcher.utter_message(str(url))
+                    
+            except Exception as e:
+                dispatcher.utter_message('Sorry, I could not comlete the search.\n' + str(e))
+                print('> ActionOutOfScope [ERROR] ' + str(e))
+            return [SlotSet('out_of_scope', None)]
+            
+        if (intent == 'deny' or intent == 'stop') and query is not None:
+            dispatcher.utter_message('Okay.')
+            return [SlotSet('out_of_scope', None)]
+            
 class ActionCheckWeather(Action):
     def name(self):
         return 'action_check_weather'
@@ -1201,64 +1210,6 @@ class ActionCheckWeather(Action):
         
         return []
 
-##################################
-#                   Out of scope
-##################################
-class ActionOutOfScope(Action):
-    def name(self):
-        return 'action_out_of_scope'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-
-        latest = tracker.latest_message
-        intent = latest['intent']['name']
-        query  = tracker.slots['out_of_scope']
-
-        if intent == 'out_of_scope':
-            text = get_text_from_lang(
-                tracker,
-                ['Sorry, I don\'t understand. Do you want me to search that on Google?',
-                'Désolé, je ne comprends pas. Voulez-vous que je recherche cela sur Google?',
-                'آسف ، أنا لا أفهم. هل تريد مني البحث عن ذلك على Google؟',
-                'Կներեք, ես չեմ հասկանում: Ուզու՞մ եք, որ ես դա որոնեմ Google- ում:'])
-
-            print('\nBOT:', text)
-            dispatcher.utter_message(text)
-            return [SlotSet('out_of_scope', latest['text'])]
-
-        if intent == 'affirm' and query is not None:
-            try:
-                text = get_text_from_lang(
-                    tracker,
-                    ['Here are the top results:',
-                    'Voici les résultats:'
-                    'فيما يلي أهم النتائج:',
-                    'Ահա լավագույն արդյունքները.'])
-                
-                urls = [url for url in googlesearch.search(
-                    query = query,
-                    tld = 'com.lb',
-                    lang = 'en',
-                    num = 5,
-                    stop = 5,
-                    pause = 1,
-                    extra_params = {'filter': '0'})]
-
-                print('\nBOT:', text)
-                dispatcher.utter_message(text)
-
-                for url in urls:
-                    dispatcher.utter_message(str(url))
-                    
-            except Exception as e:
-                dispatcher.utter_message('Sorry, I could not comlete the search.\n' + str(e))
-                print('> ActionOutOfScope [ERROR] ' + str(e))
-            return [SlotSet('out_of_scope', None)]
-            
-        if (intent == 'deny' or intent == 'stop') and query is not None:
-            dispatcher.utter_message('Okay.')
-            return [SlotSet('out_of_scope', None)]
 ####################################################################################################
 # END                                                                                              #
 ####################################################################################################
