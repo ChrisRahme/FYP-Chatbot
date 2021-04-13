@@ -2,6 +2,10 @@ language: en_core_web_md
 pipeline:
 - name: SpacyNLP
 - name: SpacyTokenizer
+- name: LanguageModelFeaturizer
+  model_name: "bert"
+  model_weights: "rasa/LaBSE"
+  cache_dir: ./.cache
 - name: SpacyFeaturizer
 - name: LexicalSyntacticFeaturizer
 - name: RegexFeaturizer
