@@ -376,7 +376,7 @@ class ActionFetchQuota(Action):
 
             try:
                 db = DatabaseConnection(db_info = def_db)
-                results = db.query("SELECT Quota, Consumption, Speed "
+                results = db.Select("SELECT Quota, Consumption, Speed "
                     "FROM `user_info` INNER JOIN `consumption` "
                     "ON `user_info`.`ID` = `consumption`.`UserID` "
                     f"WHERE {login_type} = '{username}'")
@@ -1000,19 +1000,20 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
         text_if_works = get_text_from_lang(tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:'])
         
         db = DatabaseConnection(db_info = db1)
-        steps = db.Select("select category_step.slot_name,category_step.solved_on,category_step.slot_operation,category_step.operation_value from category_step,category where category_step.category_id=category.category_id and category.category='DSL Troubleshooting' order by category_step.order_nb asc")
+        steps = db.Select("SELECT category_step.slot_name,category_step.solved_on,category_step.slot_operation,category_step.operation_value from category_step,category WHERE category_step.category_id=category.category_id AND category.category='DSL Troubleshooting' ORDER BY category_step.order_nb asc")
         if(len(steps)>0):
-            i=0
-            problem_solved=0
+            i = 0
+            problem_solved = False
+
             for step in steps:
-                if i==0:
+                if i == 0:
                     required_slots = [step[0]]
             
                 if tracker.get_slot(step[0]) and step[1]:
-                    problem_solved=1
+                    problem_solved = True
                     break
                 else:
-                    problem_solved=0
+                    problem_solved = False
                     if step[2]=="append":
                         required_slots.append(step[0])
                     elif step[2]=="extend":
@@ -1022,10 +1023,11 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
                             required_slots.extend(step[3])
                 i+=1
                 
-            if problem_solved==1:
+            if problem_solved:
                 dispatcher.utter_message(text_if_works)
             else:
-                required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])            
+                required_slots.extend(['tij_has_pbx', 'tik_has_line', 'username'])
+                
         return required_slots
 
 ####################################################################################################
