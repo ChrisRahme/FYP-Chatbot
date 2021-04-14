@@ -1,6 +1,7 @@
-language: en_core_web_md
+language: en
 pipeline:
 - name: SpacyNLP
+  model: en_core_web_md
 - name: SpacyTokenizer
 - name: LanguageModelFeaturizer
   model_name: "bert"
