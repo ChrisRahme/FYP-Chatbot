@@ -1,6 +1,6 @@
 import re
 
-entity = 'person_name'#input('Enter entity name: ')
+entity = input('Enter entity name: ')
 
 text  = 'version: "2.0"\n'
 text += 'nlu:\n'
