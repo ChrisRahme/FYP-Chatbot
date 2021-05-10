@@ -15,9 +15,13 @@
   * Now uses `LanguageModelFeaturizer` in pipeline.
 * Actions:
   * Refactored and added helper functions:
+    * Added `SlackApp` class to send messages to Slack from custom actions.
     * `DatabaseConnection` constructor can now take optional parameters (either hostname, database, username, password, or a list of them).
     * `get_text_from_lang` can now take a list of lists instead of list of strings to choose a random answer.
   * `ValidateFormTroubleshootInternet` now connects to a database to get the required slots.
+  * `ActionRequestHuman` sends message to Slack with username, phone number, Rasa ID, and slot values.
+* Intents & training data:
+  * Added `request_human` intent which starts `action_request_human`.
 
 ## 2021.03.22
 

@@ -1,7 +1,11 @@
 import requests
 import googlesearch
 import mysql.connector
-import pycountry
+#import pycountry
+
+from slack import WebClient
+#from slack_sdk import WebClient
+#from slack_sdk.errors import SlackApiError
 
 import json
 import random
@@ -21,7 +25,7 @@ from rasa_sdk.types import DomainDict
 # Default parameters for DatabseConnection class. Can be overriden in constructor.
 db0 = ['localhost', 'esib_fyp_database', 'rasa', 'rasa']
 db1 = ['localhost', 'chatbot', 'root', 'P@0l02021']
-def_db = db1
+def_db = db0
 
 # Define this list as the values for the `language` slot. Arguments of the `get_..._lang` functions should respect this order.
 lang_list = ['English', 'French', 'Arabic', 'Armenian'] # Same as slot values
@@ -47,8 +51,143 @@ button_stop_emoji = [{'title': '🚫', 'payload': '/stop'}]
 buttons_yes_no_stop_emoji = buttons_yes_no_emoji + button_stop_emoji
 
 ####################################################################################################
-#                       Database 
+# DEFAULT RASA ACTIONS                                                                             #
 ####################################################################################################
+
+class ActionSessionStart(Action):
+    def name(self):
+        return 'action_session_start'
+
+    @staticmethod
+    def fetch_slots(tracker):
+        slots = []
+        slots_to_keep = []
+        
+        for slot_name in slots_to_keep:
+            slot_value = tracker.get_slot(slot_name)
+            if slot_value is not None:
+                slots.append(SlotSet(key = slot_name, value = slot_value))
+
+        return slots
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self)
+        print(tracker.sender_id)
+
+        events = [SessionStarted()]
+        events.extend(self.fetch_slots(tracker))
+        #events.append(FollowupAction('action_utter_greet'))
+        events.append(ActionExecuted('action_listen'))
+        
+        return events
+
+####################################################################################################
+# HANDOFF                                                                                          #
+####################################################################################################
+
+class SlackApp():
+    def __init__(self, channel_name = None, channel_id = None):
+        self.token  = 'xoxb-2040327743269-2028690240935-sovQbI7Jnfx3JQYhUIYzYFix'
+        self.client = WebClient(token = self.token)
+
+        self.users = self.client.users_list()
+        
+        self.channel      = None
+        self.channel_name = channel_name
+        self.channel_id   = channel_id
+
+        if channel_name:
+            self.getChannelId(channel_name)
+
+    def getChannelId(self, channel_name = None):
+        ''' Get the Channel's ID from its name '''
+        name = channel_name if channel_name else self.channel_name
+        
+        try:
+            for channel in self.client.conversations_list()['channels']:
+                if channel['name'] == name:
+                    self.channel      = channel
+                    self.channel_name = channel['name']
+                    self.channel_id   = channel['id']
+                    return channel['id']
+            return None
+
+        except Exception as e:
+            print(f'SlackApp getChannelId Error: {e}')
+            return None
+
+    def sendMessage(self, message = '', channel_name = None):
+        ''' Check https://api.slack.com/reference/surfaces/formatting for message formatting '''
+        channel_id = self.getChannelId(channel_name) if (channel_name or not self.channel_id) else self.channel_id
+
+        try:
+            result = self.client.chat_postMessage(channel = channel_id, text = message)
+            return result
+
+        except Exception as e:
+            print(f'SlackApp sendMessage Error: {e}')
+            return None
+
+class ActionRequestHuman(Action):
+    def name(self):
+        return 'action_request_human'
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = ''
+        
+        if tracker.get_slot('username') and tracker.get_slot('login_type'):
+            username     = tracker.get_slot('username').title()
+            login_type   = tracker.get_slot('login_type')
+            phone_number = username
+            sender_id    = tracker.sender_id
+            slot_values  = list_slots(tracker, list(domain['slots'].keys()))
+            
+            if login_type != 'Phone_Number':
+                try:
+                    db = DatabaseConnection(db_info = def_db)
+                    results = db.query("SELECT Username, Phone_Number "
+                        "FROM `user_info` "
+                        f"WHERE {login_type} = '{username}'")
+                    username, phone_number = results[0]
+                    db.disconnect()
+                except Exception as e:
+                    print(f'\n> ActionRequestHuman: [ERROR] {e}')
+                    dispatcher.utter_message('Sorry, I couldn\'t connect to the database.')
+                    return []
+
+            text = get_text_from_lang(
+                tracker,
+                ['You requested human help. Someone will contact you shortly on {}.'.format(phone_number),
+                'Vous avez demandé une aide humaine. Quelqu\'un vous contactera sous peu au {}.'.format(phone_number),
+                'لقد طلبت مساعدة بشرية. سيتصل بك شخص ما قريبًا في {}.'.format(phone_number),
+                'Դուք մարդկային օգնություն եք խնդրել: Շուտով ինչ-որ մեկը կկապվի ձեզ հետ {}:'.format(phone_number)]
+                ) + '\n' + get_text_from_lang(tracker, text_anything_else)
+
+            slack = SlackApp('python-test')
+            slack.sendMessage(f'{username} ({phone_number}) requested assistance.\nRasa Tracker sender ID: {sender_id}.\nSlots:\n{slot_values}')
+
+            print('\nBOT:', text)
+            dispatcher.utter_message(text)
+
+        else:
+            text = get_text_from_lang(
+                tracker,
+                ['You requested human help but are not logged in. Please type "log in" to log in.',
+                'Vous avez demandé une aide humaine mais vous n\'êtes pas connecté. Veuillez taper «connexion» pour vous connecter.',
+                'لقد طلبت مساعدة بشرية لكنك لم تسجل الدخول. الرجاء كتابة "تسجيل الدخول" لتسجيل الدخول.',
+                'Դուք մարդկային օգնություն եք խնդրել, բայց մուտք չեք գործել: Մուտք գործելու համար մուտքագրեք «մուտք»:'])
+
+            print('\nBOT:', text)
+            dispatcher.utter_message(text)
+
+        return []
+
+####################################################################################################
+# DATABASE                                                                                         #
+####################################################################################################
+
+'''
 class DatabaseConnection:
     connection = None
     cursor = None
@@ -88,10 +227,82 @@ class DatabaseConnection:
     
     def count(self, query):
         return len(self.Select(query))
+'''
+
+class DatabaseConnection:
+    hostname = None
+    database = None
+    username = None
+    password = None
+    connection = None
+    cursor = None
+    query = None
+
+    def __init__(self, db_info = None, hostname = None, database = None, username = None, password = None):
+        if not self.connection:
+            if db_info:
+                self.hostname = db_info[0]
+                self.database = db_info[1]
+                self.username = db_info[2]
+                self.password = db_info[3]
+                self.connect()
+            elif hostname and database and username and password:
+                self.hostname = hostname
+                self.database = database
+                self.username = username
+                self.password = password
+                self.connect()
+
+    def connect(self):
+        self.connection = mysql.connector.connect(
+            host     = self.hostname,
+            user     = self.username,
+            password = self.password,
+            database = self.database)
+        
+        return self.connection
+
+    def disconnect(self):
+        self.cursor.close()
+        self.connection.close()
+    
+    def get_results(self, query):
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(query)
+        result = self.cursor.fetchall()
+        self.disconnect()
+
+        return result    
+    
+    def query(self, sql):
+        result = []
+        print(f'\n> DatabaseConnection: {sql}')
+
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(sql)
+
+        for row in self.cursor:
+            result.append(row)
+            print(row)
+
+        return result
+
+    def simple_query(self, table, columns = '*', condition = None):
+        result = []
+
+        sql = f"SELECT {columns} FROM {table}"
+        if condition:
+            sql += f" WHERE {condition}"
+
+        return self.query(sql)
+
+    def count(self, table, condition = None):
+        return len(self.simple_query(table, '*', condition))
 
 ####################################################################################################
-#                       Debugging
+# DEBUGGING                                                                                        #
 ####################################################################################################
+
 def announce(action, tracker = None):
     output = '>>> Action: ' + action.name()
     output = '=' * min(100, len(output)) + '\n' + output
@@ -117,8 +328,9 @@ def announce(action, tracker = None):
     print(output)
 
 ####################################################################################################
-#                       Slots                                                                            #
+# SLOTS                                                                                            #
 ####################################################################################################
+
 def reset_slots(tracker, slots, exceptions = []):
     events = []
     none_slots = []
@@ -137,9 +349,58 @@ def reset_slots(tracker, slots, exceptions = []):
     print('\n> reset_slots:', ', '.join(none_slots))
     return events
 
+def list_slots(tracker, slots, exceptions = []):
+    filled_slots = ''
+
+    for exception in exceptions:
+        if exception in slots:
+            slots.remove(exception)
+
+    for slot in slots:
+        value = tracker.get_slot(slot)
+
+        if value is not None:
+            filled_slots += (f'\t- {slot}: {value}\n')
+    
+    #print(filled_slots[:-1])
+    return filled_slots[:-1]
+
+class ActionAskUsername(Action):
+    def name(self):
+        return 'action_ask_username'
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Please enter your Username, L Number, or Phone Number, or press "🚫" to stop.',
+            'Veuillez entrer votre nom d\'utilisateur, L Number, ou Numéro de Téléphone, ou appuyez sur "🚫" pour arrêter.',
+            'الرجاء إدخال اسم المستخدم أو رقم L أو رقم الهاتف ، أو اضغط على "🚫" للإيقاف.',
+            'Կանգնեցնելու համար խնդրում ենք մուտքագրել ձեր օգտանունը, L համարը կամ հեռախոսահամարը կամ սեղմել «🚫»:'])
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
+        return []
+
+class ActionAskPassword(Action):
+    def name(self):
+        return 'action_ask_password'
+
+    def run(self, dispatcher, tracker, domain):
+        announce(self, tracker)
+        text = get_text_from_lang(
+            tracker,
+            ['Please enter your password.',
+            'S\'il vous plaît entrez votre mot de passe.',
+            '.(password) من فضلك أدخل رقمك السري',
+            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'])
+        print('\nBOT:', text)
+        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
+        return []
+        
 ####################################################################################################
-#                       Languages            #                      
+# LANGUAGES                                                                                        #                      
 ####################################################################################################
+
 def get_lang(tracker):
     try:
         lang = tracker.slots['language'].title()
@@ -235,8 +496,9 @@ class ActionUtterSetLanguage(Action):
         return []
         
 ####################################################################################################
-#                       Accounts
+# ACCOUNTS                                                                                         #
 ####################################################################################################
+
 async def global_validate_username(value, dispatcher, tracker, domain):
     if not tracker.get_slot('loggedin'):
         username   = value.title()
@@ -376,7 +638,7 @@ class ActionFetchQuota(Action):
 
             try:
                 db = DatabaseConnection(db_info = def_db)
-                results = db.Select("SELECT Quota, Consumption, Speed "
+                results = db.query("SELECT Quota, Consumption, Speed "
                     "FROM `user_info` INNER JOIN `consumption` "
                     "ON `user_info`.`ID` = `consumption`.`UserID` "
                     f"WHERE {login_type} = '{username}'")
@@ -430,70 +692,9 @@ class ActionFetchQuota(Action):
         return []
 
 ####################################################################################################
-#                           Sessions
+# CHITCHAT                                                                                         #
 ####################################################################################################
-class ActionSessionStart(Action):
-    def name(self):
-        return 'action_session_start'
 
-    @staticmethod
-    def fetch_slots(tracker):
-        slots = []
-        slots_to_keep = []
-        
-        for slot_name in slots_to_keep:
-            slot_value = tracker.get_slot(slot_name)
-            if slot_value is not None:
-                slots.append(SlotSet(key = slot_name, value = slot_value))
-
-        return slots
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self)
-        print(tracker.sender_id)
-
-        events = [SessionStarted()]
-        events.extend(self.fetch_slots(tracker))
-        #events.append(FollowupAction('action_utter_greet'))
-        events.append(ActionExecuted('action_listen'))
-        
-        return events
-
-class ActionAskUsername(Action):
-    def name(self):
-        return 'action_ask_username'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please enter your Username, L Number, or Phone Number, or press "🚫" to stop.',
-            'Veuillez entrer votre nom d\'utilisateur, L Number, ou Numéro de Téléphone, ou appuyez sur "🚫" pour arrêter.',
-            'الرجاء إدخال اسم المستخدم أو رقم L أو رقم الهاتف ، أو اضغط على "🚫" للإيقاف.',
-            'Կանգնեցնելու համար խնդրում ենք մուտքագրել ձեր օգտանունը, L համարը կամ հեռախոսահամարը կամ սեղմել «🚫»:'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-
-class ActionAskPassword(Action):
-    def name(self):
-        return 'action_ask_password'
-
-    def run(self, dispatcher, tracker, domain):
-        announce(self, tracker)
-        text = get_text_from_lang(
-            tracker,
-            ['Please enter your password.',
-            'S\'il vous plaît entrez votre mot de passe.',
-            '.(password) من فضلك أدخل رقمك السري',
-            'Խնդրում ենք մուտքագրել ձեր գաղտնաբառը (username).'])
-        print('\nBOT:', text)
-        dispatcher.utter_message(text = text, buttons = button_stop_emoji)
-        return []
-        
-####################################################################################################
-#                        Greetings       
-####################################################################################################
 class ActionUtterGreet(Action):
     def name(self):
         return 'action_utter_greet'
@@ -543,7 +744,7 @@ class ActionUtterYoureWelcome(Action):
         return []
 
 ####################################################################################################
-# Intitial information (after greeting)
+# Intitial information (after greeting)                                                            #
 ####################################################################################################
 class ActionUtterServiceTypes(Action):
     def name(self):
@@ -747,8 +948,9 @@ class ActionUtterTopicSamples(Action):
         return []
 
 ####################################################################################################
-#                   Troubleshooting
+# TROUBLESHOOTING                                                                                  #
 ####################################################################################################
+
 class ActionAskTiaNoise(Action):
     def name(self):
         return 'action_ask_tia_noise'
@@ -967,8 +1169,9 @@ class ActionAskTikHasLine(Action):
         return []
 
 ####################################################################################################
-#               FORM VALIDATION                                                                                  #
+# FORM VALIDATION                                                                                  #
 ####################################################################################################
+
 class ValidateFormLogIn(FormValidationAction):
     def name(self):
         return 'validate_form_log_in'
@@ -993,14 +1196,18 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
     async def validate_username(self, value, dispatcher, tracker, domain):
         slots = await global_validate_username(value, dispatcher, tracker, domain)
         slots['ti_form_completed'] = True
-        return 
+        return slots
     
     async def required_slots(self, predefined_slots, dispatcher, tracker, domain):
         announce(self, tracker)
         text_if_works = get_text_from_lang(tracker, ['Great! I\'m glad that it works now.', 'Génial!', 'رائع!', 'Հոյակապ:'])
         
-        db = DatabaseConnection(db_info = db1)
-        steps = db.Select("SELECT category_step.slot_name,category_step.solved_on,category_step.slot_operation,category_step.operation_value from category_step,category WHERE category_step.category_id=category.category_id AND category.category='DSL Troubleshooting' ORDER BY category_step.order_nb asc")
+        #db = DatabaseConnection(db_info = db1)
+        db = DatabaseConnection(db_info = db0)
+        steps = db.query("SELECT category_step.slot_name, category_step.solved_on, category_step.slot_operation, category_step.operation_value "
+            "FROM category_step, category "
+            "WHERE category_step.category_id=category.category_id AND category.category='DSL Troubleshooting' "
+            "ORDER BY category_step.order_nb ASC")
         if(len(steps)>0):
             i = 0
             problem_solved = False
@@ -1031,8 +1238,9 @@ class ValidateFormTroubleshootInternet(FormValidationAction):
         return required_slots
 
 ####################################################################################################
-#                   FORM SUBMIT                                                                                      #
+# FORM SUBMIT                                                                                      #
 ####################################################################################################
+
 class ActionSubmitFormLogIn(Action):
     def name(self):
         return 'action_submit_form_log_in'
@@ -1071,10 +1279,16 @@ class ActionSubmitFormTroubleshootInternet(Action):
 
             text = get_text_from_lang(
                 tracker,
-                ['A case was created for {}.'.format(username),
+                ['A case was created for {}. Someone will contact you shortly.'.format(username),
                 'Un dossier a été créé pour {}.'.format(username),
                 'تم إنشاء حالة لـ {}.'.format(username),
                 'Գործ ստեղծվեց {} - ի համար:'.format(username)]) + '\n'
+
+            slots_to_print = list_slots(tracker, slots_to_reset)
+            case_number    = random.randint(100000, 999999)
+
+            slack = SlackApp('python-test')
+            slack.sendMessage(f'{username} unsucessfully completed Internet troubleshooting form.\nCase number {case_number}.\nSlots:\n{slots_to_print}')
 
         text += get_text_from_lang(tracker, text_anything_else)
         print('\nBOT:', text)
@@ -1083,8 +1297,9 @@ class ActionSubmitFormTroubleshootInternet(Action):
         return events
 
 ####################################################################################################
-#                   Out of Scope
+# OUT OF SCOPE                                                                                     #
 ####################################################################################################
+
 class ActionOutOfScope(Action):
     def name(self):
         return 'action_out_of_scope'
@@ -1215,6 +1430,7 @@ class ActionCheckWeather(Action):
 ####################################################################################################
 # END                                                                                              #
 ####################################################################################################
+
 '''
 tracker.latest_message: dict{
   intent: dict{id, name, confidence}

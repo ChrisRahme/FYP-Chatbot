@@ -49,3 +49,8 @@ rules:
   steps:
   - intent: inform_account_type
   - action: action_utter_topic_types
+
+- rule: Request human help
+  steps:
+  - intent: request_human
+  - action: action_request_human

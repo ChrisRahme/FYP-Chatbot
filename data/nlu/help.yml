@@ -1,0 +1,39 @@
+version: "2.0"
+nlu:
+- intent: request_human
+  examples: |
+    - I want to talk to someone
+    - I wish to speak with your manager
+    - Get me a real person
+    - I want to talk to a human
+    - Give me a real person
+    - I request a human
+    - i dont want to talk to a chatbot!
+    - I don't want to speak to a computer
+    - Je veux parler à quelqu'un
+    - Je souhaite parler à votre manager
+    - Trouvez-moi une vraie personne
+    - Emmene moi une vraie personne
+    - Je veux parler à un humain
+    - Donnez-moi une vraie personne
+    - Je demande un humain
+    - Je ne veux pas parler à un chatbot!
+    - Je ne veux pas parler à un ordinateur
+    - اريد التحدث الى شخص ما
+    - أود التحدث مع مديرك
+    - احصل لي على شخص حقيقي
+    - اريد التحدث الى انسان
+    - أعطني شخصًا حقيقيًا
+    - أطلب إنسان
+    - لا أريد التحدث إلى روبوت محادثة!
+    - لا أريد التحدث إلى جهاز كمبيوتر
+    - Ես ուզում եմ ինչ-որ մեկի հետ խոսել
+    - wishանկանում եմ խոսել ձեր մենեջերի հետ
+    - Ստացեք ինձ իսկական մարդ
+    - Ես ուզում եմ խոսել մարդու հետ
+    - Տվեք ինձ իրական մարդ
+    - Ես մարդ եմ խնդրում
+    - Չեմ ուզում զրուցել չաթբոտի հետ
+    - Ես չեմ ուզում խոսել համակարգչի հետ
+    - can i speak with a real person?
+    - bring me someine real
