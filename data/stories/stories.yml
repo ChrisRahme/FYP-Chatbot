@@ -28,13 +28,5 @@ stories:
 
 - story: Request human
   steps:
-  - intent: log_in
-  - action: form_log_in
-  - active_loop: form_log_in
-  - slot_was_set:
-    - requested_slot: username
-  - slot_was_set:
-    - password: secret
-  - action: action_submit_form_log_in
   - intent: request_human
   - action: action_request_human

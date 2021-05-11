@@ -3,15 +3,15 @@ pipeline:
 - name: SpacyNLP
   model: en_core_web_md
 - name: SpacyTokenizer
+- name: RegexFeaturizer
+  case_sensitive: false
 - name: LanguageModelFeaturizer
   model_name: "bert"
   model_weights: "rasa/LaBSE"
   cache_dir: ./.cache
 - name: SpacyFeaturizer
 - name: LexicalSyntacticFeaturizer
-- name: RegexFeaturizer
-  case_sensitive: false
-- name: LexicalSyntacticFeaturizer
+#- name: LexicalSyntacticFeaturizer
 - name: CountVectorsFeaturizer
 - name: CountVectorsFeaturizer
   analyzer: char_wb
@@ -31,7 +31,7 @@ pipeline:
   evaluate_every_number_of_epochs: 5
   regularization_constant: 0.002
   random_seed: 1
-  tensorboard_log_directory: ./.tensorboard
+  tensorboard_log_directory: ./.tensorboard/DIET
   tensorboard_log_level: epoch
 - name: RegexEntityExtractor
   case_sensitive: false
@@ -49,7 +49,7 @@ pipeline:
   - 128
   evaluate_on_number_of_examples: 5
   evaluate_every_number_of_epochs: 1
-  tensorboard_log_directory: ./.tensorboard
+  tensorboard_log_directory: ./.tensorboard/DIET2BOW
   tensorboard_log_level: epoch
 - name: FallbackClassifier
   threshold: 0.2
@@ -71,7 +71,7 @@ policies:
   - 128
   evaluate_on_number_of_examples: 200
   evaluate_every_number_of_epochs: 5
-  tensorboard_log_directory: ./.tensorboard
+  tensorboard_log_directory: ./.tensorboard/TED
   tensorboard_log_level: epoch
 - name: RulePolicy
   core_fallback_threshold: 0.2
