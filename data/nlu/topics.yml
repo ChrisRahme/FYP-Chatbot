@@ -54,6 +54,7 @@ nlu:
     - the account type is wrong
     - incorrect account type
     - i want to select account type
+    - i want to choose account type
     - je ne suis pas une entreprise
     - non pas banque
     - non pas consommateur
