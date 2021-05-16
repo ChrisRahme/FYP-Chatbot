@@ -12,7 +12,6 @@ nlu:
     - est-ce que tu peux changer la langue?
     - ممكن تغير اللغة
     - կարո՞ղ ես լեզուն փոխել?
-    - փոխել լեզուն [արաբերեն]ի
     - change lang
     - غيير اللغة
     - change la langue
@@ -61,3 +60,4 @@ nlu:
     - parle en [francais]{"entity": "language", "value": "French"}
     - [anglais]{"entity": "language", "value": "English"} stp
     - parle [anglais]{"entity": "language", "value": "English"}
+    - փոխել լեզուն [արաբերեն]{"entity": "language", "value": "Arabic"} ի
