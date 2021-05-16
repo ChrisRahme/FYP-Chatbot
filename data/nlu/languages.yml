@@ -12,34 +12,7 @@ nlu:
     - est-ce que tu peux changer la langue?
     - ممكن تغير اللغة
     - կարո՞ղ ես լեզուն փոխել?
-    - do you speak [english]?
-    - change language to [english]
-    - can u speak [french] please?
-    - [english]
-    - [arab] plz
-    - talk [english]
-    - parles-tu [arabe]?
-    - changer la langue en [armenien]
-    - Pouvez-vous parler [francais] s'il vous plaît?
-    - parle en [francais]
-    - [french]
-    - [anglais] stp
-    - parle [anglais]
-    - هل تتكلم ب[الإنجليزية]؟
-    - تغيير اللغة إلى اللغة [الإنجليزية]
-    - هل يمكنك التحدث ب[الإنجليزية] من فضلك؟
-    - [الإنجليزية]
-    - باللغة [الانجليزية] من فضلك
-    - تحدث [الانجليزيه]
-    - تحدث [englesh]
-    - [الأرمينية]
-    - [أرميني]
-    - դու խոսում ես [անգլերեն]?
     - փոխել լեզուն [արաբերեն]ի
-    - կարո՞ղ եք [english] խոսել:
-    - [ֆրանսերեն]
-    - [հայերեն] plz
-    - խոսել [հայերեն
     - change lang
     - غيير اللغة
     - change la langue
@@ -47,11 +20,8 @@ nlu:
     - change la langige
     - change la lnague
     - change la lnagie
-    - est ce que tu parle francais
     - i wanf to chanfe the lang
-    - [french](language)
     - change langauge
-    - [arabic](language)
     - change langgs
     - i want to change lang
 - intent: set_language
@@ -60,4 +30,34 @@ nlu:
     - Set language to [French](language)
     - Set language to [Arabic](language)
     - Set language to [Armenian](language)
-    - /set_language{"language": "English"}
+    - [english]{"entity": "language", "value": "English"}
+    - تحدث [englesh]{"entity": "language", "value": "English"}
+    - կարո՞ղ եք [english]{"entity": "language", "value": "English"} խոսել:
+    - դու խոսում ես [անգլերեն]{"entity": "language", "value": "English"}?
+    - هل تتكلم ب[الإنجليزية]{"entity": "language", "value": "English"}؟
+    - {"entity": "language", "value": "English"}تغيير اللغة إلى اللغة [الإنجليزية]
+    - هل يمكنك التحدث ب[الإنجليزية]{"entity": "language", "value": "English"} من فضلك؟
+    - [الإنجليزية]{"entity": "language", "value": "English"}
+    - باللغة {"entity": "language", "value": "English"}[الانجليزية] من فضلك
+    - تحدث [الانجليزيه]{"entity": "language", "value": "English"}
+    - [ֆրանսերեն]{"entity": "language", "value": "French"}
+    - est ce que tu parle [francais]{"entity": "language", "value": "French"}
+    - [french]{"entity": "language", "value": "French"}
+    - [arabic]{"entity": "language", "value": "Arabic"}
+    - [armenian]{"entity": "language", "value": "Armenian"}
+    - [հայերեն]{"entity": "language", "value": "Armenian"} plz
+    - խոսել [հայերեն]{"entity": "language", "value": "Armenian"}
+    - [الأرمينية]{"entity": "language", "value": "Armenian"}
+    - [أرميني]{"entity": "language", "value": "Armenian"}
+    - do you speak [english]{"entity": "language", "value": "English"}?
+    - change language to [english]{"entity": "language", "value": "English"}
+    - can u speak [french]{"entity": "language", "value": "French"} please?
+    - [english]{"entity": "language", "value": "English"}
+    - [arab]{"entity": "language", "value": "Arabic"} plz
+    - talk [english]{"entity": "language", "value": "English"}
+    - parles-tu [arabe]{"entity": "language", "value": "Arabic"}?
+    - changer la langue en [armenien]{"entity": "language", "value": "Armenian"}
+    - Pouvez-vous parler [francais]{"entity": "language", "value": "French"} s'il vous plaît?
+    - parle en [francais]{"entity": "language", "value": "French"}
+    - [anglais]{"entity": "language", "value": "English"} stp
+    - parle [anglais]{"entity": "language", "value": "English"}
