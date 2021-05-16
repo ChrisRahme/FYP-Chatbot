@@ -1,1 +1,2 @@
 Put your Slack token in this folder, inside a file named 'secret_slack_token.txt'.
+Here is how to add a token: https://slack.com/intl/en-lb/help/articles/115005265703-Create-a-bot-for-your-workspace#add-a-bot-user.
