@@ -148,6 +148,14 @@
       {
         "text": "saba7o",
         "intent": "greet"
+      },
+      {
+        "text": "and where do i buy a prepaid card?",
+        "intent": "faq/buy_prepaid_card"
+      },
+      {
+        "text": "how do i change my plan",
+        "intent": "faq/change_payment_method"
       }
     ],
     "regex_features": [],
