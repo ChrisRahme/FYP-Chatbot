@@ -6,6 +6,10 @@
 
 ## Current
 
+No major changes since last release.
+
+## 2021.05.14
+
 * Upgraded for [Rasa 2.5.0](https://github.com/RasaHQ/rasa/releases/tag/2.5.0):
   * Problems:
     * [Rasa 2.4.0](https://github.com/RasaHQ/rasa/releases/tag/2.4.0): `‘charmap’ codec can’t decode` bytes in Arabic and Armenian. Check [rasa topic #41569](https://forum.rasa.com/t/charmap-codec-cant-decode-byte-0x81-after-2-4-0-update/41569?u=chrisrahme), [rasa issue #8215](https://github.com/RasaHQ/rasa/issues/8215), [rasa pull #8286](https://github.com/RasaHQ/rasa/pull/8286).
