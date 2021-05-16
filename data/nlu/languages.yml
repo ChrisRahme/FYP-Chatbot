@@ -60,3 +60,4 @@ nlu:
     - Set language to [French](language)
     - Set language to [Arabic](language)
     - Set language to [Armenian](language)
+    - /set_language{"language": "English"}
