@@ -126,8 +126,28 @@
         "intent": "greet"
       },
       {
-        "text": "and where do i buy a prepaid card?",
+        "text": "comment changer la paiment method",
+        "intent": "faq/change_payment_method"
+      },
+      {
+        "text": "ji tere",
+        "intent": "greet"
+      },
+      {
+        "text": "hwhere can i get postpaid",
+        "intent": "faq/change_payment_method"
+      },
+      {
+        "text": "how yo get prepaid card",
+        "intent": "faq/change_payment_method"
+      },
+      {
+        "text": "how do i buy prepaid card",
         "intent": "faq/buy_prepaid_card"
+      },
+      {
+        "text": "saba7o",
+        "intent": "greet"
       }
     ],
     "regex_features": [],
