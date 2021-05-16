@@ -1,0 +1,1 @@
+Put your Slack token in this folder, inside a file named 'secret_slack_token.txt'.
