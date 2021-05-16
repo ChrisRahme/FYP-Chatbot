@@ -6,7 +6,7 @@
 
 ## Current
 
-No major changes since last release.
+* Upgraded for [Rasa 2.6.0](https://github.com/RasaHQ/rasa/releases/tag/2.6.0).
 
 ## 2021.05.14
 
