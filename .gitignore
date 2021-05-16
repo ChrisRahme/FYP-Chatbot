@@ -25,7 +25,3 @@ story_graph.dot
 
 # Rasa files
 endpoints.yml
-
-# Temp
-.github
-_helpers
