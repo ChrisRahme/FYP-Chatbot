@@ -87,7 +87,7 @@ class ActionSessionStart(Action):
 
 class SlackApp():
     def __init__(self, channel_name = None, channel_id = None):
-        self.token  = 'xoxb-2040327743269-2028690240935-sovQbI7Jnfx3JQYhUIYzYFix'
+        self.token  = open('secret_slack_token.txt', 'r').readlines()[0]
         self.client = WebClient(token = self.token)
 
         self.users = self.client.users_list()

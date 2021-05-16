@@ -8,6 +8,7 @@ domain/
 results/
 
 # Files in folders
+actions/secret_slack_token.txt
 models/*.tar.gz
 
 # Files
