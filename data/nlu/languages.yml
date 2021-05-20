@@ -29,6 +29,7 @@ nlu:
     - Set language to [French](language)
     - Set language to [Arabic](language)
     - Set language to [Armenian](language)
+    - [Francais]{"entity": "language", "value": "French"}
     - [english]{"entity": "language", "value": "English"}
     - تحدث [englesh]{"entity": "language", "value": "English"}
     - կարո՞ղ եք [english]{"entity": "language", "value": "English"} խոսել:
@@ -51,7 +52,6 @@ nlu:
     - do you speak [english]{"entity": "language", "value": "English"}?
     - change language to [english]{"entity": "language", "value": "English"}
     - can u speak [french]{"entity": "language", "value": "French"} please?
-    - [english]{"entity": "language", "value": "English"}
     - [arab]{"entity": "language", "value": "Arabic"} plz
     - talk [english]{"entity": "language", "value": "English"}
     - parles-tu [arabe]{"entity": "language", "value": "Arabic"}?

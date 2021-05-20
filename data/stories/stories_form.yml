@@ -43,21 +43,12 @@ stories:
   - active_loop: form_log_in
   - slot_was_set:
     - requested_slot: username
-  - intent: stop
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: utter_okay
-  - intent: log_in
-  - action: form_log_in
-  - active_loop: form_log_in
-  - slot_was_set:
-    - requested_slot: username
   - intent: out_of_scope
   - action: form_log_in
   - slot_was_set:
     - username: chris
+  - slot_was_set:
+    - requested_slot: password
   - intent: stop
   - action: action_deactivate_loop
   - active_loop: null
@@ -101,29 +92,29 @@ stories:
     - password: secret
   - action: action_submit_form_log_in
 
-- story: (Conversation) User fills form_log_in but makes mistake
-  steps:
-  - intent: query_quota
-  - action: action_fetch_quota
-  - intent: log_in
-  - action: form_log_in
-  - active_loop: form_log_in
-  - slot_was_set:
-    - requested_slot: username
-  - intent: out_of_scope
-  - action: form_log_in
-  - slot_was_set:
-    - username: Chris
-  - intent: out_of_scope
-  - action: form_log_in
-  - slot_was_set:
-    - password: null
-  - intent: out_of_scope
-  - action: form_log_in
-  - active_loop: null
-  - slot_was_set:
-    - password: secret
-  - action: action_submit_form_log_in
+# - story: (Conversation) User fills form_log_in but makes mistake
+#   steps:
+#   - intent: query_quota
+#   - action: action_fetch_quota
+#   - intent: log_in
+#   - action: form_log_in
+#   - active_loop: form_log_in
+#   - slot_was_set:
+#     - requested_slot: username
+#   - intent: out_of_scope
+#   - action: form_log_in
+#   - slot_was_set:
+#     - username: Chris
+#   - intent: out_of_scope
+#   - action: form_log_in
+#   - slot_was_set:
+#     - password: null
+#   - intent: out_of_scope
+#   - action: form_log_in
+#   - active_loop: null
+#   - slot_was_set:
+#     - password: secret
+#   - action: action_submit_form_log_in
 
 
 

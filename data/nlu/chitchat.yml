@@ -266,6 +266,7 @@ nlu:
     - /deny
     - the line has no noise
     - still no
+    - i tried and it doesnt work
 - intent: mood_great
   examples: |
     - perfect

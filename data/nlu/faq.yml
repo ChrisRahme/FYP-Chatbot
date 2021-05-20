@@ -7,6 +7,9 @@ nlu:
     - how do i but adsl prepaid?
     - i want to buy 4G prepaid card
     - hpw can i but fiber optic card
+    - yes yes i want 2 know how go get the pprepaid card
+    - how do i get the prepaid thing
+    - yes i want the prepaid
 - intent: faq/get_bill
   examples: |
     - How can I get my bill?
@@ -27,6 +30,7 @@ nlu:
     - how to pay
     - what are payment methods
     - i want to pay
+    - eh chou hene el payment methods
 - intent: faq/change_payment_method
   examples: |
     - How can I change my payment method?
@@ -35,3 +39,4 @@ nlu:
     - how do i become prepaid
     - i want postpaid
     - i want prepaid payment
+    - yes i want to change how i pay
