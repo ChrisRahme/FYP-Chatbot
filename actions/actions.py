@@ -87,7 +87,8 @@ class ActionSessionStart(Action):
 
 class SlackApp():
     def __init__(self, channel_name = None, channel_id = None):
-        self.token  = open('secret_slack_token.txt', 'r').readlines()[0]
+        #self.token  = open('secret_slack_token.txt', 'r').readlines()[0]
+        self.token = 'xoxb-2040327743269-2028690240935-1c888BEQ8d8TyJ35ZEUuVWRr'
         self.client = WebClient(token = self.token)
 
         self.users = self.client.users_list()
@@ -164,7 +165,7 @@ class ActionRequestHuman(Action):
                 'Դուք մարդկային օգնություն եք խնդրել: Շուտով ինչ-որ մեկը կկապվի ձեզ հետ {}:'.format(phone_number)]
                 ) + '\n' + get_text_from_lang(tracker, text_anything_else)
 
-            slack = SlackApp('python-test')
+            slack = SlackApp('demo')
             slack.sendMessage(f'{username} ({phone_number}) requested assistance.\nRasa Tracker sender ID: {sender_id}.\nSlots:\n{slot_values}')
 
             print('\nBOT:', text)
@@ -563,6 +564,7 @@ async def global_validate_password(value, dispatcher, tracker, domain):
 
         db = DatabaseConnection(db_info = def_db)
         count = db.count('user_info', f"{login_type} = '{username}' AND Password = '{password}'")
+                # SELECT COUNT(*) FROM user_info WHERE Username = Chris AND Password = chris
         db.disconnect()
 
         if count == 1:
@@ -655,6 +657,9 @@ class ActionFetchQuota(Action):
                 return [SlotSet('username', None), SlotSet('password', None), SlotSet('loggedin', False)]
 
             try:
+                # results: [(80, 30, 10)]
+                # results[0]: (80, 30, 10)
+                # quota, consumption, speed = 80, 30, 10
                 quota, consumption, speed = results[0]
                 if int(quota) == -1:
                     utterance = get_text_from_lang(
@@ -1288,7 +1293,7 @@ class ActionSubmitFormTroubleshootInternet(Action):
             slots_to_print = list_slots(tracker, slots_to_reset)
             case_number    = random.randint(100000, 999999)
 
-            slack = SlackApp('python-test')
+            slack = SlackApp('demo')
             slack.sendMessage(f'{username} unsucessfully completed Internet troubleshooting form.\nCase number {case_number}.\nSlots:\n{slots_to_print}')
 
         text += get_text_from_lang(tracker, text_anything_else)
