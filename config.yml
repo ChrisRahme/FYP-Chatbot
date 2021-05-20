@@ -26,12 +26,13 @@ pipeline:
   batch_size:
   - 64
   - 128
-  evaluate_on_number_of_examples: 200
-  evaluate_every_number_of_epochs: 5
-  regularization_constant: 0.002
+  # evaluate_on_number_of_examples: 200
+  # evaluate_every_number_of_epochs: 5
+  # regularization_constant: 0.002
   random_seed: 1
   tensorboard_log_directory: ./.tensorboard/DIET
   tensorboard_log_level: epoch
+  checkpoint_model: True
 - name: RegexEntityExtractor
   case_sensitive: false
   use_lookup_tables: true
@@ -46,12 +47,13 @@ pipeline:
   batch_size:
   - 64
   - 128
-  evaluate_on_number_of_examples: 5
-  evaluate_every_number_of_epochs: 1
-  tensorboard_log_directory: ./.tensorboard/DIET2BOW
-  tensorboard_log_level: epoch
+  # evaluate_on_number_of_examples: 5
+  # evaluate_every_number_of_epochs: 1
+  # tensorboard_log_directory: ./.tensorboard/DIET2BOW
+  # tensorboard_log_level: epoch
+  checkpoint_model: True
 - name: FallbackClassifier
-  threshold: 0.2
+  threshold: 0.1
   ambiguity_threshold: 0.05
 
 policies:
@@ -68,12 +70,13 @@ policies:
   batch_size:
   - 64
   - 128
-  evaluate_on_number_of_examples: 200
-  evaluate_every_number_of_epochs: 5
-  tensorboard_log_directory: ./.tensorboard/TED
-  tensorboard_log_level: epoch
+  # evaluate_on_number_of_examples: 200
+  # evaluate_every_number_of_epochs: 5
+  # tensorboard_log_directory: ./.tensorboard/TED
+  # tensorboard_log_level: epoch
+  checkpoint_model: True
 - name: RulePolicy
-  core_fallback_threshold: 0.2
+  core_fallback_threshold: 0.1
   core_fallback_action_name: action_default_fallback
   enable_fallback_prediction: true
   restrict_rules: true
